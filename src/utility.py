@@ -57,7 +57,7 @@ def show_kvk_match_data(
         print("-------KVK MATCH DATAS-------", file=f)
         print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
         result = {
-            "map":{kvk_info.get("kvk_map_id", "Unknown")},
+            "map":kvk_info.get("kvk_map_id", "Unknown"),
             "camps":[]
         }
         for key in camps.keys():
@@ -79,11 +79,11 @@ def show_kvk_match_data(
                 kvk_score = response["data"]["kvkKillScore"]
                 if show_kingdom:
                     kingdom_json = {
-                        "KD":{k},
-                        "KVK-SCORE":{fn(kvk_score)},
-                        "POWER":{fn(power)},
-                        "DEAD":{fn(dead)},
-                        "KILL":{fn(kill)}
+                        "KD":k,
+                        "KVK-SCORE":fn(kvk_score),
+                        "POWER":fn(power),
+                        "DEAD":fn(dead),
+                        "KILL":fn(kill)
                     }
                     camp["kingdoms"].append(kingdom_json)
                     print(f'KD:{k},KVK-SCORE:{fn(kvk_score)},POWER:{fn(power)},DEAD:{fn(dead)},KILL:{fn(kill)}', file=f)
@@ -93,10 +93,10 @@ def show_kvk_match_data(
                 total_score += kvk_score
             if show_sum:
                 sum_json = {
-                    "TOTAL-KVK-SCORE":{fn(total_score)},
-                    "TOTAL-POWER":{fn(total_power)},
-                    "TOTAL-DEAD":{fn(total_dead)},
-                    "TOTAL-KILL":{fn(total_kill)}
+                    "TOTAL-KVK-SCORE":fn(total_score),
+                    "TOTAL-POWER":fn(total_power),
+                    "TOTAL-DEAD":fn(total_dead),
+                    "TOTAL-KILL":fn(total_kill)
                 }
                 camp["sum"] = sum_json
                 print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
