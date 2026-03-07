@@ -28,3 +28,15 @@ jobs:
           DKP_T4_DEAD: ${{ vars.DKP_T4_DEAD}}
           DKP_T5_DEAD: ${{ vars.DKP_T5_DEAD}}
           MODE: "dkp_data"
+
+      - name: Commit result file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/dkp_data_result.txt
+
+          # 如果没有变化，避免报错
+          git diff --cached --quiet || git commit -m "Update dkp_data_result.txt"
+
+          git push
