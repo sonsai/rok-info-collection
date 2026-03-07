@@ -25,4 +25,11 @@ jobs:
           KVK_INFOS: ${{ vars.KVK_INFOS }}
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
-          MODE: "match_data"
+          MODE: match_data
+          KVK_MAP_ID: C13045
+
+      - name: Create issue with result
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Rok Match Data ${KVK_MAP_ID}"
+          content-filepath: data/match_data_result.txt
