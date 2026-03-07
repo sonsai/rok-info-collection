@@ -1,7 +1,7 @@
 import json
 
 from flask import Flask, request, jsonify
-from utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dkp,json_to_dkp_data_html
+from src.utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dkp,json_to_dkp_data_html
 
 app = Flask(__name__)
 
