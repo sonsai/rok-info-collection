@@ -1,7 +1,7 @@
 import os
 
-from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
-from .get_match_data_api import get_match_data_api
+from src.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
+from src.get_match_data_api import get_match_data_api
 
 
 def fn(n):
@@ -47,7 +47,7 @@ def show_kvk_match_data(
         kvk_info,show_kingdom:bool=True, 
         show_sum:bool=True
     ):
-    
+
     camps:dict = kvk_info.get("camps")
     print("-------KVK MATCH DATAS-------")
     print(f"MAP:{kvk_info.get("kvk_map_id", "Unknown")}")
