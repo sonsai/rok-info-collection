@@ -1,4 +1,6 @@
+import json
 import os
+from pathlib import Path
 
 from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
 from .get_match_data_api import get_match_data_api
@@ -148,17 +150,22 @@ def show_kvk_dkp(kvk_info):
             print(f'CAMP:{key}', file=f)
             data_list = []
             for k in kingdoms:
-                response = get_listed_kingdoms_member_info_api(
-                    from_date=start,
-                    to_date=end,
-                    kingdom_id=str(k))
-                data = response.get("data")
-                detail_data = {
-                    "kingdom":k,
-                    "from_date":start,
-                    "to_date":end,
-                    "data":data
-                }
+                file_name = f"data/kingdoms/{k}.json"
+                if Path(file_name).exists():
+                    with open(file_name, "r", encoding="utf-8") as ff:
+                        detail_data = json.load(ff)
+                else:
+                    response = get_listed_kingdoms_member_info_api(
+                        from_date=start,
+                        to_date=end,
+                        kingdom_id=str(k))
+                    data = response.get("data")
+                    detail_data = {
+                        "kingdom":k,
+                        "from_date":start,
+                        "to_date":end,
+                        "data":data
+                    }
                 data_list.append(detail_data)
             camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
             result["camps"].append(camp)

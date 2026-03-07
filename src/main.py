@@ -33,19 +33,21 @@ elif mode == "save_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
     os.makedirs("data/kingdoms/",exist_ok=True)
-    for kingdomId in range(int(id_from), int(id_to)):
-        file_name = f"data/kingdoms/{kingdomId}.json"
+    for kingdom_id in range(int(id_from), int(id_to)):
+        file_name = f"data/kingdoms/{kingdom_id}.json"
         from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
         to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-        data = get_listed_kingdoms_member_info_api(
+        response_dict = get_listed_kingdoms_member_info_api(
             from_date=from_date,
             to_date=to_date,
+            kingdom_id=kingdom_id
             )
+        data = response_dict.get("data")
         if not data:
             continue
-        
+
         detail_data = {
-            "kingdom":kingdomId,
+            "kingdom":kingdom_id,
             "from_date":from_date,
             "to_date":to_date,
             "data":data
