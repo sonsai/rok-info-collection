@@ -48,15 +48,25 @@ def show_kvk_match_data(
         show_kingdom:bool=True, 
         show_sum:bool=True
     ):
+
+    result = {}
     os.makedirs("data", exist_ok=True)
     file_path = "data/match_data_result.txt"
     with open(file_path, "w", encoding="utf-8") as f:
         camps:dict = kvk_info.get("camps")
         print("-------KVK MATCH DATAS-------", file=f)
         print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
+        result = {
+            "map":{kvk_info.get("kvk_map_id", "Unknown")},
+            "camps":[]
+        }
         for key in camps.keys():
             kingdoms = camps.get(key)
             print(f'CAMP:{key} {kingdoms}', file=f)
+            camp = {
+                "name": f'CAMP:{key} {kingdoms}',
+                "kingdoms":[],
+            }
             total_dead = 0
             total_kill = 0
             total_power = 0
@@ -68,13 +78,31 @@ def show_kvk_match_data(
                 power = response["data"]["power"]
                 kvk_score = response["data"]["kvkKillScore"]
                 if show_kingdom:
+                    kingdom_json = {
+                        "KD":{k},
+                        "KVK-SCORE":{fn(kvk_score)},
+                        "POWER":{fn(power)},
+                        "DEAD":{fn(dead)},
+                        "KILL":{fn(kill)}
+                    }
+                    camp["kingdoms"].append(kingdom_json)
                     print(f'KD:{k},KVK-SCORE:{fn(kvk_score)},POWER:{fn(power)},DEAD:{fn(dead)},KILL:{fn(kill)}', file=f)
                 total_dead += dead
                 total_kill += kill
                 total_power += power
                 total_score += kvk_score
             if show_sum:
+                sum_json = {
+                    "TOTAL-KVK-SCORE":{fn(total_score)},
+                    "TOTAL-POWER":{fn(total_power)},
+                    "TOTAL-DEAD":{fn(total_dead)},
+                    "TOTAL-KILL":{fn(total_kill)}
+                }
+                camp["sum"] = sum_json
                 print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
+
+            result["camps"].append(camp)
+    return result
 
 def show_kvk_dkp(kvk_info):
     os.makedirs("data", exist_ok=True)
