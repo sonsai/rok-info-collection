@@ -1,4 +1,4 @@
-name: Save Kingdoms Players Data
+name: Save Match Data
 
 on:
   workflow_dispatch:
@@ -24,16 +24,16 @@ jobs:
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
-          MODE: save_kingdoms_data
+          MODE: save_match_data
           
       - name: Commit result file
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data/kingdoms/
+          git add data/match/
 
           # 如果没有变化，避免报错
-          git diff --cached --quiet || git commit -m "Update kingdoms player data"
+          git diff --cached --quiet || git commit -m "Update kingdoms match data"
 
           git push

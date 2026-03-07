@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 from pathlib import Path
@@ -97,11 +98,25 @@ def show_kvk_match_data(
             total_power = 0
             total_score = 0
             for k in kingdoms:
-                response = get_match_data_api(str(k))
-                dead = response["data"]["dead"]
-                kill = response["data"]["kill"]
-                power = response["data"]["power"]
-                kvk_score = response["data"]["kvkKillScore"]
+                file_name = f"data/match/{k}.json"
+                if Path(file_name).exists():
+                    with open(file_name, "r", encoding="utf-8") as ff:
+                        detail_data = json.load(ff)
+                else:
+                    response = get_match_data_api(str(k))
+                    response_dict = response.json()
+                    data = response_dict.get("data")
+                    detail_data = {
+                        "kingdom":k,
+                        "date":datetime.datetime.now().strftime("%Y-%m-%d"),
+                        "data":data
+                    }
+                    # with open(file_name, "w", encoding="utf-8") as f:
+                    #     json.dump(detail_data, f, ensure_ascii=False, indent=2)
+                dead = detail_data["data"]["dead"]
+                kill = detail_data["data"]["kill"]
+                power = detail_data["data"]["power"]
+                kvk_score = detail_data["data"]["kvkKillScore"]
                 if show_kingdom:
                     kingdom_json = {
                         "KD":k,
