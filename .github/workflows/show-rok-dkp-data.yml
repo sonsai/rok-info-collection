@@ -1,0 +1,28 @@
+name: Show Rok DKP Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Python with env
+        run: python -m src.main C13045
+        env:
+          KVK_INFOS: ${{ vars.KVK_INFOS }}
+          ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
+          ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
+          MODE: "dkp_data"
