@@ -1,5 +1,8 @@
 name: Show Rok Match Data
 
+permissions:
+  issues: write
+
 on:
   workflow_dispatch:
 
