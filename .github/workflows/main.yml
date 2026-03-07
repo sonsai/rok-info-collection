@@ -1,0 +1,18 @@
+name: Show Rok Match Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Python with env
+        run: python3 src/main.py C13049
+        env:
+          KVK_INFOS: ${{ vars.KVK_INFOS }}
+          ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
+          ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
+          MODE: "match_data"
