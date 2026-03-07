@@ -48,7 +48,7 @@ def show_kvk_match_data(
         show_kingdom:bool=True, 
         show_sum:bool=True
     ):
-
+    os.makedirs("data", exist_ok=True)
     file_path = "data/match_data_result.txt"
     with open(file_path, "w", encoding="utf-8") as f:
         camps:dict = kvk_info.get("camps")
