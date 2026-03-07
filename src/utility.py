@@ -13,8 +13,8 @@ def fn(n):
         return str(n)
 
 def total_kingdom(data_list):
-    dkp_t4_dead = os.environ["DKP_T4_DEAD"]
-    dkp_t5_dead = os.environ["DKP_T5_DEAD"]
+    dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
+    dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
     print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}')
     group_total_kill = 0
     group_total_dead_t4 = 0
