@@ -60,7 +60,7 @@ def total_kingdom(data_list,camp,kingdoms,file):
     print(f'dead_t5: {group_total_dead_t5/10000:.1f} 万', file=file)
     print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B', file=file)
     sum = {
-        "TOTAL-KILL":fn(total_kill),
+        "TOTAL-KILL":fn(group_total_kill),
         "TOTAL-T4_DEAD":fn(group_total_dead_t4),
         "TOTAL-T5_DEAD":fn(group_total_dead_t5),
         "TOTAL-DKP":fn(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)
@@ -189,7 +189,7 @@ def json_to_dkp_data_html(data):
     </head>
     <body>
         <h2>ROK KvK DKP Data — Map: {data['map']}</h2>
-        <h2>Start {data['start']} — End: {data['end']}</h2>
+        <h2>Start: {data['start']} — End: {data['end']}</h2>
     """
 
     for camp in data["camps"]:
