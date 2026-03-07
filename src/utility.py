@@ -103,8 +103,7 @@ def show_kvk_match_data(
                     with open(file_name, "r", encoding="utf-8") as ff:
                         detail_data = json.load(ff)
                 else:
-                    response = get_match_data_api(str(k))
-                    response_dict = response.json()
+                    response_dict = get_match_data_api(str(k))
                     data = response_dict.get("data")
                     detail_data = {
                         "kingdom":k,
