@@ -1,9 +1,10 @@
 import json
 
-from flask import Flask, request, Response
-from src.utility import show_kvk_match_data, json_to_match_data_html
+from flask import Flask, jsonify, request, Response
+from src.utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dkp
 
 app = Flask(__name__)
+
 
 @app.get("/rok-match-data")
 def hello():
@@ -17,7 +18,27 @@ def hello():
             print(str(result))
             return json_to_match_data_html(result)
         else:
-            return Response(response={"msg":f"Kvk id not found. id={kvk_map_id}"}, status=500)
+            error = {"msg":"Kvk id not found."}
+            return jsonify(error)
+    except Exception as e:
+        print(str(e))
+        raise e
+    
+
+@app.get("/rok-kvk-dkp-data")
+def hello():
+    kvk_map_id = request.args.get("kvk_map_id")
+    try:
+        with open("data/kvk_info.json", "r", encoding="utf-8") as f:
+            detail_data:dict = json.load(f)
+        print(f"detail_data:{str(detail_data)}")
+        if kvk_map_id in detail_data:
+            result = show_kvk_dkp(detail_data.get(kvk_map_id))
+            print(str(result))
+            return json_to_match_data_html(result)
+        else:
+            error = {"msg":"Kvk id not found."}
+            return jsonify(error)
     except Exception as e:
         print(str(e))
         raise e

@@ -6,19 +6,26 @@ from .get_match_data_api import get_match_data_api
 
 def fn(n):
     if abs(n) >= 1_000_000_000:
-        return f"{n / 1_000_000_000:.1f}B"
+        return f"{n / 1_000_000_000:.2f}B"
     elif abs(n) >= 1_000_000:
-        return f"{n / 1_000_000:.1f}M"
+        return f"{n / 1_000_000:.2f}M"
+    elif abs(n) >= 1_000:
+        return f"{n / 1_000:.2f}K"
     else:
         return str(n)
 
-def total_kingdom(data_list,file):
+def total_kingdom(data_list,camp,kingdoms,file):
     dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
     dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
     print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=file)
     group_total_kill = 0
     group_total_dead_t4 = 0
     group_total_dead_t5 = 0
+    result = {
+        "name": f'CAMP:{camp} {kingdoms}',
+        "kingdoms":[],
+        "sum":{}
+    }
     for d in data_list:
         total_kill = 0
         total_dead_t4 = 0
@@ -34,6 +41,14 @@ def total_kingdom(data_list,file):
         print(f'总Kill: {total_kill/100000000:.1f} 亿',end=" ", file=file)
         print(f'总dead_t4: {total_dead_t4/10000:.1f} 万',end=" ", file=file)
         print(f'总dead_t5: {total_dead_t5/10000:.1f} 万', file=file)
+        kingdom_json = {
+            "KD":d.get("kingdom"),
+            "KILL":fn(total_kill),
+            "T4-DEAD":fn(total_dead_t4),
+            "T5-DEAD":fn(total_dead_t5),
+            "DKP":fn(total_kill + total_dead_t4 * dkp_t4_dead + total_dead_t5 * dkp_t5_dead)
+        }
+        result["kingdoms"].append(kingdom_json)
         group_total_kill += total_kill
         group_total_dead_t4 += total_dead_t4
         group_total_dead_t5 += total_dead_t5
@@ -42,6 +57,14 @@ def total_kingdom(data_list,file):
     print(f'dead_t4: {group_total_dead_t4/10000:.1f} 万',end=" ", file=file)
     print(f'dead_t5: {group_total_dead_t5/10000:.1f} 万', file=file)
     print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B', file=file)
+    sum = {
+        "TOTAL-KILL":fn(total_kill),
+        "TOTAL-T4_DEAD":fn(group_total_dead_t4),
+        "TOTAL-T5_DEAD":fn(group_total_dead_t5),
+        "TOTAL-DKP":fn(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)
+    }
+    result["sum"] = sum
+    return result
 
 def show_kvk_match_data(
         kvk_info,
@@ -114,6 +137,12 @@ def show_kvk_dkp(kvk_info):
         camps:dict = kvk_info.get("camps")
         
         print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
+        result = {
+            "map":kvk_info.get("kvk_map_id", "Unknown"),
+            "start":start,
+            "end":end,
+            "camps":[]
+        }
         for key in camps.keys():
             kingdoms = camps.get(key)
             print(f'CAMP:{key}', file=f)
@@ -121,6 +150,7 @@ def show_kvk_dkp(kvk_info):
             for k in kingdoms:
                 response = get_listed_kingdoms_member_info_api(
                     from_date=start,
+                    to_date=end,
                     kingdom_id=str(k))
                 data = response.get("data")
                 detail_data = {
@@ -130,8 +160,71 @@ def show_kvk_dkp(kvk_info):
                     "data":data
                 }
                 data_list.append(detail_data)
-            total_kingdom(data_list=data_list, file=f)
+            camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
+            result["camps"].append(camp)
+    return result
+def json_to_dkp_data_html(data):
+    html = f"""
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ROK KVK DKP Data</title>
+        <style>
+            body {{ font-family: Arial; background: #f5f5f5; padding: 20px; }}
+            h2 {{ text-align: center; }}
+            h3 {{ margin-top: 30px; }}
+            table {{ border-collapse: collapse; width: 100%; margin-top: 10px; }}
+            th, td {{ border: 1px solid #ccc; padding: 8px; text-align: center; }}
+            th {{ background: #333; color: #fff; }}
+            tr:nth-child(even) {{ background: #eee; }}
+            .sum-table {{ margin-top: 5px; }}
+        </style>
+    </head>
+    <body>
+        <h2>ROK Match Data — Map: {data['map']}</h2>
+        <h2>Start {data['start']} — End: {data['end']}</h2>
+    """
 
+    for camp in data["camps"]:
+        html += f"<h3>{camp['name']}</h3>"
+        html += """
+        <table>
+            <tr>
+                <th>KD</th>
+                <th>KILL</th>
+                <th>T4-DEAD</th>
+                <th>T5-DEAD</th>
+                <th>DKP</th>
+            </tr>
+        """
+
+        for kd in camp["kingdoms"]:
+            html += f"""
+            <tr>
+                <td>{kd['KD']}</td>
+                <td>{kd['KILL']}</td>
+                <td>{kd['T4-DEAD']}</td>
+                <td>{kd['T5-DEAD']}</td>
+                <td>{kd['DKP']}</td>
+            </tr>
+            """
+
+        s = camp["sum"]
+        html += f"""
+        </table>
+        <table class="sum-table">
+            <tr><th colspan="4">SUM</th></tr>
+            <tr>
+                <td>Total Kill: {s['TOTAL-KILL']}</td>
+                <td>Total T4 Dead: {s['TOTAL-T4_DEAD']}</td>
+                <td>Total T5 Dead: {s['TOTAL-T5_DEAD']}</td>
+                <td>Total DKP: {s['TOTAL-DKP']}</td>
+            </tr>
+        </table>
+        """
+
+    html += "</body></html>"
+    return html
 
 def json_to_match_data_html(data):
     html = """
