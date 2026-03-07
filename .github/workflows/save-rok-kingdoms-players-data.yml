@@ -20,7 +20,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python -m src.main 1001 3850
+        run: python -m src.main 1001 1500
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
