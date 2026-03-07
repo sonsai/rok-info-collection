@@ -12,39 +12,36 @@ def fn(n):
     else:
         return str(n)
 
-def total_kingdom(data_list):
-    os.makedirs("data", exist_ok=True)
-    file_path = "data/dkp_data_result.txt"
-    with open(file_path, "w", encoding="utf-8") as f:
-        dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
-        dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
-        print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=f)
-        group_total_kill = 0
-        group_total_dead_t4 = 0
-        group_total_dead_t5 = 0
-        for d in data_list:
-            total_kill = 0
-            total_dead_t4 = 0
-            total_dead_t5 = 0
+def total_kingdom(data_list,file):
+    dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
+    dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
+    print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=file)
+    group_total_kill = 0
+    group_total_dead_t4 = 0
+    group_total_dead_t5 = 0
+    for d in data_list:
+        total_kill = 0
+        total_dead_t4 = 0
+        total_dead_t5 = 0
 
-            # 遍历所有玩家
-            for p in d.get("data"):
-                total_kill += p.get("kill", 0)
-                total_dead_t4 += p.get("dead_t4", 0)
-                total_dead_t5 += p.get("dead_t5", 0)
-            # 输出结果
-            print(f'王国:{d.get("kingdom")}',end=" ", file=f)
-            print(f'总Kill: {total_kill/100000000:.1f} 亿',end=" ", file=f)
-            print(f'总dead_t4: {total_dead_t4/10000:.1f} 万',end=" ", file=f)
-            print(f'总dead_t5: {total_dead_t5/10000:.1f} 万', file=f)
-            group_total_kill += total_kill
-            group_total_dead_t4 += total_dead_t4
-            group_total_dead_t5 += total_dead_t5
+        # 遍历所有玩家
+        for p in d.get("data"):
+            total_kill += p.get("kill", 0)
+            total_dead_t4 += p.get("dead_t4", 0)
+            total_dead_t5 += p.get("dead_t5", 0)
         # 输出结果
-        print(f'阵营总Kill: {group_total_kill/100000000:.1f} 亿',end=" ", file=f)
-        print(f'dead_t4: {group_total_dead_t4/10000:.1f} 万',end=" ", file=f)
-        print(f'dead_t5: {group_total_dead_t5/10000:.1f} 万', file=f)
-        print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B', file=f)
+        print(f'王国:{d.get("kingdom")}',end=" ", file=file)
+        print(f'总Kill: {total_kill/100000000:.1f} 亿',end=" ", file=file)
+        print(f'总dead_t4: {total_dead_t4/10000:.1f} 万',end=" ", file=file)
+        print(f'总dead_t5: {total_dead_t5/10000:.1f} 万', file=file)
+        group_total_kill += total_kill
+        group_total_dead_t4 += total_dead_t4
+        group_total_dead_t5 += total_dead_t5
+    # 输出结果
+    print(f'阵营总Kill: {group_total_kill/100000000:.1f} 亿',end=" ", file=file)
+    print(f'dead_t4: {group_total_dead_t4/10000:.1f} 万',end=" ", file=file)
+    print(f'dead_t5: {group_total_dead_t5/10000:.1f} 万', file=file)
+    print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B', file=file)
 
 def show_kvk_match_data(
         kvk_info,
@@ -80,26 +77,29 @@ def show_kvk_match_data(
                 print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
 
 def show_kvk_dkp(kvk_info):
-    print("-------KVK DKP-------")
-    start = kvk_info.get("start")
-    end = kvk_info.get("end")
-    camps:dict = kvk_info.get("camps")
-    
-    print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}')
-    for key in camps.keys():
-        kingdoms = camps.get(key)
-        print(f'CAMP:{key}')
-        data_list = []
-        for k in kingdoms:
-            response = get_listed_kingdoms_member_info_api(
-                from_date=start,
-                kingdom_id=str(k))
-            data = response.get("data")
-            detail_data = {
-                "kingdom":k,
-                "from_date":start,
-                "to_date":end,
-                "data":data
-            }
-            data_list.append(detail_data)
-        total_kingdom(data_list=data_list)
+    os.makedirs("data", exist_ok=True)
+    file_path = "data/match_data_result.txt"
+    with open(file_path, "w", encoding="utf-8") as f:
+        print("-------KVK DKP-------", file=f)
+        start = kvk_info.get("start")
+        end = kvk_info.get("end")
+        camps:dict = kvk_info.get("camps")
+        
+        print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
+        for key in camps.keys():
+            kingdoms = camps.get(key)
+            print(f'CAMP:{key}', file=f)
+            data_list = []
+            for k in kingdoms:
+                response = get_listed_kingdoms_member_info_api(
+                    from_date=start,
+                    kingdom_id=str(k))
+                data = response.get("data")
+                detail_data = {
+                    "kingdom":k,
+                    "from_date":start,
+                    "to_date":end,
+                    "data":data
+                }
+                data_list.append(detail_data)
+            total_kingdom(data_list=data_list, file=f)
