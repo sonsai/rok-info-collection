@@ -44,7 +44,8 @@ def total_kingdom(data_list):
     print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B')
 
 def show_kvk_match_data(
-        kvk_info,show_kingdom:bool=True, 
+        kvk_info,
+        show_kingdom:bool=True, 
         show_sum:bool=True
     ):
 
