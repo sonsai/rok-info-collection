@@ -50,30 +50,31 @@ def show_kvk_match_data(
     ):
 
     file_path = "data/match_data_result.txt"
-    camps:dict = kvk_info.get("camps")
-    print("-------KVK MATCH DATAS-------", file=file_path)
-    print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=file_path)
-    for key in camps.keys():
-        kingdoms = camps.get(key)
-        print(f'CAMP:{key} {kingdoms}', file=file_path)
-        total_dead = 0
-        total_kill = 0
-        total_power = 0
-        total_score = 0
-        for k in kingdoms:
-            response = get_match_data_api(str(k))
-            dead = response["data"]["dead"]
-            kill = response["data"]["kill"]
-            power = response["data"]["power"]
-            kvk_score = response["data"]["kvkKillScore"]
-            if show_kingdom:
-                print(f'KD:{k},KVK-SCORE:{fn(kvk_score)},POWER:{fn(power)},DEAD:{fn(dead)},KILL:{fn(kill)}', file=file_path)
-            total_dead += dead
-            total_kill += kill
-            total_power += power
-            total_score += kvk_score
-        if show_sum:
-            print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=file_path)
+    with open(file_path, "w", encoding="utf-8") as f:
+        camps:dict = kvk_info.get("camps")
+        print("-------KVK MATCH DATAS-------", file=f)
+        print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
+        for key in camps.keys():
+            kingdoms = camps.get(key)
+            print(f'CAMP:{key} {kingdoms}', file=f)
+            total_dead = 0
+            total_kill = 0
+            total_power = 0
+            total_score = 0
+            for k in kingdoms:
+                response = get_match_data_api(str(k))
+                dead = response["data"]["dead"]
+                kill = response["data"]["kill"]
+                power = response["data"]["power"]
+                kvk_score = response["data"]["kvkKillScore"]
+                if show_kingdom:
+                    print(f'KD:{k},KVK-SCORE:{fn(kvk_score)},POWER:{fn(power)},DEAD:{fn(dead)},KILL:{fn(kill)}', file=f)
+                total_dead += dead
+                total_kill += kill
+                total_power += power
+                total_score += kvk_score
+            if show_sum:
+                print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
 
 def show_kvk_dkp(kvk_info):
     print("-------KVK DKP-------")
