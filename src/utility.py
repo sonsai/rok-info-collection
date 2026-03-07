@@ -78,7 +78,7 @@ def show_kvk_match_data(
 
 def show_kvk_dkp(kvk_info):
     os.makedirs("data", exist_ok=True)
-    file_path = "data/match_data_result.txt"
+    file_path = "data/dkp_data_result.txt"
     with open(file_path, "w", encoding="utf-8") as f:
         print("-------KVK DKP-------", file=f)
         start = kvk_info.get("start")
