@@ -25,4 +25,6 @@ jobs:
           KVK_INFOS: ${{ vars.KVK_INFOS }}
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
+          DKP_T4_DEAD: ${{ vars.DKP_T4_DEAD}}
+          DKP_T5_DEAD: ${{ vars.DKP_T5_DEAD}}
           MODE: "dkp_data"
