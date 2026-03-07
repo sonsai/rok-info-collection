@@ -181,7 +181,7 @@ def json_to_dkp_data_html(data):
         </style>
     </head>
     <body>
-        <h2>ROK Match Data — Map: {data['map']}</h2>
+        <h2>ROK KvK DKP Data — Map: {data['map']}</h2>
         <h2>Start {data['start']} — End: {data['end']}</h2>
     """
 
