@@ -1,12 +1,12 @@
-from .utility import get_rok_api_headers
+import os
 import requests
 
 def get_match_data_api(
-        btoken:str,
-        ptoken:str,
         kingdomId:str = "1545"
     ) -> dict:
-
+    
+    btoken = os.environ["ROK_B_TOKEN"]
+    ptoken = os.environ["ROK_P_TOKEN"]
     if not btoken or not ptoken:
         raise Exception("Indivial input parameters. btoken or ptoken is empty.")
     url = f"https://plat-rok-gametools-global-api.lilithgames.com/api/kindomInformation?server_id={kingdomId}"
