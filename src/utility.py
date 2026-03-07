@@ -131,3 +131,70 @@ def show_kvk_dkp(kvk_info):
                 }
                 data_list.append(detail_data)
             total_kingdom(data_list=data_list, file=f)
+
+
+def json_to_match_data_html(data):
+    html = """
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ROK Match Data</title>
+        <style>
+            body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+            h2 { text-align: center; }
+            h3 { margin-top: 30px; }
+            table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+            th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+            th { background: #333; color: #fff; }
+            tr:nth-child(even) { background: #eee; }
+            .sum-table { margin-top: 5px; }
+        </style>
+    </head>
+    <body>
+        <h2>ROK Match Data — Map: """ + data["map"] + """</h2>
+    """
+
+    for camp in data["camps"]:
+        html += f"<h3>{camp['name']}</h3>"
+
+        # Kingdoms table
+        html += """
+        <table>
+            <tr>
+                <th>KD</th>
+                <th>KVK SCORE</th>
+                <th>POWER</th>
+                <th>DEAD</th>
+                <th>KILL</th>
+            </tr>
+        """
+
+        for kd in camp["kingdoms"]:
+            html += f"""
+            <tr>
+                <td>{kd['KD']}</td>
+                <td>{kd['KVK-SCORE']}</td>
+                <td>{kd['POWER']}</td>
+                <td>{kd['DEAD']}</td>
+                <td>{kd['KILL']}</td>
+            </tr>
+            """
+
+        html += "</table>"
+
+        # Sum table
+        s = camp["sum"]
+        html += f"""
+        <table class="sum-table">
+            <tr><th colspan="4">SUM</th></tr>
+            <tr>
+                <td>Total KVK Score: {s['TOTAL-KVK-SCORE']}</td>
+                <td>Total Power: {s['TOTAL-POWER']}</td>
+                <td>Total Dead: {s['TOTAL-DEAD']}</td>
+                <td>Total Kill: {s['TOTAL-KILL']}</td>
+            </tr>
+        </table>
+        """
+
+    html += "</body></html>"
+    return html
