@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-from utility import show_kvk_match_data
+from .utility import show_kvk_match_data
 
 mode = os.environ["MODE"]
 

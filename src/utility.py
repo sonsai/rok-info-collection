@@ -1,7 +1,7 @@
 import os
 
-from src.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
-from src.get_match_data_api import get_match_data_api
+from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
+from .get_match_data_api import get_match_data_api
 
 
 def fn(n):
