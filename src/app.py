@@ -6,6 +6,57 @@ from src.utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dk
 app = Flask(__name__)
 
 
+@app.get("/")
+def root():
+    html = """<!DOCTYPE html>
+            <html lang="zh">
+            <head>
+            <meta charset="UTF-8">
+            <title>ROK API Link</title>
+            <style>
+                body { font-family: Arial; padding: 20px; }
+                input { padding: 8px; font-size: 16px; width: 200px; }
+                button { padding: 8px 16px; font-size: 16px; margin-left: 10px; }
+            </style>
+            </head>
+            <body>
+
+            <h2>ROK Data API</h2>
+
+            <input id="mapId" type="text" placeholder="输入 kvk_map_id，例如 C13049">
+            <button onclick="match()">匹配数据查询</button>
+            <button onclick="dkp()">DKP数据查询</button>
+
+            <script>
+                function match() {
+                const id = document.getElementById("mapId").value.trim();
+                if (!id) {
+                    alert("请输入 kvk_map_id");
+                    return;
+                }
+
+                const url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id=" + encodeURIComponent(id);
+                window.location.href = url;
+                }
+                function dkp() {
+                const id = document.getElementById("mapId").value.trim();
+                if (!id) {
+                    alert("请输入 kvk_map_id");
+                    return;
+                }
+
+                const url = "https://rok-info-collection.onrender.com/rok-kvk-dkp-data?kvk_map_id=" + encodeURIComponent(id);
+                window.location.href = url;
+                }
+            </script>
+
+            </body>
+            </html>
+            """
+    return html
+
+
+
 @app.get("/rok-match-data")
 def rok_match_data():
     kvk_map_id = request.args.get("kvk_map_id")
