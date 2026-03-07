@@ -66,8 +66,7 @@ elif mode == "save_match_data":
     os.makedirs("data/match/",exist_ok=True)
     for kingdom_id in range(int(id_from), int(id_to)):
         match_file_name = f"data/match/{kingdom_id}.json"
-        response = get_match_data_api(str(kingdom_id))
-        response_dict = response.json()
+        response_dict = get_match_data_api(str(kingdom_id))
         data = response_dict.get("data")
         detail_data = {
             "kingdom":kingdom_id,
