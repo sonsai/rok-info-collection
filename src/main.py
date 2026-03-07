@@ -1,7 +1,8 @@
+import datetime
 import json
 import os
 import sys
-from .utility import show_kvk_match_data, show_kvk_dkp
+from .utility import show_kvk_match_data, show_kvk_dkp,get_listed_kingdoms_member_info_api
 
 mode = os.environ["MODE"]
 
@@ -28,3 +29,26 @@ elif mode == "dkp_data":
     except Exception as e:
         print(str(e))
         raise e
+elif mode == "save_data":
+    id_from = sys.argv[1]
+    id_to = sys.argv[2]
+    os.makedirs("data/kingdoms/",exist_ok=True)
+    for kingdomId in range(int(id_from), int(id_to)):
+        file_name = f"data/kingdoms/{kingdomId}.json"
+        from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
+        to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        data = get_listed_kingdoms_member_info_api(
+            from_date=from_date,
+            to_date=to_date,
+            )
+        if not data:
+            continue
+        
+        detail_data = {
+            "kingdom":kingdomId,
+            "from_date":from_date,
+            "to_date":to_date,
+            "data":data
+        }
+        with open(file_name, "w", encoding="utf-8") as f:
+            json.dump(detail_data, f, ensure_ascii=False, indent=2)
