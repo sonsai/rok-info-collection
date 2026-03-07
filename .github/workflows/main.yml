@@ -20,7 +20,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python3 src/main.py C13049
+        run: python -m src.main C13049
         env:
           KVK_INFOS: ${{ vars.KVK_INFOS }}
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
