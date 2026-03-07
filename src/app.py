@@ -10,7 +10,7 @@ app = Flask(__name__)
 def rok_match_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        with open("data/kvk_info.json", "r", encoding="utf-8") as f:
+        with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
             detail_data:dict = json.load(f)
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
@@ -29,7 +29,7 @@ def rok_match_data():
 def rok_kvk_dkp_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        with open("data/kvk_info.json", "r", encoding="utf-8") as f:
+        with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
             detail_data:dict = json.load(f)
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
