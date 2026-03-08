@@ -21,7 +21,7 @@ def get_listed_kingdoms_member_info_api(
     response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
-        raise Exception(f"Request failed. Status code is {response.status_code}")
+        raise Exception(f"Request failed. Status code is {response.status_code}. from:{from_date} to:{to_date} kd:{kingdom_id}")
 
     # 打印返回的 JSON 数据
     try:
