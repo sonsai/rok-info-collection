@@ -93,12 +93,12 @@ elif mode == "save_kvk_data":
         _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
-        
+
     data:dict = get_kvk_info_json()
-    for kvk_item in data.items():
-        start:str = kvk_item["start"]
-        end:str = kvk_item["end"]
-        folder_name = kvk_item["kvk_map_id"] + "_" + start.replace("-","")
+    for k,v in data.items():
+        start:str = v["start"]
+        end:str = v["end"]
+        folder_name = v["kvk_map_id"] + "_" + start.replace("-","")
         os.makedirs(f"data/kvk/{folder_name}",exist_ok=True)
         now = datetime.datetime.now()
         days = 1
@@ -107,7 +107,7 @@ elif mode == "save_kvk_data":
         temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
         if end > temp_end:
             end = temp_end
-        camps:dict = kvk_item["camps"]
+        camps:dict = v["camps"]
         kingdoms_list = []
         for l in camps.values():
             kingdoms_list.extend(l)
