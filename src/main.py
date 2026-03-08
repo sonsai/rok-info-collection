@@ -4,6 +4,7 @@ import os
 import sys
 from .get_request import get_request
 from .utility import (
+    get_kvk_info_json,
     show_kvk_match_data, 
     show_kvk_dkp,
     get_listed_kingdoms_member_info_api,
@@ -60,6 +61,72 @@ elif mode == "save_kingdoms_data":
         }
         with open(kingdoms_file_name, "w", encoding="utf-8") as f:
             json.dump(detail_data, f, ensure_ascii=False, indent=2)
+elif mode == "save_kingdoms_data":
+    id_from = sys.argv[1]
+    id_to = sys.argv[2]
+    os.makedirs("data/kingdoms/",exist_ok=True)
+    for kingdom_id in range(int(id_from), int(id_to)):
+        kingdoms_file_name = f"data/kingdoms/{kingdom_id}.json"
+        from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
+        to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        response_dict = get_listed_kingdoms_member_info_api(
+            from_date=from_date,
+            to_date=to_date,
+            kingdom_id=kingdom_id
+            )
+        data = response_dict.get("data")
+        if not data:
+            continue
+
+        detail_data = {
+            "kingdom":kingdom_id,
+            "from_date":from_date,
+            "to_date":to_date,
+            "data":data
+        }
+        with open(kingdoms_file_name, "w", encoding="utf-8") as f:
+            json.dump(detail_data, f, ensure_ascii=False, indent=2)
+
+elif mode == "save_kvk_data":
+    os.makedirs("data/kvk/",exist_ok=True)
+    data:dict = get_kvk_info_json()
+    for kvk_item in data.items():
+        start:str = kvk_item["start"]
+        end:str = kvk_item["end"]
+        folder_name = kvk_item["kvk_map_id"] + "_" + start.replace("-","")
+        os.makedirs(f"data/kvk/{folder_name}",exist_ok=True)
+        now = datetime.datetime.now()
+        days = 1
+        if now.hour < 12:
+            days = 2
+        temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
+        if end > temp_end:
+            end = temp_end
+        camps:dict = kvk_item["camps"]
+        kingdoms_list = []
+        for l in camps.values():
+            kingdoms_list.extend(l)
+        
+        for k in kingdoms_list:
+            response_dict = get_listed_kingdoms_member_info_api(
+                from_date=start,
+                to_date=end,
+                kingdom_id=k
+            )
+
+            data = response_dict.get("data")
+            if not data:
+                continue
+
+            detail_data = {
+                "kingdom":k,
+                "from_date":start,
+                "to_date":end,
+                "data":data
+            }
+            kingdoms_file_name = f"data/kvk/{folder_name}/{k}.json"
+            with open(kingdoms_file_name, "w", encoding="utf-8") as f:
+                json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
 elif mode == "save_match_data":
     id_from = sys.argv[1]
