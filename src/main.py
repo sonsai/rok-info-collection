@@ -82,8 +82,11 @@ elif mode == "save_kvk_data":
         temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
         if start > temp_end:
             start = temp_end
-        if end > temp_end:
+        if end >= temp_end:
             end = temp_end
+        if end < temp_end:
+            # kvk end,no more update
+            continue
         camps:dict = v["camps"]
         kingdoms_list = []
         for l in camps.values():
