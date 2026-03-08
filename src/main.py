@@ -89,6 +89,11 @@ elif mode == "save_kingdoms_data":
 
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
+    with open("data/kvk/next_run_datetime.json", "w", encoding="utf-8") as f:
+        _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
+        _datetime_dict = {"datetime":_datetime.isoformat()}
+        json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
+        
     data:dict = get_kvk_info_json()
     for kvk_item in data.items():
         start:str = kvk_item["start"]
