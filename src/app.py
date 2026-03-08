@@ -56,12 +56,15 @@ def root():
       <style>
         body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
         .item {
-          background: #fff;
-          border-radius: 8px;
-          padding: 16px;
-          margin-bottom: 16px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          padding: 30px;
+          border-radius: 10px;
+          color: white;
         }
+        .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
+        .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
         .item-header {
           display: flex;
           justify-content: space-between;
@@ -74,7 +77,7 @@ def root():
         }
         .item-meta {
           font-size: 14px;
-          color: #555;
+          color: #fff;
         }
         .camps { margin-top: 8px; font-size: 14px; }
         .camp-line { margin: 2px 0; }
@@ -91,25 +94,26 @@ def root():
           display: inline-block;
           padding: 4px 8px;
           margin: 3px;
-          background: #eee;
+          background: gray;
           border-radius: 4px;
         }
       </style>
     </head>
     <body>
+      <h1>KINGDOM 1545 内部数据分析</h1>
       <h2>KVK 列表</h2>
     """
 
     for key, item in data.items():
         html += f"""
-        <div class="item">
+        <div class="item {item['kvk_type'] or 'N/A'}">
           <div class="item-header">
             <div class="item-title">{key}</div>
           </div>
           
           <div class="item-meta">
             KVK ID: {item['kvk_map_id']} |
-            类型: {item['kvk_type'] or 'N/A'} |
+            类型: {item.get("kvk_type_cn") or item['kvk_type'] or 'N/A'} |
             时间: {item['start']} ~ {item['end']}
           </div>
           <div class="camps">
@@ -124,10 +128,12 @@ def root():
           </div>
           <br>
           <div>
-            <a class="button-link" href="{match_base_url}{key}">匹配数据</a>
-            <a class="button-link" href="{dkp_base_url}{key}">DKP数据</a>
+            <a class="button-link" href="{match_base_url}{key}" target="_blank">匹配数据</a>
+            <a class="button-link" href="{dkp_base_url}{key}" target="_blank">DKP数据</a>
           </div>
         </div>
+        <br>
+        <br>
         """
 
     html += """
