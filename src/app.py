@@ -87,6 +87,13 @@ def root():
           font-size: 14px;
         }
         a.button-link:hover { background: #0056b3; }
+        .kd-item {
+          display: inline-block;
+          padding: 4px 8px;
+          margin: 3px;
+          background: #eee;
+          border-radius: 4px;
+        }
       </style>
     </head>
     <body>
@@ -109,7 +116,9 @@ def root():
         """
 
         for camp_name, kds in item["camps"].items():
-            html += f'<div class="camp-line">{camp_name}: {", ".join(map(str, kds))}</div>'
+            html += f'<div class="camp-line">{camp_name}:</div>'
+            for kd in kds:
+                html += f'<div class="kd-item">{kd}</div>'
 
         html += f"""
           </div>
