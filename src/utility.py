@@ -412,7 +412,7 @@ def json_to_root_data(data):
           font-size: 20px;
         }
         .kd1545 {
-            color: red
+            background: #fc8c8c
         }
       </style>
     </head>
