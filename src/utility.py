@@ -235,7 +235,7 @@ def json_to_dkp_data_html(data):
     </table>
     """
     for camp in data["camps"]:
-        html += f"<h3>{camp['name'] + " " + str(camp['kingdoms_names'])}</h3>"
+        html += f"<h3>{camp['name'] + ' ' + str(camp['kingdoms_names'])}</h3>"
         html += """
         <table>
             <tr>
@@ -410,6 +410,9 @@ def json_to_root_data(data):
           border-radius: 4px;
           font-size: 20px;
         }
+        .kd1545 {
+            color: red
+        }
       </style>
     </head>
     <body>
@@ -435,7 +438,7 @@ def json_to_root_data(data):
         for camp_name, kds in item["camps"].items():
             html += f'<div class="camp-line">{camp_name}:</div>'
             for kd in kds:
-                html += f'<div class="kd-item">{kd}</div>'
+                html += f'<div class="kd-item kd{kd}">{kd}</div>'
 
         html += f"""
           </div>
