@@ -31,7 +31,8 @@ def total_kingdom(data_list,camp,kingdoms,file):
     group_total_dead_t4 = 0
     group_total_dead_t5 = 0
     result = {
-        "name": f'CAMP:{camp} {kingdoms}',
+        "name": camp,
+        "kingdoms_names":kingdoms,
         "kingdoms":[],
         "sum":{}
     }
@@ -52,6 +53,7 @@ def total_kingdom(data_list,camp,kingdoms,file):
         print(f'总dead_t5: {total_dead_t5/10000:.1f} 万', file=file)
         kingdom_json = {
             "KD":d.get("kingdom"),
+            "PERIOD":d["from_date"] + " ~ " + d["to_date"],
             "KILL":fn(total_kill),
             "T4-DEAD":fn(total_dead_t4),
             "T5-DEAD":fn(total_dead_t5),
@@ -94,9 +96,10 @@ def show_kvk_match_data(
         }
         for key in camps.keys():
             kingdoms = camps.get(key)
-            print(f'CAMP:{key} {kingdoms}', file=f)
+            print(f'CAMP:{key} {str(kingdoms)}', file=f)
             camp = {
-                "name": f'CAMP:{key} {kingdoms}',
+                "name": key ,
+                "kingdoms_names": kingdoms,
                 "kingdoms":[],
             }
             total_dead = 0
@@ -166,27 +169,20 @@ def show_kvk_dkp(kvk_info):
             "end":end,
             "camps":[]
         }
+        folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
         for key in camps.keys():
             kingdoms = camps.get(key)
             print(f'CAMP:{key}', file=f)
             data_list = []
             for k in kingdoms:
-                file_name = f"data/kingdoms/{k}.json"
+                file_name = f"data/kvk/{folder_name}/{k}.json"
                 if Path(file_name).exists():
                     with open(file_name, "r", encoding="utf-8") as ff:
                         detail_data = json.load(ff)
                 else:
-                    response = get_listed_kingdoms_member_info_api(
-                        from_date=start,
-                        to_date=end,
-                        kingdom_id=str(k))
-                    data = response.get("data")
-                    detail_data = {
-                        "kingdom":k,
-                        "from_date":start,
-                        "to_date":end,
-                        "data":data
-                    }
+                    url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/{folder_name}/{k}.json"
+                    response = get_request(url=url)
+                    detail_data = response.json().get("data")
                 data_list.append(detail_data)
             camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
             result["camps"].append(camp)
@@ -213,16 +209,42 @@ def json_to_dkp_data_html(data):
         <h2>Start: {data['start']} — End: {data['end']}</h2>
     """
 
+    html += f"<h3>TOTAL RESULT</h3>"
+    html += """
+    <table class="sum-table">
+        <tr>
+            <th>CAMP</th>
+            <th>Total DKP</th>
+            <th>Total KILL</th>
+            <th>Total T4-DEAD</th>
+            <th>Total T5-DEAD</th>
+        </tr>
+    """
     for camp in data["camps"]:
-        html += f"<h3>{camp['name']}</h3>"
+        s = camp["sum"]
+        html += f"""
+            <tr>
+                <td>{camp['name']}</td>
+                <td>{s['TOTAL-DKP']}</td>
+                <td>{s['TOTAL-KILL']}</td>
+                <td>{s['TOTAL-T4_DEAD']}</td>
+                <td>{s['TOTAL-T5_DEAD']}</td>
+            </tr>
+        """
+    html += """
+    </table>
+    """
+    for camp in data["camps"]:
+        html += f"<h3>{camp['name'] + " " + str(camp['kingdoms_names'])}</h3>"
         html += """
         <table>
             <tr>
                 <th>KD</th>
+                <th>DKP</th>
                 <th>KILL</th>
                 <th>T4-DEAD</th>
                 <th>T5-DEAD</th>
-                <th>DKP</th>
+                <th>PERIOD</th>
             </tr>
         """
 
@@ -230,27 +252,16 @@ def json_to_dkp_data_html(data):
             html += f"""
             <tr>
                 <td>{kd['KD']}</td>
+                <td>{kd['DKP']}</td>
                 <td>{kd['KILL']}</td>
                 <td>{kd['T4-DEAD']}</td>
                 <td>{kd['T5-DEAD']}</td>
-                <td>{kd['DKP']}</td>
+                <td>{kd['PERIOD']}</td>
             </tr>
             """
-
-        s = camp["sum"]
-        html += f"""
-        </table>
-        <table class="sum-table">
-            <tr><th colspan="4">SUM</th></tr>
-            <tr>
-                <td>Total Kill: {s['TOTAL-KILL']}</td>
-                <td>Total T4 Dead: {s['TOTAL-T4_DEAD']}</td>
-                <td>Total T5 Dead: {s['TOTAL-T5_DEAD']}</td>
-                <td>Total DKP: {s['TOTAL-DKP']}</td>
-            </tr>
+        html += """
         </table>
         """
-
     html += "</body></html>"
     return html
 
@@ -275,19 +286,47 @@ def json_to_match_data_html(data):
         <h2>ROK Match Data — Map: """ + data["map"] + """</h2>
     """
 
+
+    html += f"<h3>TOTAL MATCH DATA</h3>"
+    html += """
+    <table class="sum-table">
+        <tr>
+            <th>CAMP</th>
+            <th>TOTAL KVK SCORE</th>
+            <th>TOTAL POWER</th>
+            <th>TOTAL DEAD</th>
+            <th>TOTAL KILL</th>
+        </tr>
+    """
     for camp in data["camps"]:
-        html += f"<h3>{camp['name']}</h3>"
+        # Sum table
+        s = camp["sum"]
+        html += f"""
+            <tr>
+                <td>{camp['name']}</td>
+                <td>{s['TOTAL-KVK-SCORE']}</td>
+                <td>{s['TOTAL-POWER']}</td>
+                <td>{s['TOTAL-DEAD']}</td>
+                <td>{s['TOTAL-KILL']}</td>
+            </tr>
+        """
+        
+    html += """
+        </table>
+        """
+    for camp in data["camps"]:
+        html += f"<h3>{camp['name'] + ' ' + str(camp['kingdoms_names'])}</h3>"
 
         # Kingdoms table
         html += """
         <table>
             <tr>
                 <th>KD</th>
-                <th>UPDATE AT</th>
                 <th>KVK SCORE</th>
                 <th>POWER</th>
                 <th>DEAD</th>
                 <th>KILL</th>
+                <th>LATEST UPDATE</th>
             </tr>
         """
 
@@ -295,29 +334,15 @@ def json_to_match_data_html(data):
             html += f"""
             <tr>
                 <td>{kd['KD']}</td>
-                <td>{kd['UPDATED-AT']}</td>
                 <td>{kd['KVK-SCORE']}</td>
                 <td>{kd['POWER']}</td>
                 <td>{kd['DEAD']}</td>
                 <td>{kd['KILL']}</td>
+                <td>{kd['UPDATED-AT']}</td>
             </tr>
             """
 
         html += "</table>"
-
-        # Sum table
-        s = camp["sum"]
-        html += f"""
-        <table class="sum-table">
-            <tr><th colspan="4">SUM</th></tr>
-            <tr>
-                <td>Total KVK Score: {s['TOTAL-KVK-SCORE']}</td>
-                <td>Total Power: {s['TOTAL-POWER']}</td>
-                <td>Total Dead: {s['TOTAL-DEAD']}</td>
-                <td>Total Kill: {s['TOTAL-KILL']}</td>
-            </tr>
-        </table>
-        """
 
     html += "</body></html>"
     return html
@@ -344,6 +369,11 @@ def json_to_root_data(data):
         }
         .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
         .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
+        .vcr { background-image: url('/static/media/1da49bce43decb39_800x800.jpg'); }
+        .king_of_the_nile { background-image: url('/static/media/s9king_of_the_nile_cover.png'); }
+        .siege_of_orleans { background-image: url('/static/media/s10siege_of_orleans_cover.png'); }
+        .warriors_unbound { background-image: url('/static/media/s11warriors_unbound_cover.png'); }
+        .storm_of_stratagems { background-image: url('/static/media/s12storm_of_stratagems_cover.png'); }
         .item-header {
           display: flex;
           justify-content: space-between;
