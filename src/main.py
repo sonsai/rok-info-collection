@@ -80,6 +80,8 @@ elif mode == "save_kvk_data":
         if now.hour < 12:
             days = 2
         temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
+        if start > temp_end:
+            start = temp_end
         if end > temp_end:
             end = temp_end
         camps:dict = v["camps"]
