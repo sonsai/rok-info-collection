@@ -23,6 +23,7 @@ server_is_healthy = True
 def task_execute_checker():
     while True:
         try:
+            # 匹配数据获取
             next_run_datetime_json_url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/match/next_run_datetime.json"
             try:
               response = get_request(url=next_run_datetime_json_url)
@@ -33,6 +34,19 @@ def task_execute_checker():
                   post_github_request_api(event_type=event_type)
             except Exception:
               event_type = "save-match-data"
+              post_github_request_api(event_type=event_type)
+
+            # KVK数据获取
+            next_run_datetime_json_url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/next_run_datetime.json"
+            try:
+              response = get_request(url=next_run_datetime_json_url)
+              _datetime_dict = response.json()
+              _datetime = datetime.datetime.fromisoformat(_datetime_dict.get("datetime"))
+              if datetime.datetime.now() > _datetime:
+                  event_type = "save-kvk-data"
+                  post_github_request_api(event_type=event_type)
+            except Exception:
+              event_type = "save-kvk-data"
               post_github_request_api(event_type=event_type)
         except Exception as e:
             print(e)
