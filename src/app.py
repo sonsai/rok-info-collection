@@ -4,7 +4,7 @@ import time
 
 from flask import Flask, request, jsonify
 from src.get_request import get_request
-from src.utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dkp,json_to_dkp_data_html
+from src.utility import get_kvk_info_json, show_kvk_match_data, json_to_match_data_html,show_kvk_dkp,json_to_dkp_data_html
 
 app = Flask(__name__)
 
@@ -43,8 +43,7 @@ def health():
 
 @app.get("/")
 def root():
-    with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
-        data:dict = json.load(f)
+    data = get_kvk_info_json()
     match_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
     dkp_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
 
@@ -116,8 +115,8 @@ def root():
           </div>
           <br>
           <div>
-            <a class="button-link" href="{match_base_url}{key}" target="_blank">匹配数据</a>
-            <a class="button-link" href="{dkp_base_url}{key}" target="_blank">DKP数据</a>
+            <a class="button-link" href="{match_base_url}{key}">匹配数据</a>
+            <a class="button-link" href="{dkp_base_url}{key}">DKP数据</a>
           </div>
         </div>
         """
@@ -134,8 +133,7 @@ def root():
 def rok_match_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
-            detail_data:dict = json.load(f)
+        detail_data = get_kvk_info_json()
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
             result = show_kvk_match_data(detail_data.get(kvk_map_id))
@@ -153,8 +151,7 @@ def rok_match_data():
 def rok_kvk_dkp_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
-            detail_data:dict = json.load(f)
+        detail_data = get_kvk_info_json()
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
             result = show_kvk_dkp(detail_data.get(kvk_map_id))

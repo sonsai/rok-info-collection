@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
 from .get_match_data_api import get_match_data_api
+from .get_request import get_request
 
 
 def fn(n):
@@ -16,6 +17,11 @@ def fn(n):
         return f"{n / 1_000:.2f}K"
     else:
         return str(n)
+
+def get_kvk_info_json()->dict:
+    url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/kvk_info.json"
+    response = get_request(url=url)
+    return response.json()
 
 def total_kingdom(data_list,camp,kingdoms,file):
     dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
