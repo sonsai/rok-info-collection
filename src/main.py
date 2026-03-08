@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import sys
+from .get_request import get_request
 from .utility import (
     show_kvk_match_data, 
     show_kvk_dkp,
@@ -75,3 +76,7 @@ elif mode == "save_match_data":
         }
         with open(match_file_name, "w", encoding="utf-8") as f:
             json.dump(detail_data, f, ensure_ascii=False, indent=2)
+
+elif mode == "health_check":
+    url = "https://rok-info-collection.onrender.com/"
+    get_request(url=url)

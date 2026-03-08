@@ -1,0 +1,27 @@
+name: Api Health Check
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # 每 5 分钟执行一次
+  workflow_dispatch:        # 可选：允许手动执行
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Python with env
+        run: python -m src.main
+        env:
+          MODE: health_check
