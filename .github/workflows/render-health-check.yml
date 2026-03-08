@@ -2,7 +2,7 @@ name: Api Health Check
 
 on:
   schedule:
-    - cron: "*/5 * * * *"   # 每 5 分钟执行一次
+    - cron: "*/6 * * * *"   # 每 5 分钟执行一次
   workflow_dispatch:        # 可选：允许手动执行
 
 jobs:
