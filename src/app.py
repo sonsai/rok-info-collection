@@ -72,15 +72,18 @@ def root():
           margin-bottom: 8px;
         }
         .item-title {
-          font-size: 18px;
+          font-size: 25px;
           font-weight: bold;
         }
         .item-meta {
-          font-size: 14px;
+          font-size: 20px;
           color: #fff;
         }
         .camps { margin-top: 8px; font-size: 14px; }
-        .camp-line { margin: 2px 0; }
+        .camp-line { 
+          font-size: 23px;
+          margin: 2px 0; 
+        }
         a.button-link {
           padding: 6px 12px;
           background: #007bff;
@@ -96,6 +99,7 @@ def root():
           margin: 3px;
           background: gray;
           border-radius: 4px;
+          font-size: 20px;
         }
       </style>
     </head>
