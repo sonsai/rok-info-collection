@@ -7,6 +7,7 @@ from src.get_request import get_request
 from src.post_github_request_api import post_github_request_api
 from src.utility import (
     get_kvk_info_json,
+    json_to_root_data,
     show_kvk_match_data,
     json_to_match_data_html,
     show_kvk_dkp,
@@ -70,108 +71,7 @@ def health():
 @app.get("/")
 def root():
     data = get_kvk_info_json()
-    match_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
-    dkp_base_url = "https://rok-info-collection.onrender.com/rok-kvk-dkp-data?kvk_map_id="
-
-    html = """
-    <!DOCTYPE html>
-    <html lang="zh">
-    <head>
-      <meta charset="UTF-8">
-      <title>KVK 列表</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
-        .item {
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          padding: 30px;
-          border-radius: 10px;
-          color: white;
-        }
-        .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
-        .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
-        .item-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 8px;
-        }
-        .item-title {
-          font-size: 25px;
-          font-weight: bold;
-        }
-        .item-meta {
-          font-size: 20px;
-          color: #fff;
-        }
-        .camps { margin-top: 8px; font-size: 14px; }
-        .camp-line { 
-          font-size: 23px;
-          margin: 2px 0; 
-        }
-        a.button-link {
-          padding: 6px 12px;
-          background: #007bff;
-          color: #fff;
-          text-decoration: none;
-          border-radius: 4px;
-          font-size: 14px;
-        }
-        a.button-link:hover { background: #0056b3; }
-        .kd-item {
-          display: inline-block;
-          padding: 4px 8px;
-          margin: 3px;
-          background: gray;
-          border-radius: 4px;
-          font-size: 20px;
-        }
-      </style>
-    </head>
-    <body>
-      <h1>KINGDOM 1545 内部数据分析</h1>
-      <h2>KVK 列表</h2>
-    """
-
-    for key, item in data.items():
-        html += f"""
-        <div class="item {item['kvk_type'] or 'N/A'}">
-          <div class="item-header">
-            <div class="item-title">{key}</div>
-          </div>
-          
-          <div class="item-meta">
-            KVK ID: {item['kvk_map_id']} |
-            类型: {item.get("kvk_type_cn") or item['kvk_type'] or 'N/A'} |
-            时间: {item['start']} ~ {item['end']}
-          </div>
-          <div class="camps">
-        """
-
-        for camp_name, kds in item["camps"].items():
-            html += f'<div class="camp-line">{camp_name}:</div>'
-            for kd in kds:
-                html += f'<div class="kd-item">{kd}</div>'
-
-        html += f"""
-          </div>
-          <br>
-          <div>
-            <a class="button-link" href="{match_base_url}{key}" target="_blank">匹配数据</a>
-            <a class="button-link" href="{dkp_base_url}{key}" target="_blank">DKP数据</a>
-          </div>
-        </div>
-        <br>
-        <br>
-        """
-
-    html += """
-    </body>
-    </html>
-    """
-
-    return html
+    return json_to_root_data(data)
 
 
 @app.get("/rok-match-data")
