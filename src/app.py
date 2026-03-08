@@ -45,7 +45,7 @@ def health():
 def root():
     data = get_kvk_info_json()
     match_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
-    dkp_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
+    dkp_base_url = "https://rok-info-collection.onrender.com/rok-kvk-dkp-data?kvk_map_id="
 
     html = """
     <!DOCTYPE html>
