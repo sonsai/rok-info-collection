@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 @app.get("/")
 def root():
+    with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
+        detail_data:dict = json.load(f)
     html = """<!DOCTYPE html>
             <html lang="zh">
             <head>
