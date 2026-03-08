@@ -26,7 +26,8 @@ def get_kvk_info_json()->dict:
 def total_kingdom(data_list,camp,kingdoms,file):
     dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
     dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
-    print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=file)
+    if data_list:
+        print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=file)
     group_total_kill = 0
     group_total_dead_t4 = 0
     group_total_dead_t5 = 0
@@ -180,9 +181,9 @@ def show_kvk_dkp(kvk_info):
                     with open(file_name, "r", encoding="utf-8") as ff:
                         detail_data = json.load(ff)
                 else:
-                    url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/{folder_name}/{k}.json"
+                    url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{k}.json"
                     response = get_request(url=url)
-                    detail_data = response.json().get("data")
+                    detail_data = response.json()
                 data_list.append(detail_data)
             camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
             result["camps"].append(camp)
