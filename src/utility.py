@@ -125,6 +125,7 @@ def show_kvk_match_data(
                 if show_kingdom:
                     kingdom_json = {
                         "KD":k,
+                        "UPDATED-AT":detail_data["data"]["day"],
                         "KVK-SCORE":fn(kvk_score),
                         "POWER":fn(power),
                         "DEAD":fn(dead),
@@ -282,6 +283,7 @@ def json_to_match_data_html(data):
         <table>
             <tr>
                 <th>KD</th>
+                <th>UPDATE AT</th>
                 <th>KVK SCORE</th>
                 <th>POWER</th>
                 <th>DEAD</th>
@@ -293,6 +295,7 @@ def json_to_match_data_html(data):
             html += f"""
             <tr>
                 <td>{kd['KD']}</td>
+                <td>{kd['UPDATED-AT']}</td>
                 <td>{kd['KVK-SCORE']}</td>
                 <td>{kd['POWER']}</td>
                 <td>{kd['DEAD']}</td>
