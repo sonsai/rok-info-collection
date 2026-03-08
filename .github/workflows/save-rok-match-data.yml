@@ -1,6 +1,8 @@
 name: Save Match Data
 
 on:
+  repository_dispatch:
+    types: [save-match-data]
   workflow_dispatch:
 
 jobs:
