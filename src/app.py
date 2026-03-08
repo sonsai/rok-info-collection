@@ -1,62 +1,133 @@
 import json
+import threading
+import time
 
 from flask import Flask, request, jsonify
+from src.get_request import get_request
 from src.utility import show_kvk_match_data, json_to_match_data_html,show_kvk_dkp,json_to_dkp_data_html
 
 app = Flask(__name__)
 
 
+HEALTH_URL = "https://rok-info-collection.onrender.com/"
+CHECK_INTERVAL = 300  # 每 300 秒检查一次
+
+server_is_healthy = True
+
+def health_check_loop():
+    global server_is_healthy
+
+    while True:
+        try:
+            res = get_request(HEALTH_URL)
+            if res.status_code == 200:
+                server_is_healthy = True
+                print("[HealthCheck] OK")
+            else:
+                server_is_healthy = False
+                print("[HealthCheck] ERROR: status", res.status_code)
+
+        except Exception as e:
+            server_is_healthy = False
+            print("[HealthCheck] FAILED:", e)
+
+        time.sleep(CHECK_INTERVAL)
+        
+def start_background_thread():
+    t = threading.Thread(target=health_check_loop, daemon=True)
+    t.start()
+
+@app.route("/health")
+def health():
+    return "OK", 200
+
 @app.get("/")
 def root():
     with open("data/kvk/kvk_info.json", "r", encoding="utf-8") as f:
-        detail_data:dict = json.load(f)
-    html = """<!DOCTYPE html>
-            <html lang="zh">
-            <head>
-            <meta charset="UTF-8">
-            <title>ROK API Link</title>
-            <style>
-                body { font-family: Arial; padding: 20px; }
-                input { padding: 8px; font-size: 16px; width: 200px; }
-                button { padding: 8px 16px; font-size: 16px; margin-left: 10px; }
-            </style>
-            </head>
-            <body>
+        data:dict = json.load(f)
+    match_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
+    dkp_base_url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id="
 
-            <h2>ROK Data API</h2>
+    html = """
+    <!DOCTYPE html>
+    <html lang="zh">
+    <head>
+      <meta charset="UTF-8">
+      <title>KVK 列表</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .item {
+          background: #fff;
+          border-radius: 8px;
+          padding: 16px;
+          margin-bottom: 16px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .item-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        }
+        .item-title {
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .item-meta {
+          font-size: 14px;
+          color: #555;
+        }
+        .camps { margin-top: 8px; font-size: 14px; }
+        .camp-line { margin: 2px 0; }
+        a.button-link {
+          padding: 6px 12px;
+          background: #007bff;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 4px;
+          font-size: 14px;
+        }
+        a.button-link:hover { background: #0056b3; }
+      </style>
+    </head>
+    <body>
+      <h2>KVK 列表</h2>
+    """
 
-            <input id="mapId" type="text" placeholder="输入 kvk_map_id，例如 C13049">
-            <button onclick="match()">匹配数据查询</button>
-            <button onclick="dkp()">DKP数据查询</button>
+    for key, item in data.items():
+        html += f"""
+        <div class="item">
+          <div class="item-header">
+            <div class="item-title">{key}</div>
+          </div>
+          
+          <div class="item-meta">
+            KVK ID: {item['kvk_map_id']} |
+            类型: {item['kvk_type'] or 'N/A'} |
+            时间: {item['start']} ~ {item['end']}
+          </div>
+          <div class="camps">
+        """
 
-            <script>
-                function match() {
-                const id = document.getElementById("mapId").value.trim();
-                if (!id) {
-                    alert("请输入 kvk_map_id");
-                    return;
-                }
+        for camp_name, kds in item["camps"].items():
+            html += f'<div class="camp-line">{camp_name}: {", ".join(map(str, kds))}</div>'
 
-                const url = "https://rok-info-collection.onrender.com/rok-match-data?kvk_map_id=" + encodeURIComponent(id);
-                window.location.href = url;
-                }
-                function dkp() {
-                const id = document.getElementById("mapId").value.trim();
-                if (!id) {
-                    alert("请输入 kvk_map_id");
-                    return;
-                }
+        html += f"""
+          </div>
+          <br>
+          <div>
+            <a class="button-link" href="{match_base_url}{key}" target="_blank">匹配数据</a>
+            <a class="button-link" href="{dkp_base_url}{key}" target="_blank">DKP数据</a>
+          </div>
+        </div>
+        """
 
-                const url = "https://rok-info-collection.onrender.com/rok-kvk-dkp-data?kvk_map_id=" + encodeURIComponent(id);
-                window.location.href = url;
-                }
-            </script>
+    html += """
+    </body>
+    </html>
+    """
 
-            </body>
-            </html>
-            """
     return html
-
 
 
 @app.get("/rok-match-data")
@@ -97,4 +168,5 @@ def rok_kvk_dkp_data():
         raise e
 
 if __name__ == "__main__":
+    start_background_thread()
     app.run(host="0.0.0.0", port=10000)
