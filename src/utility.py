@@ -370,7 +370,7 @@ def json_to_root_data(data):
         }
         .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
         .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
-        .vcr { background-image: url('/static/media/1da49bce43decb39_800x800.jpg'); }
+        .vcr { background-image: url('/static/media/vcr.png'); }
         .king_of_the_nile { background-image: url('/static/media/s9king_of_the_nile_cover.png'); }
         .siege_of_orleans { background-image: url('/static/media/s10siege_of_orleans_cover.png'); }
         .warriors_unbound { background-image: url('/static/media/s11warriors_unbound_cover.png'); }
