@@ -64,7 +64,7 @@ def total_kingdom(data_list,camp,kingdoms,file):
         group_total_kill += total_kill
         group_total_dead_t4 += total_dead_t4
         group_total_dead_t5 += total_dead_t5
-    result["kingdoms"].sort(key=lambda x: float(x["DKP"][:-1]), reverse=True)
+    result["kingdoms"].sort(key=lambda x: float(x["DKP"][:-1]) if len(x["DKP"]) > 1 else float(x["DKP"]), reverse=True)
     # 输出结果
     print(f'阵营总Kill: {group_total_kill/100000000:.1f} 亿',end=" ", file=file)
     print(f'dead_t4: {group_total_dead_t4/10000:.1f} 万',end=" ", file=file)
@@ -142,7 +142,7 @@ def show_kvk_match_data(
                 total_kill += kill
                 total_power += power
                 total_score += kvk_score
-            camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]), reverse=True)
+            camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]) if len(x["KVK-SCORE"]) > 1 else float(x["KVK-SCORE"]), reverse=True)
             if show_sum:
                 sum_json = {
                     "TOTAL-KVK-SCORE":fn(total_score),
@@ -154,7 +154,7 @@ def show_kvk_match_data(
                 print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
 
             result["camps"].append(camp)
-    result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-KVK-SCORE"][:-1]), reverse=True)
+    result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-KVK-SCORE"][:-1] if len(x["sum"]["TOTAL-KVK-SCORE"]) > 1 else float(x["sum"]["TOTAL-KVK-SCORE"])), reverse=True)
     return result
 
 def show_kvk_dkp(kvk_info):
@@ -191,7 +191,7 @@ def show_kvk_dkp(kvk_info):
             camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
             result["camps"].append(camp)
     
-    result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-DKP"][:-1]), reverse=True)
+    result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-DKP"][:-1]) if len(x["sum"]["TOTAL-DKP"]) > 1 else float(x["sum"]["TOTAL-DKP"]), reverse=True)
     return result
 def json_to_dkp_data_html(data):
     html = f"""
