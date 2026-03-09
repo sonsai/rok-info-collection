@@ -200,15 +200,56 @@ def json_to_dkp_data_html(data):
         <meta charset="UTF-8">
         <title>ROK KVK DKP Data</title>
         <style>
-            body {{ font-family: Arial; background: #f5f5f5; padding: 20px; }}
-            h2 {{ text-align: center; }}
-            h3 {{ margin-top: 30px; }}
-            table {{ border-collapse: collapse; width: 100%; margin-top: 10px; }}
-            th, td {{ border: 1px solid #ccc; padding: 8px; text-align: center; }}
-            th {{ background: #333; color: #fff; }}
-            tr:nth-child(even) {{ background: #eee; }}
-            .sum-table {{ margin-top: 5px; }}
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #000;
+                color: #fff;
+                padding: 20px;
+            }}
+
+            h2 {{
+                text-align: center;
+                margin-bottom: 20px;
+            }}
+
+            h3 {{
+                margin-top: 30px;
+                color: #f0f0f0;
+            }}
+
+            table {{
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+                background-color: #111;
+            }}
+
+            th, td {{
+                border: 1px solid #444;
+                padding: 8px;
+                text-align: center;
+            }}
+
+            th {{
+                background-color: #333;
+                color: #fff;
+            }}
+
+            tr:nth-child(even) {{
+                background-color: #1a1a1a;
+                color: #fff;
+            }}
+
+            tr:nth-child(odd) {{
+                background-color: #111;
+                color: #fff;
+            }}
+
+            .sum-table {{
+                margin-top: 5px;
+            }}
         </style>
+
     </head>
     <body>
         <h2>ROK KvK DKP Data — Map: {data['map']}</h2>
@@ -278,15 +319,55 @@ def json_to_match_data_html(data):
         <meta charset="UTF-8">
         <title>ROK Match Data</title>
         <style>
-            body { font-family: Arial; background: #f5f5f5; padding: 20px; }
-            h2 { text-align: center; }
-            h3 { margin-top: 30px; }
-            table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-            th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-            th { background: #333; color: #fff; }
-            tr:nth-child(even) { background: #eee; }
-            .sum-table { margin-top: 5px; }
+            body { 
+                font-family: Arial; 
+                background-color: #000;   /* 黑色背景 */
+                color: #fff;              /* 白色文字 */
+                padding: 20px; 
+            }
+
+            h2 { 
+                text-align: center; 
+                color: #fff;
+            }
+
+            h3 { 
+                margin-top: 30px; 
+                color: #f0f0f0;
+            }
+
+            table { 
+                border-collapse: collapse; 
+                width: 100%; 
+                margin-top: 10px; 
+                background-color: #111;   /* 深色表格底色 */
+            }
+
+            th, td { 
+                border: 1px solid #444;   /* 深色边框 */
+                padding: 8px; 
+                text-align: center; 
+                color: #fff;
+            }
+
+            th { 
+                background: #333; 
+                color: #fff; 
+            }
+
+            tr:nth-child(even) { 
+                background: #1a1a1a; 
+            }
+
+            tr:nth-child(odd) { 
+                background: #111; 
+            }
+
+            .sum-table { 
+                margin-top: 5px; 
+            }
         </style>
+
     </head>
     <body>
         <h2>ROK Match Data — Map: """ + data["map"] + """</h2>
@@ -450,8 +531,8 @@ def json_to_root_data(data):
           </div>
           <br>
           <div>
-            <a class="button-link" href="{match_base_url}{key}" target="_blank">匹配数据</a>
-            <a class="button-link" href="{dkp_base_url}{key}" target="_blank">DKP数据</a>
+            <a class="button-link" href="{match_base_url}{key}">匹配数据</a>
+            <a class="button-link" href="{dkp_base_url}{key}">DKP数据</a>
           </div>
         </div>
         <br>
