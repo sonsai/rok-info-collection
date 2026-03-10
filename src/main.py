@@ -92,7 +92,7 @@ elif mode == "save_kvk_data":
             kingdoms_list.extend(l)
 
         if kingdoms_list:
-            url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{kingdoms_list[0]}.json"
+            url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/match/{kingdoms_list[0]}.json"
             response = get_request(url=url)
         else:
             print(f'无任何王国,跳过处理. {v["kvk_map_id"]}')
