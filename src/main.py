@@ -68,7 +68,7 @@ elif mode == "save_kingdoms_data":
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
     with open("data/kvk/next_run_datetime.json", "w", encoding="utf-8") as f:
-        _datetime = datetime.datetime.now() + datetime.timedelta(hours=6)
+        _datetime = datetime.datetime.now() + datetime.timedelta(hours=12)
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
 
@@ -110,7 +110,7 @@ elif mode == "save_kvk_data":
                 idx = k // 100
                 match_file_name = f"data/match/{idx}/{k}.json"
                 shutil.copy(match_file_name, kvk_match_file_name)
-                
+
             response_dict = get_listed_kingdoms_member_info_api(
                 from_date=start,
                 to_date=end,
