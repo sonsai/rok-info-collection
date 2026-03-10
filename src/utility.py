@@ -23,11 +23,9 @@ def get_kvk_info_json()->dict:
     response = get_request(url=url)
     return response.json()
 
-def total_kingdom(data_list,camp,kingdoms,file):
+def total_kingdom(data_list,camp,kingdoms):
     dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
     dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
-    if data_list:
-        print(f'统计起始日:{data_list[0].get("from_date")}，统计结束日:{data_list[0].get("to_date")}', file=file)
     group_total_kill = 0
     group_total_dead_t4 = 0
     group_total_dead_t5 = 0
@@ -47,11 +45,6 @@ def total_kingdom(data_list,camp,kingdoms,file):
             total_kill += p.get("kill", 0)
             total_dead_t4 += p.get("dead_t4", 0)
             total_dead_t5 += p.get("dead_t5", 0)
-        # 输出结果
-        print(f'王国:{d.get("kingdom")}',end=" ", file=file)
-        print(f'总Kill: {total_kill/100000000:.1f} 亿',end=" ", file=file)
-        print(f'总dead_t4: {total_dead_t4/10000:.1f} 万',end=" ", file=file)
-        print(f'总dead_t5: {total_dead_t5/10000:.1f} 万', file=file)
         kingdom_json = {
             "KD":d.get("kingdom"),
             "PERIOD":d["from_date"] + " ~ " + d["to_date"],
@@ -65,11 +58,6 @@ def total_kingdom(data_list,camp,kingdoms,file):
         group_total_dead_t4 += total_dead_t4
         group_total_dead_t5 += total_dead_t5
     result["kingdoms"].sort(key=lambda x: float(x["DKP"][:-1]) if len(x["DKP"]) > 1 else float(x["DKP"]), reverse=True)
-    # 输出结果
-    print(f'阵营总Kill: {group_total_kill/100000000:.1f} 亿',end=" ", file=file)
-    print(f'dead_t4: {group_total_dead_t4/10000:.1f} 万',end=" ", file=file)
-    print(f'dead_t5: {group_total_dead_t5/10000:.1f} 万', file=file)
-    print(f'阵营总DKP: {(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)/1000000000:.1f} B', file=file)
     sum = {
         "TOTAL-KILL":fn(group_total_kill),
         "TOTAL-T4_DEAD":fn(group_total_dead_t4),
@@ -84,114 +72,98 @@ def show_kvk_match_data(
         show_kingdom:bool=True, 
         show_sum:bool=True
     ):
-
-    result = {}
-    os.makedirs("data", exist_ok=True)
-    file_path = "data/match_data_result.txt"
-    with open(file_path, "w", encoding="utf-8") as f:
-        camps:dict = kvk_info.get("camps")
-        print("-------KVK MATCH DATAS-------", file=f)
-        print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
-        result = {
-            "map":kvk_info.get("kvk_map_id", "Unknown"),
-            "camps":[]
+    folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
+    camps:dict = kvk_info.get("camps")
+    result = {
+        "map":kvk_info.get("kvk_map_id", "Unknown"),
+        "camps":[]
+    }
+    for key in camps.keys():
+        kingdoms = camps.get(key)
+        camp = {
+            "name": key ,
+            "kingdoms_names": kingdoms,
+            "kingdoms":[],
         }
-        for key in camps.keys():
-            kingdoms = camps.get(key)
-            print(f'CAMP:{key} {str(kingdoms)}', file=f)
-            camp = {
-                "name": key ,
-                "kingdoms_names": kingdoms,
-                "kingdoms":[],
-            }
-            total_dead = 0
-            total_kill = 0
-            total_power = 0
-            total_score = 0
-            for k in kingdoms:
-                idx = k // 100
-                file_name = f"data/match/{idx}/{k}.json"
-                if Path(file_name).exists():
-                    with open(file_name, "r", encoding="utf-8") as ff:
-                        detail_data = json.load(ff)
-                else:
-                    response_dict = get_match_data_api(str(k))
-                    data = response_dict.get("data")
-                    detail_data = {
-                        "kingdom":k,
-                        "date":datetime.datetime.now().strftime("%Y-%m-%d"),
-                        "data":data
-                    }
-                    # with open(file_name, "w", encoding="utf-8") as f:
-                    #     json.dump(detail_data, f, ensure_ascii=False, indent=2)
-                dead = detail_data["data"]["dead"]
-                kill = detail_data["data"]["kill"]
-                power = detail_data["data"]["power"]
-                kvk_score = detail_data["data"]["kvkKillScore"]
-                if show_kingdom:
-                    kingdom_json = {
-                        "KD":k,
-                        "UPDATED-AT":detail_data["data"]["day"],
-                        "KVK-SCORE":fn(kvk_score),
-                        "POWER":fn(power),
-                        "DEAD":fn(dead),
-                        "KILL":fn(kill)
-                    }
-                    camp["kingdoms"].append(kingdom_json)
-                    print(f'KD:{k},KVK-SCORE:{fn(kvk_score)},POWER:{fn(power)},DEAD:{fn(dead)},KILL:{fn(kill)}', file=f)
-                total_dead += dead
-                total_kill += kill
-                total_power += power
-                total_score += kvk_score
-            camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]) if len(x["KVK-SCORE"]) > 1 else float(x["KVK-SCORE"]), reverse=True)
-            if show_sum:
-                sum_json = {
-                    "TOTAL-KVK-SCORE":fn(total_score),
-                    "TOTAL-POWER":fn(total_power),
-                    "TOTAL-DEAD":fn(total_dead),
-                    "TOTAL-KILL":fn(total_kill)
+        total_dead = 0
+        total_kill = 0
+        total_power = 0
+        total_score = 0
+        for k in kingdoms:
+            file_name = f"data/kvk/{folder_name}/match/{k}.json"
+            if Path(file_name).exists():
+                with open(file_name, "r", encoding="utf-8") as ff:
+                    detail_data = json.load(ff)
+            else:
+                response_dict = get_match_data_api(str(k))
+                data = response_dict.get("data")
+                detail_data = {
+                    "kingdom":k,
+                    "date":datetime.datetime.now().strftime("%Y-%m-%d"),
+                    "data":data
                 }
-                camp["sum"] = sum_json
-                print(f'TOTAL-KVK-SCORE:{fn(total_score)},TOTAL-POWER:{fn(total_power)},TOTAL-DEAD:{fn(total_dead)},TOTAL-KILL:{fn(total_kill)}', file=f)
+                # with open(file_name, "w", encoding="utf-8") as f:
+                #     json.dump(detail_data, f, ensure_ascii=False, indent=2)
+            dead = detail_data["data"]["dead"]
+            kill = detail_data["data"]["kill"]
+            power = detail_data["data"]["power"]
+            kvk_score = detail_data["data"]["kvkKillScore"]
+            if show_kingdom:
+                kingdom_json = {
+                    "KD":k,
+                    "UPDATED-AT":detail_data["data"]["day"],
+                    "KVK-SCORE":fn(kvk_score),
+                    "POWER":fn(power),
+                    "DEAD":fn(dead),
+                    "KILL":fn(kill)
+                }
+                camp["kingdoms"].append(kingdom_json)
+            total_dead += dead
+            total_kill += kill
+            total_power += power
+            total_score += kvk_score
+        camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]) if len(x["KVK-SCORE"]) > 1 else float(x["KVK-SCORE"]), reverse=True)
+        if show_sum:
+            sum_json = {
+                "TOTAL-KVK-SCORE":fn(total_score),
+                "TOTAL-POWER":fn(total_power),
+                "TOTAL-DEAD":fn(total_dead),
+                "TOTAL-KILL":fn(total_kill)
+            }
+            camp["sum"] = sum_json
 
-            result["camps"].append(camp)
+        result["camps"].append(camp)
     result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-KVK-SCORE"][:-1] if len(x["sum"]["TOTAL-KVK-SCORE"]) > 1 else float(x["sum"]["TOTAL-KVK-SCORE"])), reverse=True)
     return result
 
 def show_kvk_dkp(kvk_info):
-    os.makedirs("data", exist_ok=True)
-    file_path = "data/dkp_data_result.txt"
-    with open(file_path, "w", encoding="utf-8") as f:
-        print("-------KVK DKP-------", file=f)
-        start = kvk_info.get("start")
-        end = kvk_info.get("end")
-        camps:dict = kvk_info.get("camps")
-        
-        print(f'MAP:{kvk_info.get("kvk_map_id", "Unknown")}', file=f)
-        result = {
-            "map":kvk_info.get("kvk_map_id", "Unknown"),
-            "start":start,
-            "end":end,
-            "camps":[]
-        }
-        folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
-        for key in camps.keys():
-            kingdoms = camps.get(key)
-            print(f'CAMP:{key}', file=f)
-            data_list = []
-            for k in kingdoms:
-                file_name = f"data/kvk/{folder_name}/{k}.json"
-                if Path(file_name).exists():
-                    with open(file_name, "r", encoding="utf-8") as ff:
-                        detail_data = json.load(ff)
-                else:
-                    url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{k}.json"
-                    response = get_request(url=url)
-                    detail_data = response.json()
-                data_list.append(detail_data)
-            camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms, file=f)
-            result["camps"].append(camp)
+    start = kvk_info.get("start")
+    end = kvk_info.get("end")
+    camps:dict = kvk_info.get("camps")
     
+    result = {
+        "map":kvk_info.get("kvk_map_id", "Unknown"),
+        "start":start,
+        "end":end,
+        "camps":[]
+    }
+    folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
+    for key in camps.keys():
+        kingdoms = camps.get(key)
+        data_list = []
+        for k in kingdoms:
+            file_name = f"data/kvk/{folder_name}/{k}.json"
+            if Path(file_name).exists():
+                with open(file_name, "r", encoding="utf-8") as ff:
+                    detail_data = json.load(ff)
+            else:
+                url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{k}.json"
+                response = get_request(url=url)
+                detail_data = response.json()
+            data_list.append(detail_data)
+        camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms)
+        result["camps"].append(camp)
+
     result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-DKP"][:-1]) if len(x["sum"]["TOTAL-DKP"]) > 1 else float(x["sum"]["TOTAL-DKP"]), reverse=True)
     return result
 def json_to_dkp_data_html(data):
