@@ -33,8 +33,7 @@ def task_execute_checker():
                   event_type = "save-match-data"
                   post_github_request_api(event_type=event_type)
             except Exception:
-              event_type = "save-match-data"
-              post_github_request_api(event_type=event_type)
+              pass
 
             # KVK数据获取
             next_run_datetime_json_url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/next_run_datetime.json"
@@ -46,8 +45,7 @@ def task_execute_checker():
                   event_type = "save-kvk-data"
                   post_github_request_api(event_type=event_type)
             except Exception:
-              event_type = "save-kvk-data"
-              post_github_request_api(event_type=event_type)
+              pass
         except Exception as e:
             print(e)
 
