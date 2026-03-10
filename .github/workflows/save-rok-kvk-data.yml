@@ -1,6 +1,9 @@
 name: Save KvK Data
 
 on:
+  push:
+    paths:
+      - "data/kvk/kvk_info.json"
   repository_dispatch:
     types: [save-kvk-data]
   workflow_dispatch:
