@@ -84,10 +84,19 @@ elif mode == "save_kvk_data":
             start = temp_end
         if end >= temp_end:
             end = temp_end
-        if end < temp_end:
+        camps:dict = v["camps"]
+        try_get_kd = camps.values()[0][0] if camps.values() else None
+        if try_get_kd:
+            url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{camps}.json"
+            response = get_request(url=url)
+        else:
+            print(f"无任何王国，跳过处理。{v["kvk_map_id"]}")
+            continue
+
+        if end < temp_end and response.status_code == 200:
             # kvk end,no more update
             continue
-        camps:dict = v["camps"]
+        
         kingdoms_list = []
         for l in camps.values():
             kingdoms_list.extend(l)
