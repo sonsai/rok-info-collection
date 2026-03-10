@@ -90,7 +90,7 @@ elif mode == "save_kvk_data":
             url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{camps}.json"
             response = get_request(url=url)
         else:
-            print(f"无任何王国，跳过处理。{v["kvk_map_id"]}")
+            print(f'无任何王国,跳过处理. {v["kvk_map_id"]}')
             continue
 
         if end < temp_end and response.status_code == 200:
