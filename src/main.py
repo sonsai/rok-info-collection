@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import shutil
 import sys
 from .get_request import get_request
 from .utility import (
@@ -76,7 +77,8 @@ elif mode == "save_kvk_data":
         start:str = v["start"]
         end:str = v["end"]
         folder_name = v["kvk_map_id"] + "_" + start.replace("-","")
-        os.makedirs(f"data/kvk/{folder_name}",exist_ok=True)
+        os.makedirs(f"data/kvk/{folder_name}/match",exist_ok=True)
+        os.makedirs(f"data/kvk/{folder_name}/dkp",exist_ok=True)
         now = datetime.datetime.now()
         days = 1
         temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
@@ -88,7 +90,7 @@ elif mode == "save_kvk_data":
         kingdoms_list = []
         for l in camps.values():
             kingdoms_list.extend(l)
-            
+
         if kingdoms_list:
             url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{kingdoms_list[0]}.json"
             response = get_request(url=url)
@@ -101,6 +103,14 @@ elif mode == "save_kvk_data":
             continue
         
         for k in kingdoms_list:
+            kvk_match_file_name = f"data/kvk/{folder_name}/match/{k}.json"
+            if os.path.exists(kvk_match_file_name):
+                pass
+            else:
+                idx = k // 100
+                match_file_name = f"data/match/{idx}/{k}.json"
+                shutil.copy(match_file_name, kvk_match_file_name)
+                
             response_dict = get_listed_kingdoms_member_info_api(
                 from_date=start,
                 to_date=end,
@@ -117,7 +127,7 @@ elif mode == "save_kvk_data":
                 "to_date":end,
                 "data":data
             }
-            kingdoms_file_name = f"data/kvk/{folder_name}/{k}.json"
+            kingdoms_file_name = f"data/kvk/{folder_name}/dkp/{k}.json"
             with open(kingdoms_file_name, "w", encoding="utf-8") as f:
                 json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
