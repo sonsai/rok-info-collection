@@ -36,12 +36,14 @@ elif mode == "dkp_data":
     except Exception as e:
         print(str(e))
         raise e
+    
 elif mode == "save_kingdoms_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
-    os.makedirs("data/kingdoms/",exist_ok=True)
     for kingdom_id in range(int(id_from), int(id_to)):
-        kingdoms_file_name = f"data/kingdoms/{kingdom_id}.json"
+        idx = kingdom_id / 100
+        os.makedirs(f"data/kingdoms/{idx}", exist_ok=True)
+        kingdoms_file_name = f"data/kingdoms/{idx}/{kingdom_id}.json"
         from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
         to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         response_dict = get_listed_kingdoms_member_info_api(
