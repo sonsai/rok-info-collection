@@ -41,7 +41,7 @@ elif mode == "save_kingdoms_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
     for kingdom_id in range(int(id_from), int(id_to)):
-        idx = kingdom_id / 100
+        idx = kingdom_id // 100
         os.makedirs(f"data/kingdoms/{idx}", exist_ok=True)
         kingdoms_file_name = f"data/kingdoms/{idx}/{kingdom_id}.json"
         from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
