@@ -18,6 +18,9 @@ def fn(n):
     else:
         return str(n)
 
+def get_YMD_current_date():
+    return datetime.datetime.now().strftime("%Y-%m-%d")
+
 def get_kvk_info_json()->dict:
     url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/kvk_info.json"
     response = get_request(url=url)
@@ -481,10 +484,17 @@ def json_to_root_data(data):
     """
 
     for key, item in data.items():
+
+        status_label = "进行中"
+        if item["start"] > get_YMD_current_date():
+            status_label = "未开始"
+        elif item["end"] < get_YMD_current_date():
+            status_label = "已结束"
+
         html += f"""
         <div class="item {item['kvk_type'] or 'N/A'}">
           <div class="item-header">
-            <div class="item-title">{key}</div>
+            <div class="item-title">{key} {status_label}</div>
           </div>
           
           <div class="item-meta">
