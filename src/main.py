@@ -125,13 +125,14 @@ elif mode == "save_kvk_data":
 elif mode == "save_match_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
-    os.makedirs("data/match/",exist_ok=True)
     with open("data/match/next_run_datetime.json", "w", encoding="utf-8") as f:
         _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
     for kingdom_id in range(int(id_from), int(id_to)):
-        match_file_name = f"data/match/{kingdom_id}.json"
+        idx = kingdom_id // 100
+        os.makedirs(f"data/match/{idx}",exist_ok=True)
+        match_file_name = f"data/match/{idx}/{kingdom_id}.json"
         response_dict = get_match_data_api(str(kingdom_id))
         data = response_dict.get("data")
         detail_data = {

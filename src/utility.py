@@ -109,7 +109,8 @@ def show_kvk_match_data(
             total_power = 0
             total_score = 0
             for k in kingdoms:
-                file_name = f"data/match/{k}.json"
+                idx = k // 100
+                file_name = f"data/match/{idx}/{k}.json"
                 if Path(file_name).exists():
                     with open(file_name, "r", encoding="utf-8") as ff:
                         detail_data = json.load(ff)
