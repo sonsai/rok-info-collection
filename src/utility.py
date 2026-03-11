@@ -422,7 +422,7 @@ def json_to_root_data(data):
     <html lang="zh">
     <head>
       <meta charset="UTF-8">
-      <title>KVK 列表</title>
+      <title>KD1545 资料站</title>
       <style>
         body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
         .item {
@@ -481,9 +481,19 @@ def json_to_root_data(data):
             background: #fc8c8c
         }
       </style>
+      <script>
+        function go() {
+            const v = document.getElementById('idInput').value.trim();
+            if (!v) return;
+            location.href = '/kingdom-player?id=' + v;
+        }
+        </script>
     </head>
     <body>
-      <h1>KINGDOM 1545 内部数据分析</h1>
+      <h1>KD1545 资料站</h1>
+      <h2>王国/个人信息查询(测试中)</h2>
+      <input type="text" id="idInput" placeholder="王国ID或个人ID" style="width:150px;">
+      <span style="cursor:pointer;" onclick="go()">查询 Search</span>
       <h2>KVK 列表</h2>
     """
 

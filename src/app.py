@@ -127,8 +127,15 @@ def rok_kvk_dkp_data():
 @app.get("/kingdom-player")
 def kingdom_player():
     try:
-        kingdom_id = request.args.get("k")
-        player_id = request.args.get("p")
+        player_id = None
+        kingdom_id= None
+        xid = request.args.get("id")
+        if int(xid) > 10000:
+            player_id = xid
+        elif 1000 < int(xid):
+            kingdom_id = xid
+        else:
+            return {"msg":"Wrong id."}
         if not kingdom_id and not player_id:
             return
         if not kingdom_id and player_id:
