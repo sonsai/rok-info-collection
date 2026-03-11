@@ -228,6 +228,7 @@ def json_to_dkp_data_html(data):
 
     </head>
     <body>
+        <span style="cursor:pointer;" onclick="location.href='/'">返回 Back</span>
         <h2>KVK贡献分数据 ROK KvK DKP Data</h2>
         <h2>Map: {data['map']}</h2>
         <h2>Start: {data['start']} — End: {data['end']}</h2>
@@ -347,6 +348,7 @@ def json_to_match_data_html(data):
 
     </head>
     <body>
+        <span style="cursor:pointer;" onclick="location.href='/'">返回 Back</span>
         <h2>匹配数据 ROK Match Data — Map: """ + data["map"] + """</h2>
     """
 
