@@ -157,23 +157,34 @@ elif mode == "save_match_data":
 elif mode == "execute_player_list":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
-    player_kd_list_file_name = f"data/kingdoms/player_kd_list.json"
-    if os.path.exists(player_kd_list_file_name):
-        with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
-            player_kd_list = json.load(f)
-    else:
-        player_kd_list = {}
-
+    
+    working_file_list = {}
+    os.makedirs("data/player", exist_ok=True)
     for kd in range(int(id_from), int(id_to)):
         idx = kd // 100
         file_name = f"data/kingdoms/{idx}/{kd}.json"
         if not os.path.exists(file_name):
-            pass
+            continue
         with open(file_name, "r", encoding="utf-8") as f:
             player_data = json.load(f)
 
         for p in player_data["data"]:
             pid = p["id"]
+            idx = int(pid) // 1_000_000
+            player_kd_list_file_name = f"data/player/player_lsit_{idx}.json"
+
+            if player_kd_list_file_name in working_file_list:
+                player_kd_list = working_file_list[player_kd_list_file_name]
+            else:
+                if not os.path.exists(player_kd_list_file_name):
+                    player_kd_list = {}
+                else:
+                    try:
+                        with open(file_name, "r", encoding="utf-8") as f:
+                            player_kd_list = json.load(f)
+                    finally:
+                        pass
+                        
             if pid in player_kd_list:
                 past_kd_list = player_kd_list[p["id"]]
                 if past_kd_list:
@@ -183,6 +194,11 @@ elif mode == "execute_player_list":
                         pass
                 else:
                     player_kd_list[p["id"]] = [player_data["kingdom"]]
+            else:
+                player_kd_list[p["id"]] = [player_data["kingdom"]]
 
-    with open(player_kd_list_file_name, "w", encoding="utf-8") as f:
-        json.dump(player_kd_list, f, ensure_ascii=False, indent=2)
+            working_file_list[player_kd_list_file_name] = player_kd_list
+            
+    for n, d in working_file_list.items():
+        with open(n, "w", encoding="utf-8") as f:
+            json.dump(d, f, ensure_ascii=False, indent=2)
