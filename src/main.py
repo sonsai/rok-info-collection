@@ -153,3 +153,36 @@ elif mode == "save_match_data":
         }
         with open(match_file_name, "w", encoding="utf-8") as f:
             json.dump(detail_data, f, ensure_ascii=False, indent=2)
+
+elif mode == "execute_player_list":
+    id_from = sys.argv[1]
+    id_to = sys.argv[2]
+    player_kd_list_file_name = f"data/kingdoms/player_kd_list.json"
+    if os.path.exists(player_kd_list_file_name):
+        with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
+            player_kd_list = json.load(f)
+    else:
+        player_kd_list = {}
+
+    for kd in range(int(id_from), int(id_to)):
+        idx = kd // 100
+        file_name = f"data/kingdoms/{idx}/{kd}.json"
+        if not os.path.exists(file_name):
+            pass
+        with open(file_name, "r", encoding="utf-8") as f:
+            player_data = json.load(f)
+
+        for p in player_data["data"]:
+            pid = p["id"]
+            if pid in player_kd_list:
+                past_kd_list = player_kd_list[p["id"]]
+                if past_kd_list:
+                    if player_data["kingdom"] != past_kd_list[:-1]:
+                        player_kd_list[p["id"]].append(player_data["kingdom"])
+                    else:
+                        pass
+                else:
+                    player_kd_list[p["id"]] = [player_data["kingdom"]]
+
+    with open(player_kd_list_file_name, "w", encoding="utf-8") as f:
+        json.dump(player_kd_list, f, ensure_ascii=False, indent=2)

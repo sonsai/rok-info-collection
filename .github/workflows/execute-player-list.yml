@@ -1,0 +1,39 @@
+name: Execute Player List
+
+on:
+  repository_dispatch:
+    types: [execute_player_list]
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Python with env
+        run: python -m src.main 1001 5000
+        env:
+          MODE: execute_player_list
+          
+      - name: Commit result file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/kingdom/player_kd_list.json
+
+          # 如果没有变化，避免报错
+          git diff --cached --quiet || git commit -m "Update player kingdoms data"
+
+          git push
