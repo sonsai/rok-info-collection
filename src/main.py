@@ -171,7 +171,7 @@ elif mode == "execute_player_list":
         for p in player_data["data"]:
             pid = p["id"]
             idx = int(pid) // 1_000_000
-            player_kd_list_file_name = f"data/player/player_lsit_{idx}.json"
+            player_kd_list_file_name = f"data/player/player_list_{idx}.json"
 
             if player_kd_list_file_name in working_file_list:
                 player_kd_list = working_file_list[player_kd_list_file_name]
