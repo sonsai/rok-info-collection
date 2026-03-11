@@ -430,6 +430,7 @@ def json_to_root_data(data):
           border-radius: 10px;
           color: white;
         }
+        .heroic_anthem  { background-image: url('/static/media/s4heroic_anthem_cover.png'); }
         .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
         .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
         .vcr { background-image: url('/static/media/vcr.png'); }
