@@ -1,11 +1,14 @@
 import datetime
+import json
 import threading
 import time
 
-from flask import Flask, request, jsonify
+from flask import Flask, render_template_string, request, jsonify
+from src.web.html_temp import kingdom_player_html
 from src.get_request import get_request
 from src.post_github_request_api import post_github_request_api
 from src.utility import (
+    fn,
     get_kvk_info_json,
     json_to_root_data,
     show_kvk_match_data,
@@ -120,6 +123,38 @@ def rok_kvk_dkp_data():
     except Exception as e:
         print(str(e))
         raise e
+    
+@app.get("/kingdom-player")
+def kingdom_player():
+    try:
+        kingdom_id = request.args.get("k")
+        player_id = request.args.get("p")
+        if not kingdom_id and not player_id:
+            return
+        if not kingdom_id and player_id:
+            pidx = int(player_id) // 1_000_000
+            player_kd_list_file_name = f"data/player/player_list_{pidx}.json"
+            with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
+                player_list:dict = json.load(f)
+                kingdom_id = player_list[str(player_id)]
+        idx=int(kingdom_id) // 100
+        with open(f"data/kingdoms/{idx}/{kingdom_id}.json", "r", encoding="utf-8") as f:
+            data:dict = json.load(f)
+        if player_id is not None:
+            data["data"] = [d for d in data["data"] if d["id"]==player_id]
+        for d in data["data"]:
+            for k,v in d.items():
+                d[k] = fn(v) if isinstance(v, int) else v
+
+        return render_template_string(
+        kingdom_player_html,
+        kingdom=data["kingdom"],
+        start=data["from_date"],
+        end=data["to_date"],
+        players=data["data"]
+        )
+    except Exception as e:
+        return str(e)
 
 if __name__ == "__main__":
     start_background_thread()
