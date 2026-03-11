@@ -155,12 +155,12 @@ def show_kvk_dkp(kvk_info):
         kingdoms = camps.get(key)
         data_list = []
         for k in kingdoms:
-            file_name = f"data/kvk/{folder_name}/{k}.json"
+            file_name = f"data/kvk/{folder_name}/dkp/{k}.json"
             if Path(file_name).exists():
                 with open(file_name, "r", encoding="utf-8") as ff:
                     detail_data = json.load(ff)
             else:
-                url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/{k}.json"
+                url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/dkp/{k}.json"
                 response = get_request(url=url)
                 detail_data = response.json()
             data_list.append(detail_data)
