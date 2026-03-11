@@ -228,7 +228,8 @@ def json_to_dkp_data_html(data):
 
     </head>
     <body>
-        <h2>ROK KvK DKP Data — Map: {data['map']}</h2>
+        <h2>KVK贡献分数据 ROK KvK DKP Data</h2>
+        <h2>Map: {data['map']}</h2>
         <h2>Start: {data['start']} — End: {data['end']}</h2>
     """
 
@@ -236,11 +237,11 @@ def json_to_dkp_data_html(data):
     html += """
     <table class="sum-table">
         <tr>
-            <th>CAMP</th>
-            <th>Total DKP</th>
-            <th>Total KILL</th>
-            <th>Total T4-DEAD</th>
-            <th>Total T5-DEAD</th>
+            <th>阵营 CAMP</th>
+            <th>总贡献分 Total DKP</th>
+            <th>总击杀 Total KILL</th>
+            <th>总T4阵亡 Total T4-DEAD</th>
+            <th>总T5阵亡 Total T5-DEAD</th>
         </tr>
     """
     for camp in data["camps"]:
@@ -262,12 +263,12 @@ def json_to_dkp_data_html(data):
         html += """
         <table>
             <tr>
-                <th>KD</th>
-                <th>DKP</th>
-                <th>KILL</th>
-                <th>T4-DEAD</th>
-                <th>T5-DEAD</th>
-                <th>PERIOD</th>
+                <th>王国 KD</th>
+                <th>贡献分 DKP</th>
+                <th>击杀 KILL</th>
+                <th>T4阵亡数 T4-DEAD</th>
+                <th>T5阵亡数 T5-DEAD</th>
+                <th>数据范围 PERIOD</th>
             </tr>
         """
 
@@ -346,7 +347,7 @@ def json_to_match_data_html(data):
 
     </head>
     <body>
-        <h2>ROK Match Data — Map: """ + data["map"] + """</h2>
+        <h2>匹配数据 ROK Match Data — Map: """ + data["map"] + """</h2>
     """
 
 
@@ -354,11 +355,11 @@ def json_to_match_data_html(data):
     html += """
     <table class="sum-table">
         <tr>
-            <th>CAMP</th>
-            <th>TOTAL KVK SCORE</th>
-            <th>TOTAL POWER</th>
-            <th>TOTAL DEAD</th>
-            <th>TOTAL KILL</th>
+            <th>阵营 CAMP</th>
+            <th>总匹配积分 TOTAL KVK SCORE</th>
+            <th>总战力 TOTAL POWER</th>
+            <th>总阵亡 TOTAL DEAD</th>
+            <th>总击杀 TOTAL KILL</th>
         </tr>
     """
     for camp in data["camps"]:
@@ -384,12 +385,12 @@ def json_to_match_data_html(data):
         html += """
         <table>
             <tr>
-                <th>KD</th>
-                <th>KVK SCORE</th>
-                <th>POWER</th>
-                <th>DEAD</th>
-                <th>KILL</th>
-                <th>LATEST UPDATE</th>
+                <th>王国 KD</th>
+                <th>匹配积分 KVK SCORE</th>
+                <th>战力 POWER</th>
+                <th>阵亡 DEAD</th>
+                <th>击杀KILL</th>
+                <th>更新时间 UPDATE</th>
             </tr>
         """
 
