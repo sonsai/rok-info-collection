@@ -188,7 +188,7 @@ elif mode == "execute_player_list":
             if pid in player_kd_list:
                 past_kd_list = player_kd_list[p["id"]]
                 if past_kd_list:
-                    if player_data["kingdom"] != past_kd_list[:-1]:
+                    if player_data["kingdom"] != past_kd_list[-1]:
                         player_kd_list[p["id"]].append(player_data["kingdom"])
                     else:
                         pass

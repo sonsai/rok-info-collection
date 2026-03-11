@@ -136,7 +136,7 @@ def kingdom_player():
             player_kd_list_file_name = f"data/player/player_list_{pidx}.json"
             with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
                 player_list:dict = json.load(f)
-                kingdom_id = player_list[str(player_id)]
+                kingdom_id = player_list[str(player_id)][-1]
         idx=int(kingdom_id) // 100
         with open(f"data/kingdoms/{idx}/{kingdom_id}.json", "r", encoding="utf-8") as f:
             data:dict = json.load(f)

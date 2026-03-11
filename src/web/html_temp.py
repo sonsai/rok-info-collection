@@ -59,7 +59,7 @@ kingdom_player_html = """
 </style>
 </head>
 <body>
-
+<span style="cursor:pointer;" onclick="location.href='/'">返回 Back</span>
 <div class="title">王国 {{ kingdom }} - 玩家数据</div>
 <h2>{{ start }} - {{ end }}</h2>
 
