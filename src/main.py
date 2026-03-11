@@ -43,27 +43,28 @@ elif mode == "save_kingdoms_data":
     id_to = sys.argv[2]
     for kingdom_id in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
-        os.makedirs(f"data/kingdoms/{idx}", exist_ok=True)
-        kingdoms_file_name = f"data/kingdoms/{idx}/{kingdom_id}.json"
-        from_date:str = (datetime.datetime.now() - datetime.timedelta(days=180)).strftime("%Y-%m-%d")
-        to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-        response_dict = get_listed_kingdoms_member_info_api(
-            from_date=from_date,
-            to_date=to_date,
-            kingdom_id=kingdom_id
-            )
-        data = response_dict.get("data")
-        if not data:
-            continue
+        for p in [1,60,180]:
+            os.makedirs(f"data/kingdoms/{p}d/{idx}", exist_ok=True)
+            kingdoms_file_name = f"data/kingdoms/{p}d/{idx}/{kingdom_id}.json"
+            from_date:str = (datetime.datetime.now() - datetime.timedelta(days=p)).strftime("%Y-%m-%d")
+            to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            response_dict = get_listed_kingdoms_member_info_api(
+                from_date=from_date,
+                to_date=to_date,
+                kingdom_id=kingdom_id
+                )
+            data = response_dict.get("data")
+            if not data:
+                continue
 
-        detail_data = {
-            "kingdom":kingdom_id,
-            "from_date":from_date,
-            "to_date":to_date,
-            "data":data
-        }
-        with open(kingdoms_file_name, "w", encoding="utf-8") as f:
-            json.dump(detail_data, f, ensure_ascii=False, indent=2)
+            detail_data = {
+                "kingdom":kingdom_id,
+                "from_date":from_date,
+                "to_date":to_date,
+                "data":data
+            }
+            with open(kingdoms_file_name, "w", encoding="utf-8") as f:
+                json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
