@@ -10,6 +10,7 @@ from src.post_github_request_api import post_github_request_api
 from src.utility import (
     fn,
     get_kvk_info_json,
+    get_user_info,
     json_to_root_data,
     show_kvk_match_data,
     json_to_match_data_html,
@@ -85,6 +86,7 @@ def health():
 
 @app.get("/")
 def root():
+    get_user_info(request=request)
     data = get_kvk_info_json()
     return json_to_root_data(data)
 

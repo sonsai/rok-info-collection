@@ -7,6 +7,13 @@ from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info
 from .get_match_data_api import get_match_data_api
 from .get_request import get_request
 
+def get_user_info(request):
+    # 优先从代理头获取真实 IP
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip = request.remote_addr
+    print(f"Your IP is: {ip}")
 
 def fn(n):
     if abs(n) >= 1_000_000_000:
@@ -512,7 +519,6 @@ def json_to_root_data(data):
           </div>
           
           <div class="item-meta">
-            KVK ID: {item['kvk_map_id']} |
             类型: {item.get("kvk_type_cn") or item['kvk_type'] or 'N/A'} |
             时间: {item['start']} ~ {item['end']}
           </div>
