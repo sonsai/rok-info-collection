@@ -549,7 +549,6 @@ def json_to_root_data(data):
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            transition: 0.2s;
         }
 
         .search-bar button:hover {
