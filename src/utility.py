@@ -454,6 +454,16 @@ def json_to_root_data(data):
           align-items: center;
           margin-bottom: 8px;
         }
+        .item-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
+        .item-card-white {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
         .item-title {
           font-size: 25px;
           font-weight: bold;
@@ -464,8 +474,10 @@ def json_to_root_data(data):
         }
         .camps { margin-top: 8px; font-size: 14px; }
         .camp-line { 
-          font-size: 23px;
+          font-size: 18px;
+          font-weight: bold;
           margin: 2px 0; 
+          padding: 0px 5px;
         }
         a.button-link {
           padding: 6px 12px;
@@ -512,7 +524,8 @@ def json_to_root_data(data):
             status_label = "已结束"
 
         html += f"""
-        <div class="item {item['kvk_type'] or 'N/A'}">
+        <div class="item {item['kvk_type']}">
+          <div class="{'item-card-white' if item['kvk_type'] == 'vcr' else 'item-card'}">
           <div class="item-header">
             <div class="item-title">{key} {status_label}</div>
           </div>
@@ -535,6 +548,7 @@ def json_to_root_data(data):
           <div>
             <a class="button-link" href="{match_base_url}{key}">匹配数据</a>
             <a class="button-link" href="{dkp_base_url}{key}">DKP数据</a>
+          </div>
           </div>
         </div>
         <br>

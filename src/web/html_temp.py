@@ -32,8 +32,7 @@ kingdom_player_html = """
         background: rgba(255, 255, 255, 0.08);
         padding: 16px 20px;
         border-radius: 10px;
-        width: 100%;
-        max-width: 800px;
+        width: 90%;
         border-left: 4px solid #4CAF50;
     }
 
@@ -44,7 +43,7 @@ kingdom_player_html = """
     }
 
     .section-title {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         margin-top: 10px;
         margin-bottom: 4px;
@@ -55,7 +54,7 @@ kingdom_player_html = """
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 6px 10px;
-        font-size: 14px;
+        font-size: 18px;
         opacity: 0.9;
     }
 
@@ -85,23 +84,6 @@ kingdom_player_html = """
             <span><div class="section-title">战力Power： </div>{{ p.power }}</span>
             <span><div class="section-title">击杀KP：</div> {{ p.kill }} / {{ p.kill_180 or "-" }}</span>
             <span><div class="section-title">阵亡Dead：</div> {{ p.dead }} / {{ p.dead_180 or "-" }}</span>
-        </div>
-        <div class="section-title">击杀T1-5</div>
-        <div class="grid">
-            <span>T1：{{ p.t1 }} / {{ p.t1_180 or "-" }}</span>
-            <span>T2：{{ p.t2 }} / {{ p.t2_180 or "-" }}</span>
-            <span>T3：{{ p.t3 }} / {{ p.t3_180 or "-" }}</span>
-            <span>T4：{{ p.t4 }} / {{ p.t4_180 or "-" }}</span>
-            <span>T5：{{ p.t5 }} / {{ p.t5_180 or "-" }}</span>
-        </div>
-
-        <div class="section-title">阵亡T1-5</div>
-        <div class="grid">
-            <span>T1：{{ p.dead_t1 }} / {{ p.dead_t1_180 or "-" }}</span>
-            <span>T2：{{ p.dead_t2 }} / {{ p.dead_t2_180 or "-" }}</span>
-            <span>T3：{{ p.dead_t3 }} / {{ p.dead_t3_180 or "-" }}</span>
-            <span>T4：{{ p.dead_t4 }} / {{ p.dead_t4_180 or "-" }}</span>
-            <span>T5：{{ p.dead_t5 }} / {{ p.dead_t5_180 or "-" }}</span>
         </div>
 
         <div class="grid">
