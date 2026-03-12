@@ -86,7 +86,6 @@ def health():
 
 @app.get("/")
 def root():
-    get_user_info(request=request)
     data = get_kvk_info_json()
     return json_to_root_data(data)
 
@@ -147,20 +146,34 @@ def kingdom_player():
                 player_list:dict = json.load(f)
                 kingdom_id = player_list[str(player_id)][-1]
         idx=int(kingdom_id) // 100
-        with open(f"data/kingdoms/{idx}/{kingdom_id}.json", "r", encoding="utf-8") as f:
-            data:dict = json.load(f)
-        if player_id is not None:
-            data["data"] = [d for d in data["data"] if d["id"]==player_id]
-        for d in data["data"]:
-            for k,v in d.items():
-                d[k] = fn(v) if isinstance(v, int) else v
+        result_data = {}
+        for days in [60,180]:
+            with open(f"data/kingdoms/{days}d/{idx}/{kingdom_id}.json", "r", encoding="utf-8") as f:
+                data_temp:dict = json.load(f)
+            if player_id is not None:
+                data_temp[f"data"] = [d for d in data_temp["data"] if d["id"]==player_id]
+            for d in data_temp[f"data"]:
+                for k,v in d.items():
+                    d[k] = fn(v) if isinstance(v, int) else v
+            result_data[f"data_in_{days}"]= data_temp["data"]
+            result_data["kingdom"]= data_temp["kingdom"]
+        data_list = []
+        for player in result_data["data_in_60"]:
+            player_180 = None
+            for p in result_data["data_in_180"]:  
+                if p["id"] == player["id"]:
+                    player_180 = p
+                    break
+            if player_180:
+                for k,v in player_180.items():
+                    player[f"{k}_180"] = v
+
+            data_list.append(player)
 
         return render_template_string(
-        kingdom_player_html,
-        kingdom=data["kingdom"],
-        start=data["from_date"],
-        end=data["to_date"],
-        players=data["data"]
+            kingdom_player_html,
+            kingdom=result_data["kingdom"],
+            players=data_list
         )
     except Exception as e:
         return str(e)

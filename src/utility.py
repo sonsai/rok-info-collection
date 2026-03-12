@@ -497,11 +497,10 @@ def json_to_root_data(data):
         </script>
     </head>
     <body>
-      <h1>KD1545 资料站</h1>
-      <h2>王国/个人信息查询(测试中)</h2>
+      <h1>王国/个人信息查询(测试中)</h1>
       <input type="text" id="idInput" placeholder="王国ID或个人ID" style="width:150px;">
       <span style="cursor:pointer;" onclick="go()">查询 Search</span>
-      <h2>KVK 列表</h2>
+      <h1>KVK 列表</h1>
     """
 
     for key, item in data.items():
