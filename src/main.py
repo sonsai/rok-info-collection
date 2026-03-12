@@ -163,7 +163,7 @@ elif mode == "execute_player_list":
     os.makedirs("data/player", exist_ok=True)
     for kd in range(int(id_from), int(id_to)):
         idx = kd // 100
-        file_name = f"data/kingdoms/{idx}/{kd}.json"
+        file_name = f"data/kingdoms/1d/{idx}/{kd}.json"
         if not os.path.exists(file_name):
             continue
         with open(file_name, "r", encoding="utf-8") as f:
