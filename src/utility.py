@@ -480,25 +480,85 @@ def json_to_root_data(data):
           padding: 0px 5px;
         }
         a.button-link {
-          padding: 6px 12px;
-          background: #007bff;
-          color: #fff;
-          text-decoration: none;
-          border-radius: 4px;
-          font-size: 14px;
+            padding: 8px 16px;
+            background: #2a2a2a;       /* 深灰黑 */
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;            /* 灰白文字 */
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
         }
         a.button-link:hover { background: #0056b3; }
         .kd-item {
           display: inline-block;
           padding: 4px 8px;
           margin: 3px;
-          background: gray;
+          background: #2a2a2a;
           border-radius: 4px;
-          font-size: 20px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #e0e0e0;
         }
         .kd1545 {
-            background: #fc8c8c
+            background: #fc8c8c;
+            color: #2a2a2a;
         }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 200px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #1a1a1a;
+            color: #ddd;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .search-bar input::placeholder {
+            color: #777;
+        }
+
+        .search-bar input:focus {
+            border-color: #666;
+            box-shadow: 0 0 5px #666;
+        }
+
+        .search-bar button {
+            padding: 8px 16px;
+            background: #2a2a2a;       /* 深灰黑 */
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;            /* 灰白文字 */
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-bar button:hover {
+            background: #3a3a3a;       /* 稍亮一点的灰黑 */
+            border-color: #555;
+            transform: translateY(-1px);
+        }
+
+
       </style>
       <script>
         function go() {
@@ -509,10 +569,12 @@ def json_to_root_data(data):
         </script>
     </head>
     <body>
-      <h1>王国/个人信息查询(测试中)</h1>
-      <input type="text" id="idInput" placeholder="王国ID或个人ID" style="width:150px;">
-      <span style="cursor:pointer;" onclick="go()">查询 Search</span>
-      <h1>KVK 列表</h1>
+        <h1>王国/个人信息查询(测试中)</h1>
+        <div class="search-bar">
+            <input type="text" id="idInput" placeholder="王国ID 或 玩家ID">
+            <button onclick="go()">查询 Search</button>
+        </div>
+        <h1>KVK 列表</h1>
     """
 
     for key, item in data.items():

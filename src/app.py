@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import threading
 import time
 
@@ -154,7 +155,7 @@ def kingdom_player():
                 data_temp[f"data"] = [d for d in data_temp["data"] if d["id"]==player_id]
             for d in data_temp[f"data"]:
                 for k,v in d.items():
-                    d[k] = fn(v) if isinstance(v, int) else v
+                    d[k] = fn(v) if isinstance(v, int) and not re.match(r".*t[1-5]$", k) else v
             result_data[f"data_in_{days}"]= data_temp["data"]
             result_data["kingdom"]= data_temp["kingdom"]
         data_list = []

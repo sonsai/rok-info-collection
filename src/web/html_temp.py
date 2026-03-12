@@ -4,6 +4,81 @@ kingdom_player_html = """
 <head>
 <meta charset="UTF-8">
 <title>王国 {{ kingdom }} 数据展示</title>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("playerModal");
+    const modalBody = document.getElementById("modal-body");
+    const closeBtn = document.querySelector(".close-btn");
+
+    document.querySelectorAll(".card").forEach(card => {
+        card.addEventListener("click", function () {
+
+            const p = JSON.parse(this.dataset.player);
+            
+            // 计算 T1~T5 最大值用于比例
+            const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(Number);
+            const maxKill = Math.max(...kills, 1);
+
+            const killBars = kills.map((v, i) => {
+                const percent = (v / maxKill) * 100;
+                return `
+                    <div class="modal-row">
+                        <span>T${i+1}：${v}</span>
+                        <span>${percent.toFixed(0)}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="width:${percent}%;"></div>
+                    </div>
+                `;
+            }).join("");
+
+            // 计算 阵亡T1~T5 最大值用于比例
+            const death = [
+                Number(p.dead_t1 || 0),
+                Number(p.dead_t2 || 0),
+                Number(p.dead_t3 || 0),
+                Number(p.dead_t4 || 0),
+                Number(p.dead_t5 || 0)
+            ].map(Number);
+            const maxDeath = Math.max(...death, 1);
+            const deadBars = death.map((v, i) => {
+                const percent1 = (v / maxDeath) * 100;
+                return `
+                    <div class="modal-row">
+                        <span>T${i+1}：${v}</span>
+                        <span>${percent1.toFixed(0)}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="width:${percent1}%;"></div>
+                    </div>
+                `;
+            }).join("");
+            modalBody.innerHTML = `
+                <div class="modal-row"><span>ID:${p.id}</span></div>
+                <h2>${p.name}</h2>
+
+                <div class="modal-section">
+                    <h3>击杀（T1 - T5）</h3>
+                    ${killBars}
+                </div>
+
+                <div class="modal-section">
+                    <h3>阵亡（T1 - T5）</h3>
+                    ${deadBars}
+                </div>
+            `;
+
+            modal.style.display = "block";
+        });
+    });
+
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+});
+</script>
+
+
+
 <style>
     body {
         background: #0d0d0d;
@@ -62,6 +137,62 @@ kingdom_player_html = """
         display: block;
         font-weight: 600;
     }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-content {
+        background: #1a1a1a;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 800px;
+        color: #fff;
+        border: 1px solid #333;
+    }
+    .modal-section {
+        margin-bottom: 16px;
+    }
+
+    .modal-section h3 {
+        margin: 6px 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .modal-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
+        font-size: 14px;
+    }
+    .close-btn {
+        float: right;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    .bar-container {
+        background: #333;
+        border-radius: 4px;
+        height: 10px;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .bar {
+        height: 100%;
+        background: #4CAF50;
+        border-radius: 4px;
+    }
 </style>
 </head>
 <body>
@@ -73,7 +204,39 @@ kingdom_player_html = """
 
 <div class="player-list">
     {% for p in players %}
-    <div class="card">
+    <div class="card" data-player='{
+        "id": "{{ p.id }}",
+        "name": "{{ p.name }}",
+        "power": "{{ p.power }}",
+        "kill": "{{ p.kill }}",
+        "kill_180": "{{ p.kill_180 }}",
+        "dead": "{{ p.dead }}",
+        "dead_180": "{{ p.dead_180 }}",
+        "t1": "{{ p.t1 }}",
+        "t1_180": "{{ p.t1_180 }}",
+        "t2": "{{ p.t2 }}",
+        "t2_180": "{{ p.t2_180 }}",
+        "t3": "{{ p.t3 }}",
+        "t3_180": "{{ p.t3_180 }}",
+        "t4": "{{ p.t4 }}",
+        "t4_180": "{{ p.t4_180 }}",
+        "t5": "{{ p.t5 }}",
+        "t5_180": "{{ p.t5_180 }}",
+        "dead_t1": "{{ p.dead_t1 }}",
+        "dead_t1_180": "{{ p.dead_t1_180 }}",
+        "dead_t2": "{{ p.dead_t2 }}",
+        "dead_t2_180": "{{ p.dead_t2_180 }}",
+        "dead_t3": "{{ p.dead_t3 }}",
+        "dead_t3_180": "{{ p.dead_t3_180 }}",
+        "dead_t4": "{{ p.dead_t4 }}",
+        "dead_t4_180": "{{ p.dead_t4_180 }}",
+        "dead_t5": "{{ p.dead_t5 }}",
+        "dead_t5_180": "{{ p.dead_t5_180 }}",
+        "collect": "{{ p.collect }}",
+        "collect_180": "{{ p.collect_180 }}",
+        "help": "{{ p.help }}",
+        "help_180": "{{ p.help_180 }}"
+     }'>
 
         <div class="grid">
             <span>ID：{{ p.id }}</span>
@@ -94,7 +257,14 @@ kingdom_player_html = """
     </div>
     {% endfor %}
 </div>
-
+<div id="playerModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="modal-body">
+            <!-- 动态填入玩家数据 -->
+        </div>
+    </div>
+</div>
 </body>
 </html>
 """
