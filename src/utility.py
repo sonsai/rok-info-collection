@@ -30,6 +30,88 @@ def get_kingdoms_json_path(days,index,kingdom_id):
 def get_players_json_path(pidx):
     return f"data/player/player_list_{pidx}.json"
 
+def evaluate_player(data):
+    """
+    输入示例:
+    {
+        "kill": 850000000,
+        "dead": 1200000,
+        "power": 120000000,
+        "collect": 0,
+        "help": 0
+    }
+    """
+
+    def grade(value, thresholds):
+        for limit, rank in thresholds:
+            if value >= limit:
+                return rank
+        return "D"
+
+    # Kill thresholds
+    kill_grade = grade(
+        data.get("kill", 0),
+        [
+            (1_000_000_000, "S"),  # 10亿
+            (600_000_000, "A"),    # 6亿
+            (400_000_000, "B"),    # 4亿
+            (100_000_000, "C"),    # 1亿
+        ]
+    )
+
+    # Dead thresholds
+    dead_grade = grade(
+        data.get("dead", 0),
+        [
+            (3_000_000, "S"),   # 300万
+            (2_000_000, "A"),   # 200万
+            (1_000_000, "B"),   # 100万
+            (500_000, "C"),     # 50万
+        ]
+    )
+
+    # Power thresholds
+    power_grade = grade(
+        data.get("power", 0),
+        [
+            (150_000_000, "S"),   # 1.5亿
+            (100_000_000, "A"),   # 1亿
+            (90_000_000, "B"),    # 9000万
+            (70_000_000, "C"),    # 7000万
+        ]
+    )
+
+    # Collect & Help thresholds
+    collect_grade = grade(
+        data.get("collect", 0),
+        [
+            (1_500_000_000, "S"),   # 15亿
+            (1_000_000_000, "A"),   # 10亿
+            (800_000_000, "B"),    # 8亿
+            (600_000_000, "C"),    # 6亿
+        ]
+    )
+    help_grade = grade(
+        data.get("help", 0),
+        [
+            (9_000, "S"),   # 9000
+            (6_000, "A"),   # 6000
+            (5_000, "B"),    # 5000
+            (3_600, "C"),    # 3600
+        ]
+    )
+
+    # ⭐ 将评分结果写回输入 JSON
+    data["grade_kill"] = kill_grade
+    data["grade_dead"] = dead_grade
+    data["grade_power"] = power_grade
+    data["grade_collect"] = collect_grade
+    data["grade_help"] = help_grade
+
+    return data
+
+
+
 def fn(n):
     if abs(n) >= 1_000_000_000:
         return f"{n / 1_000_000_000:.2f}B"

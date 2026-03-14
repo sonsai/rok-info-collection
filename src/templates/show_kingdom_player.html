@@ -264,6 +264,13 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 0.7;
         margin-top: 2px;
     }
+    .stat-icon {
+        width: 20px;
+        height: 20px;
+        margin-top: 4px;
+        margin-bottom: 2px;
+        opacity: 0.9;
+    }
 
 </style>
 </head>
@@ -327,11 +334,11 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="name">{{ p.name }}</div>
 
         <div class="grid">
-            <span><div class="section-title">战力Power： </div>{{ p.power }}</span>
-            <span><div class="section-title">击杀KP：</div> {{ p.kill }} / {{ p.kill_180 or "-" }}</span>
-            <span><div class="section-title">阵亡Dead：</div> {{ p.dead }} / {{ p.dead_180 or "-" }}</span>
-            <span><div class="section-title">采集Collect：</div>{{ p.collect }} / {{ p.collect_180 or "-" }}</span>
-            <span><div class="section-title">帮助Help：</div>{{ p.help }} / {{ p.help_180 or "-" }}</span>
+            <span><div class="section-title">战力Power： </div><div>{{ p.power }}</div><img src="/static/media/rank/level_{{ p.grade_power }}.png" class="stat-icon"></span>
+            <span><div class="section-title">击杀KP：</div> <div>{{ p.kill }} / {{ p.kill_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_kill }}.png" class="stat-icon"></span>
+            <span><div class="section-title">阵亡Dead：</div> <div>{{ p.dead }} / {{ p.dead_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_dead }}.png" class="stat-icon"></span>
+            <span><div class="section-title">采集Collect：</div><div>{{ p.collect }} / {{ p.collect_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_collect }}.png" class="stat-icon"></span>
+            <span><div class="section-title">帮助Help：</div><div>{{ p.help }} / {{ p.help_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_help }}.png" class="stat-icon"></span>
         </div>
 
     </div>

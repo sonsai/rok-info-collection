@@ -10,6 +10,7 @@ from src.consts import CHECK_INTERVAL, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JS
 from src.clients.get_request import get_request
 from src.clients.post_github_request_api import post_github_request_api
 from src.utility import (
+    evaluate_player,
     fn,
     get_YMD_current_date,
     get_kingdoms_json_path,
@@ -160,6 +161,7 @@ def kingdom_player():
             if player_id is not None:
                 data_temp[f"data"] = [d for d in data_temp["data"] if d["id"]==player_id]
             for d in data_temp[f"data"]:
+                d = evaluate_player(d)
                 for k,v in d.items():
                     d[k] = fn(v) if isinstance(v, int) and not re.match(r".*t[1-5]$", k) else v
             result_data[f"data_in_{days}"]= data_temp["data"]
