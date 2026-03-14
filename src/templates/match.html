@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ROK Match Data</title>
+
+    <style>
+        body { 
+            font-family: Arial; 
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 { text-align: center; color: #fff; }
+        h3 { margin-top: 30px; color: #f0f0f0; }
+
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin-top: 10px; 
+            background-color: #111;
+        }
+
+        th, td { 
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+            color: #fff;
+        }
+
+        th { background: #333; color: #fff; }
+
+        tr:nth-child(even) { background: #1a1a1a; }
+        tr:nth-child(odd) { background: #111; }
+
+        .sum-table { margin-top: 5px; }
+    </style>
+</head>
+
+<body>
+
+<span style="cursor:pointer;" onclick="location.href='/'">返回 Back</span>
+
+<h2>匹配数据 ROK Match Data — Map: {{ data.map }}</h2>
+
+<h3>TOTAL MATCH DATA</h3>
+
+<table class="sum-table">
+    <tr>
+        <th>阵营 CAMP</th>
+        <th>总匹配积分 TOTAL KVK SCORE</th>
+        <th>总战力 TOTAL POWER</th>
+        <th>总阵亡 TOTAL DEAD</th>
+        <th>总击杀 TOTAL KILL</th>
+    </tr>
+
+    {% for camp in data.camps %}
+        {% set s = camp.sum %}
+        <tr>
+            <td>{{ camp.name }}</td>
+            <td>{{ s['TOTAL-KVK-SCORE'] }}</td>
+            <td>{{ s['TOTAL-POWER'] }}</td>
+            <td>{{ s['TOTAL-DEAD'] }}</td>
+            <td>{{ s['TOTAL-KILL'] }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% for camp in data.camps %}
+
+    <h3>{{ camp.name }} {{ camp.kingdoms_names }}</h3>
+
+    <table>
+        <tr>
+            <th>王国 KD</th>
+            <th>匹配积分 KVK SCORE</th>
+            <th>战力 POWER</th>
+            <th>阵亡 DEAD</th>
+            <th>击杀 KILL</th>
+            <th>更新时间 UPDATE</th>
+        </tr>
+
+        {% for kd in camp.kingdoms %}
+        <tr>
+            <td>{{ kd['KD'] }}</td>
+            <td>{{ kd['KVK-SCORE'] }}</td>
+            <td>{{ kd['POWER'] }}</td>
+            <td>{{ kd['DEAD'] }}</td>
+            <td>{{ kd['KILL'] }}</td>
+            <td>{{ kd['UPDATED-AT'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endfor %}
+
+</body>
+</html>

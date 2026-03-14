@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>KD1545 资料站</title>
+
+  <style>
+    /* 你的 CSS 原样保留 */
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    .item { background-size: cover; background-position: center; background-repeat: no-repeat; padding: 30px; border-radius: 10px; color: white; }
+    .heroic_anthem  { background-image: url('/static/media/s4heroic_anthem_cover.png'); }
+    .tides_of_war  { background-image: url('/static/media/s14tides_of_war_cover.png'); }
+    .king_of_all_britain { background-image: url('/static/media/s19king_of_all_britain_cover.png'); }
+    .vcr { background-image: url('/static/media/vcr.png'); }
+    .king_of_the_nile { background-image: url('/static/media/s9king_of_the_nile_cover.png'); }
+    .siege_of_orleans { background-image: url('/static/media/s10siege_of_orleans_cover.png'); }
+    .warriors_unbound { background-image: url('/static/media/s11warriors_unbound_cover.png'); }
+    .storm_of_stratagems { background-image: url('/static/media/s12storm_of_stratagems_cover.png'); }
+
+    .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .item-card { background: rgba(0, 0, 0, 0.6); padding: 16px 20px; border-radius: 10px; }
+    .item-card-white { background: rgba(255, 255, 255, 0.04); padding: 16px 20px; border-radius: 10px; }
+    .item-title { font-size: 25px; font-weight: bold; }
+    .item-meta { font-size: 20px; color: #fff; }
+    .camps { margin-top: 8px; font-size: 14px; }
+    .camp-line { font-size: 18px; font-weight: bold; margin: 2px 0; padding: 0px 5px; }
+
+    a.button-link {
+        padding: 8px 16px;
+        background: #2a2a2a;
+        border: 1px solid #444;
+        border-radius: 6px;
+        color: #e0e0e0;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+    a.button-link:hover { background: #0056b3; }
+
+    .kd-item { display: inline-block; padding: 4px 8px; margin: 3px; background: #2a2a2a; border-radius: 4px; font-size: 16px; font-weight: 600; color: #e0e0e0; }
+    .kd1545 { background: #fc8c8c; color: #2a2a2a; }
+
+    .search-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .search-bar input {
+        width: 200px; padding: 8px 12px; border-radius: 6px; border: 1px solid #444;
+        background: #1a1a1a; color: #ddd; font-size: 14px; outline: none; transition: 0.2s;
+    }
+    .search-bar input::placeholder { color: #777; }
+    .search-bar input:focus { border-color: #666; box-shadow: 0 0 5px #666; }
+    .search-bar button {
+        padding: 8px 16px; background: #2a2a2a; border: 1px solid #444;
+        border-radius: 6px; color: #e0e0e0; cursor: pointer; font-size: 14px; font-weight: 600;
+    }
+    .search-bar button:hover { background: #3a3a3a; border-color: #555; transform: translateY(-1px); }
+  </style>
+
+  <script>
+    function go() {
+        const v = document.getElementById('idInput').value.trim();
+        if (!v) return;
+        location.href = '/kingdom-player?id=' + v;
+    }
+  </script>
+</head>
+
+<body>
+
+<h1>王国/个人信息查询(测试中)</h1>
+
+<div class="search-bar">
+    <input type="text" id="idInput" placeholder="王国ID 或 玩家ID">
+    <button onclick="go()">查询 Search</button>
+</div>
+
+<h1>KVK 列表</h1>
+
+{% for key, item in data.items() %}
+
+    {% set status_label = "进行中" %}
+    {% if item.start > current_date %}
+        {% set status_label = "未开始" %}
+    {% elif item.end < current_date %}
+        {% set status_label = "已结束" %}
+    {% endif %}
+
+    <div class="item {{ item.kvk_type }}">
+      <div class="{{ 'item-card-white' if item.kvk_type == 'vcr' else 'item-card' }}">
+        
+        <div class="item-header">
+          <div class="item-title">{{ key }} {{ status_label }}</div>
+        </div>
+
+        <div class="item-meta">
+          类型: {{ item.kvk_type_cn or item.kvk_type or 'N/A' }} |
+          时间: {{ item.start }} ~ {{ item.end }}
+        </div>
+
+        <div class="camps">
+          {% for camp_name, kds in item.camps.items() %}
+            <div class="camp-line">{{ camp_name }}:</div>
+            {% for kd in kds %}
+              <div class="kd-item kd{{ kd }}">{{ kd }}</div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+
+        <br>
+
+        <div>
+          <a class="button-link" href="{{ match_base_url }}{{ key }}">匹配数据</a>
+          <a class="button-link" href="{{ dkp_base_url }}{{ key }}">DKP数据</a>
+        </div>
+
+      </div>
+    </div>
+
+    <br><br>
+
+{% endfor %}
+
+</body>
+</html>

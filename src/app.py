@@ -4,25 +4,18 @@ import re
 import threading
 import time
 
-from flask import Flask, render_template_string, request, jsonify
-from src.web.html_temp import kingdom_player_html
+from werkzeug.exceptions import HTTPException
+from flask import Flask, abort, render_template, request
 from src.get_request import get_request
 from src.post_github_request_api import post_github_request_api
 from src.utility import (
     fn,
+    get_YMD_current_date,
     get_kvk_info_json,
-    get_user_info,
-    json_to_root_data,
     show_kvk_match_data,
-    json_to_match_data_html,
-    show_kvk_dkp,
-    json_to_dkp_data_html)
+    show_kvk_dkp)
 
 app = Flask(__name__)
-
-
-HEALTH_URL = "https://rok-info-collection.onrender.com/"
-CHECK_INTERVAL = 300  # 每 300 秒检查一次
 
 server_is_healthy = True
 def task_execute_checker():
@@ -56,30 +49,9 @@ def task_execute_checker():
 
         time.sleep(3600)
 
-def health_check_loop():
-    global server_is_healthy
-
-    while True:
-        try:
-            res = get_request(HEALTH_URL)
-            if res.status_code == 200:
-                server_is_healthy = True
-                print("[HealthCheck] OK")
-            else:
-                server_is_healthy = False
-                print("[HealthCheck] ERROR: status", res.status_code)
-
-        except Exception as e:
-            server_is_healthy = False
-            print("[HealthCheck] FAILED:", e)
-
-        time.sleep(CHECK_INTERVAL)
-        
 def start_background_thread():
-    t1 = threading.Thread(target=health_check_loop, daemon=True)
+    t1 = threading.Thread(target=task_execute_checker, daemon=True)
     t1.start()
-    t2 = threading.Thread(target=task_execute_checker, daemon=True)
-    t2.start()
 
 @app.route("/health")
 def health():
@@ -87,8 +59,20 @@ def health():
 
 @app.get("/")
 def root():
-    data = get_kvk_info_json()
-    return json_to_root_data(data)
+    try:
+        data = get_kvk_info_json()
+        match_base_url = "/rok-match-data?kvk_map_id="
+        dkp_base_url = "/rok-kvk-dkp-data?kvk_map_id="
+        return render_template(
+            "index.html",
+            data=data,
+            current_date=get_YMD_current_date(),
+            match_base_url=match_base_url,
+            dkp_base_url=dkp_base_url
+        )
+    except Exception as e:
+        print(e)
+        abort(500)
 
 
 @app.get("/rok-match-data")
@@ -96,17 +80,19 @@ def rok_match_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
         detail_data = get_kvk_info_json()
-        print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
-            result = show_kvk_match_data(detail_data.get(kvk_map_id))
-            print(str(result))
-            return json_to_match_data_html(result)
+            data = show_kvk_match_data(detail_data.get(kvk_map_id))
+            return render_template(
+                "match.html",
+                data=data
+            )
         else:
-            error = {"msg":"Kvk id not found."}
-            return jsonify(error)
+            abort(404)
+    except HTTPException:
+        raise
     except Exception as e:
-        print(str(e))
-        raise e
+        print(e)
+        abort(500)
     
 
 @app.get("/rok-kvk-dkp-data")
@@ -116,15 +102,15 @@ def rok_kvk_dkp_data():
         detail_data = get_kvk_info_json()
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
-            result = show_kvk_dkp(detail_data.get(kvk_map_id))
-            print(str(result))
-            return json_to_dkp_data_html(result)
+            data = show_kvk_dkp(detail_data.get(kvk_map_id))
+            return render_template("dkp.html", data=data)
         else:
-            error = {"msg":"Kvk id not found."}
-            return jsonify(error)
+            abort(404)
+    except HTTPException:
+        raise
     except Exception as e:
-        print(str(e))
-        raise e
+        print(e)
+        abort(500)
     
 @app.get("/kingdom-player")
 def kingdom_player():
@@ -137,9 +123,9 @@ def kingdom_player():
         elif 1000 < int(xid):
             kingdom_id = xid
         else:
-            return {"msg":"Wrong id."}
+            abort(400)
         if not kingdom_id and not player_id:
-            return
+            abort(400)
         if not kingdom_id and player_id:
             pidx = int(player_id) // 1_000_000
             player_kd_list_file_name = f"data/player/player_list_{pidx}.json"
@@ -171,13 +157,48 @@ def kingdom_player():
 
             data_list.append(player)
 
-        return render_template_string(
-            kingdom_player_html,
+        return render_template(
+            "show_kingdom_player.html",
             kingdom=result_data["kingdom"],
             players=data_list
         )
+    except HTTPException:
+        raise
     except Exception as e:
-        return str(e)
+        app.logger.error(str(e))
+        abort(500)
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template(
+        "error.html",
+        code=404,
+        message_cn="页面不存在",
+        message_en="Page Not Found",
+        e=e
+    ), 404
+
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template(
+        "error.html",
+        code=400,
+        message_cn="请求错误",
+        message_en="Bad Request",
+        e=e
+    ), 400
+
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template(
+        "error.html",
+        code=500,
+        message_cn="服务器内部错误",
+        message_en="Internal Server Error",
+        e=e
+    ), 500
 
 if __name__ == "__main__":
     start_background_thread()

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ROK KVK DKP Data</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #f0f0f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #111;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #111;
+            color: #fff;
+        }
+
+        .sum-table {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <span style="cursor:pointer;" onclick="location.href='/'">返回 Back</span>
+
+    <h2>KVK贡献分数据 ROK KvK DKP Data</h2>
+    <h2>Map: {{ data.map }}</h2>
+    <h2>Start: {{ data.start }} — End: {{ data.end }}</h2>
+
+    <h3>TOTAL RESULT</h3>
+
+    <table class="sum-table">
+        <tr>
+            <th>阵营 CAMP</th>
+            <th>总贡献分 Total DKP</th>
+            <th>总击杀 Total KILL</th>
+            <th>总T4阵亡 Total T4-DEAD</th>
+            <th>总T5阵亡 Total T5-DEAD</th>
+        </tr>
+
+        {% for camp in data.camps %}
+            {% set s = camp.sum %}
+            <tr>
+                <td>{{ camp.name }}</td>
+                <td>{{ s['TOTAL-DKP'] }}</td>
+                <td>{{ s['TOTAL-KILL'] }}</td>
+                <td>{{ s['TOTAL-T4_DEAD'] }}</td>
+                <td>{{ s['TOTAL-T5_DEAD'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% for camp in data.camps %}
+        <h3>{{ camp.name }} {{ camp.kingdoms_names }}</h3>
+
+        <table>
+            <tr>
+                <th>王国 KD</th>
+                <th>贡献分 DKP</th>
+                <th>击杀 KILL</th>
+                <th>T4阵亡数 T4-DEAD</th>
+                <th>T5阵亡数 T5-DEAD</th>
+                <th>数据范围 PERIOD</th>
+            </tr>
+
+            {% for kd in camp.kingdoms %}
+            <tr>
+                <td>{{ kd['KD'] }}</td>
+                <td>{{ kd['DKP'] }}</td>
+                <td>{{ kd['KILL'] }}</td>
+                <td>{{ kd['T4-DEAD'] }}</td>
+                <td>{{ kd['T5-DEAD'] }}</td>
+                <td>{{ kd['PERIOD'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+</body>
+</html>
