@@ -3,9 +3,9 @@ import json
 import os
 from pathlib import Path
 
-from .get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
-from .get_match_data_api import get_match_data_api
-from .get_request import get_request
+from clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
+from clients.get_match_data_api import get_match_data_api
+from clients.get_request import get_request
 
 def get_user_info(request):
     # 优先从代理头获取真实 IP

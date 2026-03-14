@@ -3,8 +3,8 @@ import json
 import os
 import shutil
 import sys
-from .get_request import get_request
-from .utility import (
+from clients.get_request import get_request
+from utility import (
     get_kvk_info_json,
     show_kvk_match_data, 
     show_kvk_dkp,
