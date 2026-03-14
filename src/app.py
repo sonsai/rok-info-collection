@@ -6,6 +6,7 @@ import time
 
 from werkzeug.exceptions import HTTPException
 from flask import Flask, abort, render_template, request
+from src.consts import CHECK_INTERVAL, HEALTH_URL
 from src.get_request import get_request
 from src.post_github_request_api import post_github_request_api
 from src.utility import (
@@ -17,7 +18,6 @@ from src.utility import (
 
 app = Flask(__name__)
 
-server_is_healthy = True
 def task_execute_checker():
     while True:
         try:
@@ -47,11 +47,28 @@ def task_execute_checker():
         except Exception as e:
             print(e)
 
-        time.sleep(300)
+        time.sleep(3600)
 
+def health_check_loop():
+
+    while True:
+        try:
+            res = get_request(HEALTH_URL + "/health")
+            if res.status_code == 200:
+                print("[HealthCheck] OK")
+            else:
+                print("[HealthCheck] ERROR: status", res.status_code)
+
+        except Exception as e:
+            print("[HealthCheck] FAILED:", e)
+
+        time.sleep(CHECK_INTERVAL)
+        
 def start_background_thread():
-    t1 = threading.Thread(target=task_execute_checker, daemon=True)
+    t1 = threading.Thread(target=health_check_loop, daemon=True)
     t1.start()
+    t2 = threading.Thread(target=task_execute_checker, daemon=True)
+    t2.start()
 
 @app.route("/health")
 def health():
