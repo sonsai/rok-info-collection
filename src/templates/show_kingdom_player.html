@@ -93,50 +93,59 @@ document.addEventListener("DOMContentLoaded", function () {
         font-weight: bold;
     }
 
+    .card {
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px 16px; /* 原本 16px 20px → 更紧凑 */
+        border-radius: 8px;
+        width: 95%; /* 原本 90% → 自动填满 */
+        border-left: 4px solid #4CAF50;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px; /* 控制内部间距 */
+        align-self: center;
+    }
+
+    /* 玩家名字 */
+    .name {
+        font-size: 22px; /* 原本 26px → 更紧凑 */
+        font-weight: bold;
+        margin: 2px 0 6px 0; /* 减少上下空白 */
+    }
+
+    /* 小标题 */
+    .section-title {
+        font-size: 16px; /* 原本 20px → 更紧凑 */
+        font-weight: bold;
+        margin: 0;
+        opacity: 0.85;
+    }
+
+    /* grid 布局更紧凑 */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px 8px; /* 原本 6px 10px → 更紧凑 */
+        font-size: 16px; /* 原本 18px → 更紧凑 */
+        opacity: 0.9;
+    }
+
+    /* 每个数据项 */
+    .grid span {
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    /* 整体列表更紧凑 */
     .player-list {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        max-height: 85vh;
+        gap: 12px; /* 原本 16px → 更紧凑 */
+        max-height: 75vh;
         overflow-y: auto;
-        padding-right: 10px;
-    }
-
-    .card {
-        background: rgba(255, 255, 255, 0.08);
-        padding: 16px 20px;
-        border-radius: 10px;
-        width: 90%;
-        border-left: 4px solid #4CAF50;
-    }
-
-    .name {
-        font-size: 26px;
-        font-weight: bold;
-        margin: 6px 0 12px 0;
-    }
-
-    .section-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 10px;
-        margin-bottom: 4px;
-        opacity: 0.9;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 6px 10px;
-        font-size: 18px;
-        opacity: 0.9;
-        max-width: 800px;
-        
-    }
-
-    .grid span {
-        display: block;
-        font-weight: 600;
+        padding-right: 6px;
     }
     .modal {
         display: none;
@@ -206,13 +215,74 @@ document.addEventListener("DOMContentLoaded", function () {
         font-size: 15px;
         font-weight: 600;
     }
+    /* 顶部标题整体布局 */
+    .page-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #333;
+    }
+
+    /* 主标题（中英双语） */
+    .main-title {
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+
+        /* 渐变文字效果 */
+        background: linear-gradient(90deg, #ffffff, #a4a5a4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    /* 主标题英文 */
+    .main-title .en {
+        display: block;
+        font-size: 18px;
+        font-weight: 500;
+        opacity: 0.8;
+        margin-top: 4px;
+        letter-spacing: 1px;
+        color: #ccc;
+        -webkit-text-fill-color: #ccc;
+    }
+
+    /* 副标题（中英双语） */
+    .sub-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-top: 10px;
+        color: #ddd;
+    }
+
+    .sub-title .en {
+        display: block;
+        font-size: 15px;
+        opacity: 0.7;
+        margin-top: 2px;
+    }
+
 </style>
 </head>
 <body>
-<button class="back-button" onclick="location.href='/'">返回 Back</button>
+    <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
+        返回 Back
+    </button>
 <br>
-<div class="title">王国 {{ kingdom }}</div>
-<div class="section-title">60天/180天 玩家数据 </div>
+<div class="page-header">
+    <div class="main-title">
+        王国 {{ kingdom }} 数据展示
+        <span class="en">Kingdom {{ kingdom }} Data Overview</span>
+    </div>
+
+    <div class="sub-title">
+        60天 / 180天 玩家数据统计
+        <span class="en">60-Day / 180-Day Player Statistics</span>
+    </div>
+</div>
 <br>
 
 <div class="player-list">
@@ -260,9 +330,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <span><div class="section-title">战力Power： </div>{{ p.power }}</span>
             <span><div class="section-title">击杀KP：</div> {{ p.kill }} / {{ p.kill_180 or "-" }}</span>
             <span><div class="section-title">阵亡Dead：</div> {{ p.dead }} / {{ p.dead_180 or "-" }}</span>
-        </div>
-
-        <div class="grid">
             <span><div class="section-title">采集Collect：</div>{{ p.collect }} / {{ p.collect_180 or "-" }}</span>
             <span><div class="section-title">帮助Help：</div>{{ p.help }} / {{ p.help_180 or "-" }}</span>
         </div>

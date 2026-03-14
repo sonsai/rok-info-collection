@@ -68,7 +68,9 @@
 
 <body>
 
-    <button class="back-button" onclick="location.href='/'">返回 Back</button>
+    <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
+        返回 Back
+    </button>
 
     <h2>贡献分数据 DKP Data</h2>
     <h2>Map: {{ data.map }}</h2>
@@ -112,7 +114,11 @@
 
             {% for kd in camp.kingdoms %}
             <tr>
-                <td>{{ kd['KD'] }}</td>
+                <td>
+                    <span onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
+                        {{ kd['KD'] }}
+                    </span>
+                </td>
                 <td>{{ kd['DKP'] }}</td>
                 <td>{{ kd['KILL'] }}</td>
                 <td>{{ kd['T4-DEAD'] }}</td>

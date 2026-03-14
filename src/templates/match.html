@@ -50,7 +50,9 @@
 </head>
 
 <body>
-<button class="back-button" onclick="location.href='/'">返回 Back</button>
+<button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
+    返回 Back
+</button>
 <h2>匹配数据 ROK Match Data — Map: {{ data.map }}</h2>
 
 <h3>TOTAL MATCH DATA</h3>
@@ -93,7 +95,11 @@
 
         {% for kd in camp.kingdoms %}
         <tr>
-            <td>{{ kd['KD'] }}</td>
+            <td>
+                <span onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
+                    {{ kd['KD'] }}
+                </span>
+            </td>
             <td>{{ kd['KVK-SCORE'] }}</td>
             <td>{{ kd['POWER'] }}</td>
             <td>{{ kd['DEAD'] }}</td>

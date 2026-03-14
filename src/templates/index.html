@@ -207,7 +207,11 @@
           {% for camp_name, kds in item.camps.items() %}
             <div class="camp-line">{{ camp_name }}:</div>
             {% for kd in kds %}
-              <div class="kd-item kd{{ kd }}">{{ kd }}</div>
+              <div class="kd-item kd{{ kd }}">
+                <span onclick="location.href='/kingdom-player?id={{ kd }}'">
+                    {{ kd }}
+                </span>
+              </div>
             {% endfor %}
           {% endfor %}
         </div>
