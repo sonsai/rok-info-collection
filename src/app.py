@@ -47,7 +47,7 @@ def task_execute_checker():
         except Exception as e:
             print(e)
 
-        time.sleep(3600)
+        time.sleep(300)
 
 def start_background_thread():
     t1 = threading.Thread(target=task_execute_checker, daemon=True)
