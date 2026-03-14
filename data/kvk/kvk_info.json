@@ -1,7 +1,8 @@
 {
     "C13112": {
         "kvk_map_id": "C13112",
-        "kvk_type": "vcr",
+        "kvk_type": "tides_of_war",
+        "vcr":true,
         "kvk_type_cn": "时移势易[TIDES OF WAR]",
         "end_apply":"2026-03-03",
         "start": "2026-03-13",
@@ -43,7 +44,8 @@
     },
     "C13005": {
         "kvk_map_id": "C13005",
-        "kvk_type": "vcr",
+        "kvk_type": "tides_of_war",
+        "vcr":true,
         "kvk_type_cn": "时移势易[TIDES OF WAR]",
         "end_apply":"2025-12-12",
         "start": "2025-12-24",
