@@ -4,11 +4,11 @@ import os
 import shutil
 import sys
 from src.clients.get_request import get_request
+from src.clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
 from src.utility import (
     get_kvk_info_json,
     show_kvk_match_data, 
     show_kvk_dkp,
-    get_listed_kingdoms_member_info_api,
     get_match_data_api
 )
 
