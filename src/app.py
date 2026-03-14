@@ -6,10 +6,10 @@ import time
 
 from werkzeug.exceptions import HTTPException
 from flask import Flask, abort, render_template, request
-from consts import CHECK_INTERVAL, HEALTH_URL
-from clients.get_request import get_request
-from clients.post_github_request_api import post_github_request_api
-from utility import (
+from src.consts import CHECK_INTERVAL, HEALTH_URL
+from src.clients.get_request import get_request
+from src.clients.post_github_request_api import post_github_request_api
+from src.utility import (
     fn,
     get_YMD_current_date,
     get_kvk_info_json,
