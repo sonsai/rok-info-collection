@@ -5,8 +5,14 @@ import shutil
 import sys
 from src.clients.get_request import get_request
 from src.clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
+from src.consts import GITHUB_RAW_URL, KVK_CONFIG_JSON, MATCH_NEXT
 from src.utility import (
-    get_kvk_info_json,
+    get_kingdoms_json_path,
+    get_kvk_dkp_json_path,
+    get_kvk_match_json_path,
+    get_match_json_path,
+    get_players_json_path,
+    get_repo_json_file,
     show_kvk_match_data, 
     show_kvk_dkp,
     get_match_data_api
@@ -73,7 +79,7 @@ elif mode == "save_kvk_data":
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
 
-    data:dict = get_kvk_info_json()
+    data:dict = get_repo_json_file(KVK_CONFIG_JSON)
     for k,v in data.items():
         start:str = v["start"]
         end:str = v["end"]
@@ -95,7 +101,7 @@ elif mode == "save_kvk_data":
             kingdoms_list.extend(l)
 
         if kingdoms_list:
-            url = f"https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/{folder_name}/match/{kingdoms_list[0]}.json"
+            url = GITHUB_RAW_URL + get_kvk_match_json_path(folder_name,kingdoms_list[0])
             response = get_request(url=url)
         else:
             print(f'无任何王国,跳过处理. {v["kvk_map_id"]}')
@@ -106,12 +112,12 @@ elif mode == "save_kvk_data":
             continue
         
         for k in kingdoms_list:
-            kvk_match_file_name = f"data/kvk/{folder_name}/match/{k}.json"
+            kvk_match_file_name = get_kvk_match_json_path(folder_name,k)
             if os.path.exists(kvk_match_file_name):
                 pass
             else:
                 idx = k // 100
-                match_file_name = f"data/match/{idx}/{k}.json"
+                match_file_name = get_kvk_match_json_path(folder_name,k)
                 shutil.copy(match_file_name, kvk_match_file_name)
 
             response_dict = get_listed_kingdoms_member_info_api(
@@ -130,21 +136,21 @@ elif mode == "save_kvk_data":
                 "to_date":end,
                 "data":data
             }
-            kingdoms_file_name = f"data/kvk/{folder_name}/dkp/{k}.json"
+            kingdoms_file_name = get_kvk_dkp_json_path(folder_name,k)
             with open(kingdoms_file_name, "w", encoding="utf-8") as f:
                 json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
 elif mode == "save_match_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
-    with open("data/match/next_run_datetime.json", "w", encoding="utf-8") as f:
+    with open(MATCH_NEXT, "w", encoding="utf-8") as f:
         _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
     for kingdom_id in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
         os.makedirs(f"data/match/{idx}",exist_ok=True)
-        match_file_name = f"data/match/{idx}/{kingdom_id}.json"
+        match_file_name = get_match_json_path(idx,kingdom_id)
         response_dict = get_match_data_api(str(kingdom_id))
         data = response_dict.get("data")
         detail_data = {
@@ -163,7 +169,7 @@ elif mode == "execute_player_list":
     os.makedirs("data/player", exist_ok=True)
     for kd in range(int(id_from), int(id_to)):
         idx = kd // 100
-        file_name = f"data/kingdoms/1d/{idx}/{kd}.json"
+        file_name = get_kingdoms_json_path("1",idx,kd)
         if not os.path.exists(file_name):
             continue
         with open(file_name, "r", encoding="utf-8") as f:
@@ -172,7 +178,7 @@ elif mode == "execute_player_list":
         for p in player_data["data"]:
             pid = p["id"]
             idx = int(pid) // 1_000_000
-            player_kd_list_file_name = f"data/player/player_list_{idx}.json"
+            player_kd_list_file_name = get_players_json_path(idx)
 
             if player_kd_list_file_name in working_file_list:
                 player_kd_list = working_file_list[player_kd_list_file_name]

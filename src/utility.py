@@ -5,6 +5,7 @@ from pathlib import Path
 
 from src.clients.get_match_data_api import get_match_data_api
 from src.clients.get_request import get_request
+from src.consts import GITHUB_RAW_URL
 
 def get_user_info(request):
     # 优先从代理头获取真实 IP
@@ -13,6 +14,21 @@ def get_user_info(request):
     else:
         ip = request.remote_addr
     print(f"Your IP is: {ip}")
+
+def get_kvk_match_json_path(folder_name,kingdom_id):
+    return f"data/kvk/{folder_name}/match/{kingdom_id}.json"
+
+def get_kvk_dkp_json_path(folder_name,kingdom_id):
+    return f"data/kvk/{folder_name}/dkp/{kingdom_id}.json"
+
+def get_match_json_path(index,kingdom_id):
+    return f"data/match/{index}/{kingdom_id}.json"
+
+def get_kingdoms_json_path(days,index,kingdom_id):
+    return f"data/kingdoms/{days}d/{index}/{kingdom_id}.json"
+
+def get_players_json_path(pidx):
+    return f"data/player/player_list_{pidx}.json"
 
 def fn(n):
     if abs(n) >= 1_000_000_000:
@@ -27,8 +43,8 @@ def fn(n):
 def get_YMD_current_date():
     return datetime.datetime.now().strftime("%Y-%m-%d")
 
-def get_kvk_info_json()->dict:
-    url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/kvk_info.json"
+def get_repo_json_file(path:str)->dict:
+    url = GITHUB_RAW_URL + path
     response = get_request(url=url)
     return response.json()
 

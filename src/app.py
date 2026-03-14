@@ -6,13 +6,15 @@ import time
 
 from werkzeug.exceptions import HTTPException
 from flask import Flask, abort, render_template, request
-from src.consts import CHECK_INTERVAL, HEALTH_URL
+from src.consts import CHECK_INTERVAL, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON, KVK_NEXT, MATCH_NEXT
 from src.clients.get_request import get_request
 from src.clients.post_github_request_api import post_github_request_api
 from src.utility import (
     fn,
     get_YMD_current_date,
-    get_kvk_info_json,
+    get_kingdoms_json_path,
+    get_players_json_path,
+    get_repo_json_file,
     show_kvk_match_data,
     show_kvk_dkp)
 
@@ -22,7 +24,7 @@ def task_execute_checker():
     while True:
         try:
             # 匹配数据获取
-            next_run_datetime_json_url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/match/next_run_datetime.json"
+            next_run_datetime_json_url = GITHUB_RAW_URL + MATCH_NEXT
             try:
               response = get_request(url=next_run_datetime_json_url)
               _datetime_dict = response.json()
@@ -34,7 +36,7 @@ def task_execute_checker():
               pass
 
             # KVK数据获取
-            next_run_datetime_json_url = "https://raw.githubusercontent.com/sonsai/rok-info-collection/refs/heads/main/data/kvk/next_run_datetime.json"
+            next_run_datetime_json_url = GITHUB_RAW_URL + KVK_NEXT
             try:
               response = get_request(url=next_run_datetime_json_url)
               _datetime_dict = response.json()
@@ -77,7 +79,7 @@ def health():
 @app.get("/")
 def root():
     try:
-        data = get_kvk_info_json()
+        data = get_repo_json_file(KVK_CONFIG_JSON)
         match_base_url = "/rok-match-data?kvk_map_id="
         dkp_base_url = "/rok-kvk-dkp-data?kvk_map_id="
         return render_template(
@@ -96,7 +98,7 @@ def root():
 def rok_match_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        detail_data = get_kvk_info_json()
+        detail_data = get_repo_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
             data = show_kvk_match_data(detail_data.get(kvk_map_id))
             return render_template(
@@ -116,7 +118,7 @@ def rok_match_data():
 def rok_kvk_dkp_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        detail_data = get_kvk_info_json()
+        detail_data = get_repo_json_file(KVK_CONFIG_JSON)
         print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
             data = show_kvk_dkp(detail_data.get(kvk_map_id))
@@ -145,14 +147,15 @@ def kingdom_player():
             abort(400)
         if not kingdom_id and player_id:
             pidx = int(player_id) // 1_000_000
-            player_kd_list_file_name = f"data/player/player_list_{pidx}.json"
+            player_kd_list_file_name = get_players_json_path(pidx)
             with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
                 player_list:dict = json.load(f)
                 kingdom_id = player_list[str(player_id)][-1]
         idx=int(kingdom_id) // 100
         result_data = {}
         for days in [60,180]:
-            with open(f"data/kingdoms/{days}d/{idx}/{kingdom_id}.json", "r", encoding="utf-8") as f:
+            file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
+            with open(file_path, "r", encoding="utf-8") as f:
                 data_temp:dict = json.load(f)
             if player_id is not None:
                 data_temp[f"data"] = [d for d in data_temp["data"] if d["id"]==player_id]
