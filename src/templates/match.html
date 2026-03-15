@@ -46,6 +46,16 @@
             font-size: 15px;
             font-weight: 600;
         }
+        .img {
+            vertical-align: middle;
+        }
+        .stat-icon {
+            width: 28px;
+            height: 28px;
+            margin-top: 4px;
+            margin-bottom: 2px;
+            opacity: 0.9;
+        }
     </style>
 </head>
 
@@ -85,11 +95,13 @@
 
     <table>
         <tr>
-            <th>王国 KD</th>
-            <th>匹配积分 KVK SCORE</th>
-            <th>战力 POWER</th>
-            <th>阵亡 DEAD</th>
-            <th>击杀 KILL</th>
+            <th>王国<br>KINGDOM</th>
+            <th>战斗评级<br>FIGHT RANK</th>
+            <th>活跃评级<br>ACTIVE RANK</th>
+            <th>匹配积分<br>KVK SCORE</th>
+            <th>战力<br>POWER</th>
+            <th>阵亡<br>DEAD</th>
+            <th>击杀<br>KILL</th>
             <th>更新时间 UPDATE</th>
         </tr>
 
@@ -100,6 +112,8 @@
                     {{ kd['KD'] }}
                 </span>
             </td>
+            <td><img src="/static/media/rank/level_{{ kd['FIGHTING-RANK'] }}.png" class="stat-icon"></td>
+            <td><img src="/static/media/rank/level_{{ kd['ACTIVATION-RANK'] }}.png" class="stat-icon"></td>
             <td>{{ kd['KVK-SCORE'] }}</td>
             <td>{{ kd['POWER'] }}</td>
             <td>{{ kd['DEAD'] }}</td>

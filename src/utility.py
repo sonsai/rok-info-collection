@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 from pathlib import Path
+import re
 
 from src.clients.get_match_data_api import get_match_data_api
 from src.clients.get_request import get_request
@@ -307,9 +308,12 @@ def show_kvk_match_data(
             kill = detail_data["data"]["kill"]
             power = detail_data["data"]["power"]
             kvk_score = detail_data["data"]["kvkKillScore"]
+            eva_result = evaluate_kingdom_by_kingdom_id(k)
             if show_kingdom:
                 kingdom_json = {
                     "KD":k,
+                    "FIGHTING-RANK":eva_result["grade_fighting"],
+                    "ACTIVATION-RANK":eva_result["grade_activation"],
                     "UPDATED-AT":detail_data["data"]["day"],
                     "KVK-SCORE":fn(kvk_score),
                     "POWER":fn(power),
@@ -334,6 +338,28 @@ def show_kvk_match_data(
         result["camps"].append(camp)
     result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-KVK-SCORE"][:-1] if len(x["sum"]["TOTAL-KVK-SCORE"]) > 1 else float(x["sum"]["TOTAL-KVK-SCORE"])), reverse=True)
     return result
+
+def evaluate_kingdom_by_kingdom_id(kingdom_id:int):
+    idx=int(kingdom_id) // 100
+    result_data = {}
+    for days in [60,180]:
+        file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
+        with open(file_path, "r", encoding="utf-8") as f:
+            data_temp:dict = json.load(f)
+        result_data[f"data_in_{days}"]= data_temp["data"]
+    data_list = []
+    for player in result_data["data_in_60"]:
+        player_180 = None
+        for p in result_data["data_in_180"]:  
+            if p["id"] == player["id"]:
+                player_180 = p
+                break
+        if player_180:
+            for k,v in player_180.items():
+                player[f"{k}_180"] = v
+        player = evaluate_player(player)
+        data_list.append(player)
+    return evaluate_kingdom(data_list)
 
 def show_kvk_dkp(kvk_info):
     start = kvk_info.get("start")
