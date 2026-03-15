@@ -79,7 +79,7 @@ def evaluate_kingdom(data_list:list[dict]):
         4:"a",
         5:"s"
     }
-    grade_fighting = points_2_grade_map[grade(fighting_points/fighters_count,thresholds)]
+    grade_fighting = points_2_grade_map[grade(fighting_points/fighters_count,thresholds)] if fighters_count > 0 else "d"
     grade_activation = points_2_grade_map[grade(activation_points/len(data_list),thresholds)]
     return {
         "grade_fighting":grade_fighting,
