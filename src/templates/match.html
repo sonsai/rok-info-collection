@@ -56,13 +56,23 @@
             margin-bottom: 2px;
             opacity: 0.9;
         }
+        .btn-row {
+            display: flex;
+            justify-content: space-between; /* 左右分布 */
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
+<div class="btn-row">
 <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
     返回 Back
 </button>
+<button class="back-button" onclick="location.href='/rok-kvk-dkp-data?kvk_map_id={{ data.map }}'">
+    贡献数据 DKP Data
+</button>
+</div>
 <h2>匹配数据 ROK Match Data — Map: {{ data.map }}</h2>
 
 <h3>TOTAL MATCH DATA</h3>

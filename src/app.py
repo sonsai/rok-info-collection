@@ -121,7 +121,6 @@ def rok_kvk_dkp_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
         detail_data = get_repo_json_file(KVK_CONFIG_JSON)
-        print(f"detail_data:{str(detail_data)}")
         if kvk_map_id in detail_data:
             data = show_kvk_dkp(detail_data.get(kvk_map_id))
             return render_template("dkp.html", data=data)

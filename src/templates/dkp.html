@@ -63,15 +63,25 @@
             font-size: 15px;
             font-weight: 600;
         }
+        .btn-row {
+            display: flex;
+            justify-content: space-between; /* 左右分布 */
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
+<div class="btn-row">
 
     <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
         返回 Back
     </button>
 
+    <button class="back-button" onclick="location.href='/rok-match-data?kvk_map_id={{ data.map }}'">
+        匹配数据 Match Data
+    </button>
+</div>
     <h2>贡献分数据 DKP Data</h2>
     <h2>Map: {{ data.map }}</h2>
     <h2>Start: {{ data.start }} — End: {{ data.end }}</h2>
