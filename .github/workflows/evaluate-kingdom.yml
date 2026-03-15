@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data/kingdom/
+          git add data/kingdoms/
 
           # 如果没有变化，避免报错
           git diff --cached --quiet || git commit -m "Update evaluated kingdom data"
