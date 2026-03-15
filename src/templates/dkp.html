@@ -124,10 +124,8 @@
 
             {% for kd in camp.kingdoms %}
             <tr>
-                <td>
-                    <span onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
-                        {{ kd['KD'] }}
-                    </span>
+                <td onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
+                    {{ kd['KD'] }}
                 </td>
                 <td>{{ kd['DKP'] }}</td>
                 <td>{{ kd['KILL'] }}</td>

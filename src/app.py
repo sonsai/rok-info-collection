@@ -14,9 +14,11 @@ from src.utility import (
     evaluate_player,
     fn,
     get_YMD_current_date,
+    get_evaluated_kingdoms_json_path,
     get_kingdoms_json_path,
     get_players_json_path,
     get_repo_json_file,
+    read_json_file,
     show_kvk_match_data,
     show_kvk_dkp)
 
@@ -152,36 +154,21 @@ def kingdom_player():
             with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
                 player_list:dict = json.load(f)
                 kingdom_id = player_list[str(player_id)][-1]
-        idx=int(kingdom_id) // 100
-        result_data = {}
-        for days in [60,180]:
-            file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
-            with open(file_path, "r", encoding="utf-8") as f:
-                data_temp:dict = json.load(f)
-            if player_id is not None:
-                data_temp[f"data"] = [d for d in data_temp["data"] if d["id"]==player_id]
-            result_data[f"data_in_{days}"]= data_temp["data"]
-            result_data["kingdom"]= data_temp["kingdom"]
-        data_list = []
-        for player in result_data["data_in_60"]:
-            player_180 = None
-            for p in result_data["data_in_180"]:  
-                if p["id"] == player["id"]:
-                    player_180 = p
-                    break
-            if player_180:
-                for k,v in player_180.items():
-                    player[f"{k}_180"] = v
-            
-            player = evaluate_player(player)
+        eva_result = read_json_file(get_evaluated_kingdoms_json_path(int(kingdom_id)//100,kingdom_id))
+        data_list =[]
+        for player in eva_result.get("data"):
             for k,v in player.items():
                 player[k] = fn(v) if isinstance(v, int) and not re.match(r".*t[1-5]$", k) else v
-            data_list.append(player)
-        kingdom_eva_result = evaluate_kingdom(data_list)
+            if player_id:
+                if player.get("id") == player_id:
+                    data_list = [player]
+                    break
+            else:
+                data_list.append(player)
         return render_template(
             "show_kingdom_player.html",
-            kingdom=result_data["kingdom"],
-            kingdom_grade=kingdom_eva_result,
+            kingdom=eva_result["kingdom"],
+            kingdom_grade=eva_result.get("evaluated_result"),
             players=data_list
         )
     except HTTPException:

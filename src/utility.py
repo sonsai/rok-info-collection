@@ -316,13 +316,11 @@ def show_kvk_match_data(
                     "date":datetime.datetime.now().strftime("%Y-%m-%d"),
                     "data":data
                 }
-                # with open(file_name, "w", encoding="utf-8") as f:
-                #     json.dump(detail_data, f, ensure_ascii=False, indent=2)
             dead = detail_data["data"]["dead"]
             kill = detail_data["data"]["kill"]
             power = detail_data["data"]["power"]
             kvk_score = detail_data["data"]["kvkKillScore"]
-            eva_result = evaluate_kingdom_by_kingdom_id(k)
+            eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
             if show_kingdom:
                 kingdom_json = {
                     "KD":k,

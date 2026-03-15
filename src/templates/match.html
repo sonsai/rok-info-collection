@@ -117,10 +117,8 @@
 
         {% for kd in camp.kingdoms %}
         <tr>
-            <td>
-                <span onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
+            <td onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
                     {{ kd['KD'] }}
-                </span>
             </td>
             <td><img src="/static/media/rank/level_{{ kd['FIGHTING-RANK'] }}.png" class="stat-icon"></td>
             <td><img src="/static/media/rank/level_{{ kd['ACTIVATION-RANK'] }}.png" class="stat-icon"></td>
