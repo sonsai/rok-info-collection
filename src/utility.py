@@ -116,9 +116,9 @@ def fn(n):
     if abs(n) >= 1_000_000_000:
         return f"{n / 1_000_000_000:.2f}B"
     elif abs(n) >= 1_000_000:
-        return f"{n / 1_000_000:.2f}M"
+        return f"{n / 1_000_000:.1f}M"
     elif abs(n) >= 1_000:
-        return f"{n / 1_000:.2f}K"
+        return f"{n / 1_000:.1f}K"
     else:
         return str(n)
 
