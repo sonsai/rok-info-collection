@@ -7,15 +7,20 @@ from src.clients.get_request import get_request
 from src.clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
 from src.consts import GITHUB_RAW_URL, KVK_CONFIG_JSON, MATCH_NEXT
 from src.utility import (
+    evaluate_kingdom,
+    evaluate_player,
+    get_evaluated_kingdoms_json_path,
     get_kingdoms_json_path,
     get_kvk_dkp_json_path,
     get_kvk_match_json_path,
     get_match_json_path,
     get_players_json_path,
     get_repo_json_file,
+    read_json_file,
     show_kvk_match_data, 
     show_kvk_dkp,
-    get_match_data_api
+    get_match_data_api,
+    write_data_to_json_file
 )
 
 mode = os.environ["MODE"]
@@ -209,3 +214,42 @@ elif mode == "execute_player_list":
     for n, d in working_file_list.items():
         with open(n, "w", encoding="utf-8") as f:
             json.dump(d, f, ensure_ascii=False, indent=2)
+
+elif mode == "evaluate_kingdom":
+    id_from = sys.argv[1]
+    id_to = sys.argv[2]
+    
+    working_file_list = {}
+    os.makedirs("data/kingdoms/evaluated", exist_ok=True)
+    for kingdom_id in range(int(id_from), int(id_to)):
+        idx=int(kingdom_id) // 100
+        result_data = {}
+        for days in [60,180]:
+            file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
+            data_temp = read_json_file(file_path)
+            if not data_temp:
+                break
+            result_data[f"data_in_{days}"]= data_temp["data"]
+        if not result_data:
+            continue
+        data_list = []
+        for player in result_data["data_in_60"]:
+            player_180 = None
+            for p in result_data["data_in_180"]:  
+                if p["id"] == player["id"]:
+                    player_180 = p
+                    break
+            if player_180:
+                for k,v in player_180.items():
+                    player[f"{k}_180"] = v
+            player = evaluate_player(player)
+            data_list.append(player)
+        eva_result = evaluate_kingdom(data_list)
+        output_data = {
+            "kingdom":kingdom_id,
+            "evaluated_result":eva_result,
+            "data":data_list
+        }
+        out_put_file = get_evaluated_kingdoms_json_path(index=idx,kingdom_id=kingdom_id)
+        os.makedirs("data/kingdoms/evaluated/{idx}", exist_ok=True)
+        write_data_to_json_file(out_put_file,output_data)

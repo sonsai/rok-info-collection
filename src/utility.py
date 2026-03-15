@@ -28,8 +28,22 @@ def get_match_json_path(index,kingdom_id):
 def get_kingdoms_json_path(days,index,kingdom_id):
     return f"data/kingdoms/{days}d/{index}/{kingdom_id}.json"
 
+def get_evaluated_kingdoms_json_path(index,kingdom_id):
+    return f"data/kingdoms/evaluated/{index}/{kingdom_id}.json"
+
 def get_players_json_path(pidx):
     return f"data/player/player_list_{pidx}.json"
+
+def read_json_file(file_path:str)->dict:
+    if not os.path.exists(file_path):
+        return None
+    with open(file_path, "r", encoding="utf-8") as f:
+        json_data:dict = json.load(f)
+    return json_data
+
+def write_data_to_json_file(file_path:str,data:dict):
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 def grade(value, thresholds):
     for limit, rank in thresholds:

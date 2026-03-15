@@ -1,0 +1,43 @@
+name: Evaluate Kingdom
+
+on:
+  workflow_run:
+    workflows: ["Save Kingdoms Players Data"]   # 必须与 A.yml 的 name 完全一致
+    types:
+      - completed
+  repository_dispatch:
+    types: [evaluate_kingdom]
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Python with env
+        run: python -m src.main 1001 5000
+        env:
+          MODE: evaluate_kingdom
+          
+      - name: Commit result file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/kingdom/
+
+          # 如果没有变化，避免报错
+          git diff --cached --quiet || git commit -m "Update evaluated kingdom data"
+
+          git push
