@@ -30,6 +30,48 @@ def get_kingdoms_json_path(days,index,kingdom_id):
 def get_players_json_path(pidx):
     return f"data/player/player_list_{pidx}.json"
 
+def grade(value, thresholds):
+    for limit, rank in thresholds:
+        if float(value) >= limit:
+            return rank
+    return 1
+
+def evaluate_kingdom(data_list:list[dict]):
+    fighting_points = 0
+    activation_points = 0
+    fighters_count = 0
+    for data in data_list:
+        if int(data.get("grade_point_power")) > 1:
+            fighters_count += 1
+            fighting_points += max(
+                int(data.get("grade_point_kill",0)),
+                int(data.get("grade_point_dead",0))
+            )
+        activation_points += max(
+                int(data.get("grade_point_collect",0)),
+                int(data.get("grade_point_help",0))
+            )
+    thresholds =[
+        (4, 5),
+        (3, 4),
+        (2, 3),
+        (1, 2),
+    ]
+    points_2_grade_map = {
+        1:"d",
+        2:"c",
+        3:"b",
+        4:"a",
+        5:"s"
+    }
+    grade_fighting = points_2_grade_map[grade(fighting_points/fighters_count,thresholds)]
+    grade_activation = points_2_grade_map[grade(activation_points/len(data_list),thresholds)]
+    return {
+        "grade_fighting":grade_fighting,
+        "grade_activation":grade_activation
+    }
+
+
 def evaluate_player(data):
     """
     输入示例:
@@ -42,71 +84,121 @@ def evaluate_player(data):
     }
     """
 
-    def grade(value, thresholds):
-        for limit, rank in thresholds:
-            if value >= limit:
-                return rank
-        return "d"
-
     # Kill thresholds
-    kill_grade = grade(
-        data.get("kill", 0),
-        [
-            (1_000_000_000, "s"),  # 10亿
-            (600_000_000, "a"),    # 6亿
-            (400_000_000, "b"),    # 4亿
-            (100_000_000, "c"),    # 1亿
-        ]
+    kill_grade = max(
+        grade(
+            data.get("kill", 0),
+            [
+                (1_000_000_000, 5),  # 10亿
+                (600_000_000, 4),    # 6亿
+                (400_000_000, 3),    # 4亿
+                (100_000_000, 2),    # 1亿
+            ]
+        ),
+        grade(
+            data.get("kill_180", 0) // 2,
+            [
+                (1_000_000_000, 5),  # 10亿
+                (600_000_000, 4),    # 6亿
+                (400_000_000, 3),    # 4亿
+                (100_000_000, 2),    # 1亿
+            ]
+        )
     )
 
     # Dead thresholds
-    dead_grade = grade(
-        data.get("dead", 0),
-        [
-            (3_000_000, "s"),   # 300万
-            (2_000_000, "a"),   # 200万
-            (1_000_000, "b"),   # 100万
-            (500_000, "c"),     # 50万
-        ]
+    dead_grade = max(
+        grade(
+            data.get("dead", 0),
+            [
+                (3_000_000, 5),   # 300万
+                (2_000_000, 4),   # 200万
+                (1_000_000, 3),   # 100万
+                (500_000, 2),     # 50万
+            ]
+        ),
+        grade(
+            data.get("dead_180", 0) // 2,
+            [
+                (3_000_000, 5),   # 300万
+                (2_000_000, 4),   # 200万
+                (1_000_000, 3),   # 100万
+                (500_000, 2),     # 50万
+            ]
+        )
     )
 
     # Power thresholds
     power_grade = grade(
         data.get("power", 0),
         [
-            (150_000_000, "s"),   # 1.5亿
-            (100_000_000, "a"),   # 1亿
-            (90_000_000, "b"),    # 9000万
-            (70_000_000, "c"),    # 7000万
+            (150_000_000, 5),   # 1.5亿
+            (100_000_000, 4),   # 1亿
+            (80_000_000, 3),    # 8000万
+            (60_000_000, 2),    # 6000万
         ]
     )
 
     # Collect & Help thresholds
-    collect_grade = grade(
-        data.get("collect", 0),
-        [
-            (1_500_000_000, "s"),   # 15亿
-            (1_000_000_000, "a"),   # 10亿
-            (800_000_000, "b"),    # 8亿
-            (600_000_000, "c"),    # 6亿
-        ]
+    collect_grade =  max(
+        grade(
+            data.get("collect", 0),
+            [
+                (1_500_000_000, 5),   # 15亿
+                (1_000_000_000, 4),   # 10亿
+                (800_000_000, 3),    # 8亿
+                (600_000_000, 2),    # 6亿
+            ]
+        ),
+        grade(
+            data.get("collect_180", 0) // 2,
+            [
+                (1_500_000_000, 5),   # 15亿
+                (1_000_000_000, 4),   # 10亿
+                (800_000_000, 3),    # 8亿
+                (600_000_000, 2),    # 6亿
+            ]
+        )
     )
-    help_grade = grade(
-        data.get("help", 0),
-        [
-            (9_000, "s"),   # 9000
-            (6_000, "a"),   # 6000
-            (5_000, "b"),    # 5000
-            (3_600, "c"),    # 3600
-        ]
+    help_grade = max(
+        grade(
+            data.get("help", 0),
+            [
+                (9_000, 5),   # 9000
+                (6_000, 4),   # 6000
+                (5_000, 3),    # 5000
+                (3_600, 2),    # 3600
+            ]
+        ), grade(
+            data.get("help_180", 0) // 2,
+            [
+                (9_000, 5),   # 9000
+                (6_000, 4),   # 6000
+                (5_000, 3),    # 5000
+                (3_600, 2),    # 3600
+            ]
+        )
     )
 
+    points_2_grade_map = {
+        1:"d",
+        2:"c",
+        3:"b",
+        4:"a",
+        5:"s"
+    }
+
     # 将评分结果写回输入 JSON
-    data["grade_kill"] = kill_grade
-    data["grade_dead"] = dead_grade
-    data["grade_power"] = power_grade
-    data["grade_collect"] = collect_grade
-    data["grade_help"] = help_grade
+    data["grade_kill"] = points_2_grade_map[kill_grade]
+    data["grade_dead"] = points_2_grade_map[dead_grade]
+    data["grade_power"] = points_2_grade_map[power_grade]
+    data["grade_collect"] = points_2_grade_map[collect_grade]
+    data["grade_help"] = points_2_grade_map[help_grade]
+    data["grade_point_kill"] = kill_grade
+    data["grade_point_dead"] = dead_grade
+    data["grade_point_power"] = power_grade
+    data["grade_point_collect"] = collect_grade
+    data["grade_point_help"] = help_grade
 
     return data
 

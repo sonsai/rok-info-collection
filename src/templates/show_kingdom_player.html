@@ -257,6 +257,11 @@ document.addEventListener("DOMContentLoaded", function () {
         margin-top: 10px;
         color: #ddd;
     }
+    .sub-title .stat-icon-big {
+        width: 28px;
+        height: 28px;
+        opacity: 0.9;
+    }
 
     .sub-title .en {
         display: block;
@@ -264,9 +269,12 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 0.7;
         margin-top: 2px;
     }
+    .sub-title img {
+        vertical-align: middle;
+    }
     .stat-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         margin-top: 4px;
         margin-bottom: 2px;
         opacity: 0.9;
@@ -286,8 +294,8 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <div class="sub-title">
-        60天 / 180天 玩家数据统计
-        <span class="en">60-Day / 180-Day Player Statistics</span>
+        战斗评级：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"> 活跃度评级：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big">
+        <span class="en">60天 / 180天 玩家数据统计 60-Day / 180-Day Player Statistics</span>
     </div>
 </div>
 <br>
