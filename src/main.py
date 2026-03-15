@@ -250,5 +250,5 @@ elif mode == "evaluate_kingdom":
             "data":data_list
         }
         out_put_file = get_evaluated_kingdoms_json_path(index=idx,kingdom_id=kingdom_id)
-        os.makedirs("data/kingdoms/evaluated/{idx}/", exist_ok=True)
+        os.makedirs(f"data/kingdoms/evaluated/{idx}/", exist_ok=True)
         write_data_to_json_file(out_put_file,output_data)
