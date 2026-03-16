@@ -8,7 +8,7 @@
         body { 
             font-family: Arial; 
             background-color: #000;
-            color: #fff;
+            color: #e2e2e2;
             padding: 20px;
         }
 
@@ -53,13 +53,41 @@
             margin-bottom: 2px;
             opacity: 0.9;
         }
-        img {
-            vertical-align: middle;
-        }
         .btn-row {
             display: flex;
             justify-content: space-between; /* 左右分布 */
             margin-bottom: 20px;
+        }
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        }
+
+        .tooltip .tip {
+            visibility: hidden;
+            position: fixed;
+            pointer-events: none; 
+            background: #292929;
+            color: #c2c2c2;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;      
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .15s ease;
+            text-align: left;
+        }
+
+        .tooltip:hover .tip {
+            visibility: visible;
+            opacity: 1;
+        }
+        img {
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -76,11 +104,20 @@
 <h2>匹配数据 ROK Match Data — Map: {{ data.map }}</h2>
 
 <h3>TOTAL MATCH DATA</h3>
-
 <table class="sum-table">
     <tr>
         <th>阵营 CAMP</th>
-        <th>各击杀评级人数 NUMBER OF KP GRADE</th>
+        <th>各击杀评级人数 NUMBER OF KP GRADE
+            <div class="tooltip"> ⓘ
+                <div class="tip">
+                    <img src="/static/media/rank/level_s.png" class="stat-icon">--> 每赛季10亿击杀以上 above 1B kill points per kvk<br>
+                    <img src="/static/media/rank/level_a.png" class="stat-icon">--> 每赛季6亿击杀以上 above 600M kill points per kvk<br>
+                    <img src="/static/media/rank/level_b.png" class="stat-icon">--> 每赛季4亿击杀以上 above 400M kill points per kvk<br>
+                    <img src="/static/media/rank/level_c.png" class="stat-icon">--> 每赛季1亿击杀以上 above 100M kill points per kvk<br>
+                    <img src="/static/media/rank/level_d.png" class="stat-icon">--> 每赛季1亿击杀以下 below 100M kill points per kvk
+                </div>
+            </div>
+        </th>
         <th>总匹配积分 TOTAL KVK SCORE</th>
         <th>总战力 TOTAL POWER</th>
         <th>总阵亡 TOTAL DEAD</th>
@@ -92,7 +129,7 @@
         <tr>
             <td>{{ camp.name }}</td>
             <td>
-                <img src="/static/media/rank/level_s.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['s']}}
+                <img src="/static/media/rank/level_s.png" class="stat-icon"></div>={{s['TOTAL-FIGHTER-BUKETS']['s']}}
                 <img src="/static/media/rank/level_a.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['a']}}
                 <img src="/static/media/rank/level_b.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['b']}}
                 <img src="/static/media/rank/level_c.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['c']}}
