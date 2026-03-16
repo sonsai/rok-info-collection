@@ -2,7 +2,14 @@
   "kingdom": 3777,
   "evaluated_result": {
     "grade_fighting": "b",
-    "grade_activation": "b"
+    "grade_activation": "b",
+    "fighter_bukets": {
+      "s": 0,
+      "a": 4,
+      "b": 7,
+      "c": 70,
+      "d": 528
+    }
   },
   "data": [
     {
