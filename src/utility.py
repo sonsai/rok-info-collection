@@ -55,7 +55,15 @@ def evaluate_kingdom(data_list:list[dict]):
     fighting_points = 0
     activation_points = 0
     fighters_count = 0
+    fighter_bukets={
+        "s":0,
+        "a":0,
+        "b":0,
+        "c":0,
+        "d":0,
+    }
     for data in data_list:
+        fighter_bukets[data["grade_kill"]] += 1
         if int(data.get("grade_point_power")) > 1:
             fighters_count += 1
             fighting_points += max(
@@ -83,7 +91,8 @@ def evaluate_kingdom(data_list:list[dict]):
     grade_activation = points_2_grade_map[grade(activation_points/len(data_list),thresholds)]
     return {
         "grade_fighting":grade_fighting,
-        "grade_activation":grade_activation
+        "grade_activation":grade_activation,
+        "fighter_bukets":fighter_bukets
     }
 
 
