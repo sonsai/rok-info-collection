@@ -46,15 +46,15 @@
             font-size: 15px;
             font-weight: 600;
         }
-        .img {
-            vertical-align: middle;
-        }
         .stat-icon {
             width: 28px;
             height: 28px;
             margin-top: 4px;
             margin-bottom: 2px;
             opacity: 0.9;
+        }
+        img {
+            vertical-align: middle;
         }
         .btn-row {
             display: flex;
@@ -80,6 +80,7 @@
 <table class="sum-table">
     <tr>
         <th>阵营 CAMP</th>
+        <th>各击杀评级人数 NUMBER OF KP GRADE</th>
         <th>总匹配积分 TOTAL KVK SCORE</th>
         <th>总战力 TOTAL POWER</th>
         <th>总阵亡 TOTAL DEAD</th>
@@ -90,6 +91,13 @@
         {% set s = camp.sum %}
         <tr>
             <td>{{ camp.name }}</td>
+            <td>
+                <img src="/static/media/rank/level_s.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['s']}}
+                <img src="/static/media/rank/level_a.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['a']}}
+                <img src="/static/media/rank/level_b.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['b']}}
+                <img src="/static/media/rank/level_c.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['c']}}
+                <img src="/static/media/rank/level_d.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['d']}}
+            </td>
             <td>{{ s['TOTAL-KVK-SCORE'] }}</td>
             <td>{{ s['TOTAL-POWER'] }}</td>
             <td>{{ s['TOTAL-DEAD'] }}</td>
@@ -106,8 +114,9 @@
     <table>
         <tr>
             <th>王国<br>KINGDOM</th>
-            <th>战斗评级<br>FIGHT RANK</th>
-            <th>活跃评级<br>ACTIVE RANK</th>
+            <th>各击杀评级人数 NUMBER OF KP GRADE</th>
+            <th>战斗综合评级(平均)<br>FIGHT RANK</th>
+            <th>活跃综合评级(平均)<br>ACTIVE RANK</th>
             <th>匹配积分<br>KVK SCORE</th>
             <th>战力<br>POWER</th>
             <th>阵亡<br>DEAD</th>
@@ -120,7 +129,16 @@
             <td onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
                     {{ kd['KD'] }}
             </td>
-            <td><img src="/static/media/rank/level_{{ kd['FIGHTING-RANK'] }}.png" class="stat-icon"></td>
+            <td>
+                <img src="/static/media/rank/level_s.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['s']}}
+                <img src="/static/media/rank/level_a.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['a']}}
+                <img src="/static/media/rank/level_b.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['b']}}
+                <img src="/static/media/rank/level_c.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['c']}}
+                <img src="/static/media/rank/level_d.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['d']}}
+            </td>
+            <td>
+                <img src="/static/media/rank/level_{{ kd['FIGHTING-RANK'] }}.png" class="stat-icon"><br>
+            </td>
             <td><img src="/static/media/rank/level_{{ kd['ACTIVATION-RANK'] }}.png" class="stat-icon"></td>
             <td>{{ kd['KVK-SCORE'] }}</td>
             <td>{{ kd['POWER'] }}</td>

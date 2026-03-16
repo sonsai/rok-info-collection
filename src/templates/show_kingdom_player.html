@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         border-radius: 8px;
         width: 95%; /* 原本 90% → 自动填满 */
         border-left: 4px solid #4CAF50;
-        max-width: 800px;
+        max-width: 900px;
         display: flex;
         flex-direction: column;
         gap: 8px; /* 控制内部间距 */
@@ -295,7 +295,9 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <div class="sub-title">
-        战斗评级：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"> 活跃度评级：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big">
+        活跃度综合(平均AVERAGE)：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big"><br>
+        战斗综合(平均AVERAGE)：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"><br>
+        各单赛季击杀等级人数：<img src="/static/media/rank/level_s.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['s']}} <img src="/static/media/rank/level_a.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['a']}} <img src="/static/media/rank/level_b.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['b']}} <img src="/static/media/rank/level_c.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['c']}} <img src="/static/media/rank/level_d.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['d']}} 
         <span class="en">60天 / 180天 玩家数据统计 60-Day / 180-Day Player Statistics</span>
     </div>
 </div>

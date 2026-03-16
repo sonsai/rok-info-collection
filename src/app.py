@@ -168,7 +168,7 @@ def kingdom_player():
         return render_template(
             "show_kingdom_player.html",
             kingdom=eva_result["kingdom"],
-            kingdom_grade=eva_result.get("evaluated_result"),
+            kingdom_grade=eva_result["evaluated_result"],
             players=data_list
         )
     except HTTPException:

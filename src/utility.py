@@ -290,6 +290,15 @@ def total_kingdom(data_list,camp,kingdoms):
     result["sum"] = sum
     return result
 
+
+def sum_dicts(dict_a:dict, dict_b:dict) -> dict:
+    for k,v in dict_a.items():
+        if k in dict_b:
+            dict_a[k]+=dict_b[k]
+        else:
+            continue
+    return dict_a
+
 def show_kvk_match_data(
         kvk_info,
         show_kingdom:bool=True, 
@@ -312,6 +321,13 @@ def show_kvk_match_data(
         total_kill = 0
         total_power = 0
         total_score = 0
+        total_fighter_bukets={
+            "s":0,
+            "a":0,
+            "b":0,
+            "c":0,
+            "d":0,
+        }
         for k in kingdoms:
             file_name = f"data/kvk/{folder_name}/match/{k}.json"
             if Path(file_name).exists():
@@ -334,6 +350,7 @@ def show_kvk_match_data(
                 kingdom_json = {
                     "KD":k,
                     "FIGHTING-RANK":eva_result["grade_fighting"],
+                    "FIHGHTER-BUKETS":eva_result["fighter_bukets"],
                     "ACTIVATION-RANK":eva_result["grade_activation"],
                     "UPDATED-AT":detail_data["data"]["day"],
                     "KVK-SCORE":fn(kvk_score),
@@ -346,9 +363,11 @@ def show_kvk_match_data(
             total_kill += kill
             total_power += power
             total_score += kvk_score
+            total_fighter_bukets = sum_dicts(total_fighter_bukets, eva_result["fighter_bukets"])
         camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]) if len(x["KVK-SCORE"]) > 1 else float(x["KVK-SCORE"]), reverse=True)
         if show_sum:
             sum_json = {
+                "TOTAL-FIGHTER-BUKETS":total_fighter_bukets,
                 "TOTAL-KVK-SCORE":fn(total_score),
                 "TOTAL-POWER":fn(total_power),
                 "TOTAL-DEAD":fn(total_dead),
