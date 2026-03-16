@@ -63,7 +63,8 @@ def evaluate_kingdom(data_list:list[dict]):
         "d":0,
     }
     for data in data_list:
-        fighter_bukets[data["grade_kill"]] += 1
+        if data["kill"] > 0:
+            fighter_bukets[data["grade_kill"]] += 1
         if int(data.get("grade_point_power")) > 1:
             fighters_count += 1
             fighting_points += max(
