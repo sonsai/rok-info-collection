@@ -259,7 +259,7 @@ elif mode == "evaluate_kingdom":
     for kingdom_id in range(int(id_from), int(id_to)):
         idx=int(kingdom_id) // 100
         result_data = {}
-        for days in [60,180]:
+        for days in [1,60,180]:
             file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
             data_temp = read_json_file(file_path)
             if not data_temp:
@@ -268,8 +268,16 @@ elif mode == "evaluate_kingdom":
         if not result_data:
             continue
         data_list = []
-        for player in result_data["data_in_60"]:
+        for player in result_data["data_in_1"]:
+            player_60 = None
             player_180 = None
+            for p in result_data["data_in_60"]:  
+                if p["id"] == player["id"]:
+                    player_60 = p
+                    break
+            if player_60:
+                for k,v in player_60.items():
+                    player[f"{k}_60"] = v
             for p in result_data["data_in_180"]:  
                 if p["id"] == player["id"]:
                     player_180 = p

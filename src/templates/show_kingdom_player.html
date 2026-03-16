@@ -309,33 +309,33 @@ document.addEventListener("DOMContentLoaded", function () {
         "id": "{{ p.id }}",
         "name": "{{ p.name }}",
         "power": "{{ p.power }}",
-        "kill": "{{ p.kill }}",
+        "kill": "{{ p.kill_60 }}",
         "kill_180": "{{ p.kill_180 }}",
-        "dead": "{{ p.dead }}",
+        "dead": "{{ p.dead_60 }}",
         "dead_180": "{{ p.dead_180 }}",
-        "t1": "{{ p.t1 }}",
+        "t1": "{{ p.t1_60 }}",
         "t1_180": "{{ p.t1_180 }}",
-        "t2": "{{ p.t2 }}",
+        "t2": "{{ p.t2_60 }}",
         "t2_180": "{{ p.t2_180 }}",
-        "t3": "{{ p.t3 }}",
+        "t3": "{{ p.t3_60 }}",
         "t3_180": "{{ p.t3_180 }}",
-        "t4": "{{ p.t4 }}",
+        "t4": "{{ p.t4_60 }}",
         "t4_180": "{{ p.t4_180 }}",
-        "t5": "{{ p.t5 }}",
+        "t5": "{{ p.t5_60 }}",
         "t5_180": "{{ p.t5_180 }}",
-        "dead_t1": "{{ p.dead_t1 }}",
+        "dead_t1": "{{ p.dead_t1_60 }}",
         "dead_t1_180": "{{ p.dead_t1_180 }}",
-        "dead_t2": "{{ p.dead_t2 }}",
+        "dead_t2": "{{ p.dead_t2_60 }}",
         "dead_t2_180": "{{ p.dead_t2_180 }}",
-        "dead_t3": "{{ p.dead_t3 }}",
+        "dead_t3": "{{ p.dead_t3_60 }}",
         "dead_t3_180": "{{ p.dead_t3_180 }}",
-        "dead_t4": "{{ p.dead_t4 }}",
+        "dead_t4": "{{ p.dead_t4_60 }}",
         "dead_t4_180": "{{ p.dead_t4_180 }}",
-        "dead_t5": "{{ p.dead_t5 }}",
+        "dead_t5": "{{ p.dead_t5_60 }}",
         "dead_t5_180": "{{ p.dead_t5_180 }}",
-        "collect": "{{ p.collect }}",
+        "collect": "{{ p.collect_60 }}",
         "collect_180": "{{ p.collect_180 }}",
-        "help": "{{ p.help }}",
+        "help": "{{ p.help_60 }}",
         "help_180": "{{ p.help_180 }}"
      }'>
 
@@ -346,10 +346,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div class="grid">
             <span><div class="section-title">战力Power： </div><div>{{ p.power }}</div><img src="/static/media/rank/level_{{ p.grade_power }}.png" class="stat-icon"></span>
-            <span><div class="section-title">击杀KP：</div> <div>{{ p.kill }} / {{ p.kill_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_kill }}.png" class="stat-icon"></span>
-            <span><div class="section-title">阵亡Dead：</div> <div>{{ p.dead }} / {{ p.dead_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_dead }}.png" class="stat-icon"></span>
-            <span><div class="section-title">采集Collect：</div><div>{{ p.collect }} / {{ p.collect_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_collect }}.png" class="stat-icon"></span>
-            <span><div class="section-title">帮助Help：</div><div>{{ p.help }} / {{ p.help_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_help }}.png" class="stat-icon"></span>
+            <span><div class="section-title">击杀KP：</div> <div>{{ p.kill_60 or "-" }} / {{ p.kill_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_kill }}.png" class="stat-icon"></span>
+            <span><div class="section-title">阵亡Dead：</div> <div>{{ p.dead_60 or "-" }} / {{ p.dead_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_dead }}.png" class="stat-icon"></span>
+            <span><div class="section-title">采集Collect：</div><div>{{ p.collect_60 or "-" }} / {{ p.collect_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_collect }}.png" class="stat-icon"></span>
+            <span><div class="section-title">帮助Help：</div><div>{{ p.help_60 or "-" }} / {{ p.help_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_help }}.png" class="stat-icon"></span>
         </div>
 
     </div>

@@ -63,7 +63,7 @@ def evaluate_kingdom(data_list:list[dict]):
         "d":0,
     }
     for data in data_list:
-        if data["kill"] > 0:
+        if data.get("kill_60",0) > 0:
             fighter_bukets[data["grade_kill"]] += 1
         if int(data.get("grade_point_power")) > 1:
             fighters_count += 1
@@ -112,7 +112,7 @@ def evaluate_player(data):
     # Kill thresholds
     kill_grade = max(
         grade(
-            data.get("kill", 0),
+            data.get("kill_60", 0),
             [
                 (1_000_000_000, 5),  # 10亿
                 (600_000_000, 4),    # 6亿
@@ -134,7 +134,7 @@ def evaluate_player(data):
     # Dead thresholds
     dead_grade = max(
         grade(
-            data.get("dead", 0),
+            data.get("dead_60", 0),
             [
                 (3_000_000, 5),   # 300万
                 (2_000_000, 4),   # 200万
@@ -167,7 +167,7 @@ def evaluate_player(data):
     # Collect & Help thresholds
     collect_grade =  max(
         grade(
-            data.get("collect", 0),
+            data.get("collect_60", 0),
             [
                 (1_500_000_000, 5),   # 15亿
                 (1_000_000_000, 4),   # 10亿
@@ -187,7 +187,7 @@ def evaluate_player(data):
     )
     help_grade = max(
         grade(
-            data.get("help", 0),
+            data.get("help_60", 0),
             [
                 (9_000, 5),   # 9000
                 (6_000, 4),   # 6000
