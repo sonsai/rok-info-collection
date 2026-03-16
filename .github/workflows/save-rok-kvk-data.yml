@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - "data/kvk/kvk_info.json"
+  workflow_run:
+    workflows: ["Save Match Data"]   # 必须与 A.yml 的 name 完全一致
+    types:
+      - completed
   repository_dispatch:
     types: [save-kvk-data]
   workflow_dispatch:

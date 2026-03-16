@@ -40,16 +40,16 @@ def task_execute_checker():
               pass
 
             # KVK数据获取
-            next_run_datetime_json_url = GITHUB_RAW_URL + KVK_NEXT
-            try:
-              response = get_request(url=next_run_datetime_json_url)
-              _datetime_dict = response.json()
-              _datetime = datetime.datetime.fromisoformat(_datetime_dict.get("datetime"))
-              if datetime.datetime.now() > _datetime:
-                  event_type = "save-kvk-data"
-                  post_github_request_api(event_type=event_type)
-            except Exception:
-              pass
+            # next_run_datetime_json_url = GITHUB_RAW_URL + KVK_NEXT
+            # try:
+            #   response = get_request(url=next_run_datetime_json_url)
+            #   _datetime_dict = response.json()
+            #   _datetime = datetime.datetime.fromisoformat(_datetime_dict.get("datetime"))
+            #   if datetime.datetime.now() > _datetime:
+            #       event_type = "save-kvk-data"
+            #       post_github_request_api(event_type=event_type)
+            # except Exception:
+            #   pass
         except Exception as e:
             print(e)
 

@@ -1,6 +1,10 @@
 name: Execute Player List
 
 on:
+  workflow_run:
+    workflows: ["Evaluate Kingdom"]   # 必须与 A.yml 的 name 完全一致
+    types:
+      - completed
   repository_dispatch:
     types: [execute_player_list]
   workflow_dispatch:
