@@ -153,7 +153,7 @@ def kingdom_player():
             player_kd_list_file_name = get_players_json_path(pidx)
             with open(player_kd_list_file_name, "r", encoding="utf-8") as f:
                 player_list:dict = json.load(f)
-                kingdom_id = player_list[str(player_id)][-1]
+                kingdom_id = player_list[str(player_id)]["kingdom"][-1]
         eva_result = read_json_file(get_evaluated_kingdoms_json_path(int(kingdom_id)//100,kingdom_id))
         data_list =[]
         for player in eva_result.get("data"):
