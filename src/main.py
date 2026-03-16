@@ -14,6 +14,7 @@ from src.utility import (
     get_kvk_dkp_json_path,
     get_kvk_match_json_path,
     get_match_json_path,
+    get_player_from_kingdom,
     get_players_json_path,
     get_repo_json_file,
     read_json_file,
@@ -177,43 +178,78 @@ elif mode == "execute_player_list":
         file_name = get_kingdoms_json_path("1",idx,kd)
         if not os.path.exists(file_name):
             continue
-        with open(file_name, "r", encoding="utf-8") as f:
-            player_data = json.load(f)
+        player_data = read_json_file(file_name)
+        # file_name60 = get_kingdoms_json_path("60",idx,kd)
+        # player_data_60 = read_json_file(file_name60)
+        # file_name180 = get_kingdoms_json_path("180",idx,kd)
+        # player_data_180 = read_json_file(file_name180)
 
         for p in player_data["data"]:
             pid = p["id"]
             idx = int(pid) // 1_000_000
-            player_kd_list_file_name = get_players_json_path(idx)
+            player_info_list_file_name = get_players_json_path(idx)
 
-            if player_kd_list_file_name in working_file_list:
-                player_kd_list = working_file_list[player_kd_list_file_name]
+            if player_info_list_file_name in working_file_list:
+                player_info_list = working_file_list[player_info_list_file_name]
             else:
-                if not os.path.exists(player_kd_list_file_name):
-                    player_kd_list = {}
+                if not os.path.exists(player_info_list_file_name):
+                    player_info_list = {}
                 else:
                     try:
-                        with open(file_name, "r", encoding="utf-8") as f:
-                            player_kd_list = json.load(f)
+                        player_info_list = read_json_file(player_info_list_file_name)
                     finally:
                         pass
                         
-            if pid in player_kd_list:
-                past_kd_list = player_kd_list[p["id"]]
-                if past_kd_list:
-                    if player_data["kingdom"] != past_kd_list[-1]:
-                        player_kd_list[p["id"]].append(player_data["kingdom"])
-                    else:
-                        pass
+            if pid in player_info_list:
+                player_info = player_info_list[pid]
+                if player_data["kingdom"] != player_info["kingdom"][-1]:
+                    player_info["kingdom"].append(player_data["kingdom"])
                 else:
-                    player_kd_list[p["id"]] = [player_data["kingdom"]]
+                    pass
+                if p["name"] != player_info["name"][-1]:
+                    player_info["name"].append(p["name"])
+                else:
+                    pass
             else:
-                player_kd_list[p["id"]] = [player_data["kingdom"]]
+                player_info_list[pid] = {
+                    "kingdom":[player_data["kingdom"]],
+                    "name":[p["name"]]
+                }
+            # p60 = get_player_from_kingdom(pid,player_data_60)
+            # p180 = get_player_from_kingdom(pid,player_data_180)
+            # player_info = player_info_list[pid]
+            # player_info["power"] = p.get("power")
+            # player_info["dt"] = p.get("dt")
 
-            working_file_list[player_kd_list_file_name] = player_kd_list
+            # player_info["kill_60"] = p60.get("kill")
+            # player_info["kill_180"] = p180.get("kill")
+            # player_info["dead_60"] = p60.get("dead")
+            # player_info["dead_180"] = p180.get("dead")
+            # player_info["collect_60"] = p60.get("collect")
+            # player_info["collect_180"] = p180.get("collect")
+            # player_info["help_60"] = p60.get("help")
+            # player_info["help_180"] = p180.get("help")
+            # player_info["t4_60"] = p60.get("t4")
+            # player_info["t4_180"] = p180.get("t4")
+            # player_info["t5_60"] = p60.get("t5")
+            # player_info["t5_180"] = p180.get("t5")
+            # player_info["dead_t4_60"] = p60.get("dead_t4")
+            # player_info["dead_t4_180"] = p180.get("dead_t4")
+            # player_info["dead_t5_60"] = p60.get("dead_t5")
+            # player_info["dead_t5_180"] = p180.get("dead_t5")
+
+
+
+            # 错误数据修正
+            # for key in ["data","kingdom","from_date","to_date"]:
+            #     if key in player_info_list:
+            #         player_info_list.pop(key)
+
+                
+            working_file_list[player_info_list_file_name] = player_info_list
             
     for n, d in working_file_list.items():
-        with open(n, "w", encoding="utf-8") as f:
-            json.dump(d, f, ensure_ascii=False, indent=2)
+        write_data_to_json_file(n,d)
 
 elif mode == "evaluate_kingdom":
     id_from = sys.argv[1]

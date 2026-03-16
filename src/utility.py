@@ -227,7 +227,11 @@ def evaluate_player(data):
 
     return data
 
-
+def get_player_from_kingdom(player_id,kingdom_data) -> dict:
+    for player in kingdom_data["data"]:
+        if player["id"] == player_id:
+            return player
+    return {}
 
 def fn(n):
     if abs(n) >= 1_000_000_000:
