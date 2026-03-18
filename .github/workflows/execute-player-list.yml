@@ -1,6 +1,9 @@
 name: Execute Player List
 
 on:
+  push:
+    paths:
+      - "data/kingdoms/evaluated/10/1001.jsom"
   workflow_run:
     workflows: ["Evaluate Kingdom"]   # 必须与 A.yml 的 name 完全一致
     types:
