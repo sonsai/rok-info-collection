@@ -50,34 +50,6 @@ elif mode == "dkp_data":
         print(str(e))
         raise e
     
-elif mode == "save_kingdoms_data":
-    id_from = sys.argv[1]
-    id_to = sys.argv[2]
-    for kingdom_id in range(int(id_from), int(id_to)):
-        idx = kingdom_id // 100
-        for p in [1,60,180]:
-            os.makedirs(f"data/kingdoms/{p}d/{idx}", exist_ok=True)
-            kingdoms_file_name = f"data/kingdoms/{p}d/{idx}/{kingdom_id}.json"
-            from_date:str = (datetime.datetime.now() - datetime.timedelta(days=p)).strftime("%Y-%m-%d")
-            to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-            response_dict = get_listed_kingdoms_member_info_api(
-                from_date=from_date,
-                to_date=to_date,
-                kingdom_id=kingdom_id
-                )
-            data = response_dict.get("data")
-            if not data:
-                continue
-
-            detail_data = {
-                "kingdom":kingdom_id,
-                "from_date":from_date,
-                "to_date":to_date,
-                "data":data
-            }
-            with open(kingdoms_file_name, "w", encoding="utf-8") as f:
-                json.dump(detail_data, f, ensure_ascii=False, indent=2)
-
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
     with open("data/kvk/next_run_datetime.json", "w", encoding="utf-8") as f:
@@ -167,15 +139,46 @@ elif mode == "save_match_data":
         with open(match_file_name, "w", encoding="utf-8") as f:
             json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
-elif mode == "execute_player_list":
+elif mode == "save_kingdoms_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
     
     working_file_list = {}
     os.makedirs("data/player", exist_ok=True)
-    for kd in range(int(id_from), int(id_to)):
-        idx = kd // 100
-        file_name = get_kingdoms_json_path("1",idx,kd)
+
+    for kingdom_id in range(int(id_from), int(id_to)):
+        idx = kingdom_id // 100
+        for p in [1,60,180]:
+            os.makedirs(f"data/kingdoms/{p}d/{idx}", exist_ok=True)
+            kingdoms_file_name = f"data/kingdoms/{p}d/{idx}/{kingdom_id}.json"
+            from_date:str = (datetime.datetime.now() - datetime.timedelta(days=p)).strftime("%Y-%m-%d")
+            to_date:str = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            response_dict = get_listed_kingdoms_member_info_api(
+                from_date=from_date,
+                to_date=to_date,
+                kingdom_id=kingdom_id
+                )
+            data = response_dict.get("data")
+            if not data:
+                continue
+
+            detail_data = {
+                "kingdom":kingdom_id,
+                "from_date":from_date,
+                "to_date":to_date,
+                "data":data
+            }
+            with open(kingdoms_file_name, "w", encoding="utf-8") as f:
+                json.dump(detail_data, f, ensure_ascii=False, indent=2)
+
+# elif mode == "execute_player_list":
+#     id_from = sys.argv[1]
+#     id_to = sys.argv[2]
+    
+
+    # for kd in range(int(id_from), int(id_to)):
+        idx = kingdom_id // 100
+        file_name = get_kingdoms_json_path("1",idx,kingdom_id)
         if not os.path.exists(file_name):
             continue
         player_data = read_json_file(file_name)
@@ -248,15 +251,12 @@ elif mode == "execute_player_list":
                 
             working_file_list[player_info_list_file_name] = player_info_list
             
-    for n, d in working_file_list.items():
-        write_data_to_json_file(n,d)
 
-elif mode == "evaluate_kingdom":
-    id_from = sys.argv[1]
-    id_to = sys.argv[2]
+# elif mode == "evaluate_kingdom":
+#     id_from = sys.argv[1]
+#     id_to = sys.argv[2]
     
-    working_file_list = {}
-    for kingdom_id in range(int(id_from), int(id_to)):
+    # for kingdom_id in range(int(id_from), int(id_to)):
         idx=int(kingdom_id) // 100
         result_data = {}
         for days in [1,60,180]:
@@ -296,3 +296,6 @@ elif mode == "evaluate_kingdom":
         out_put_file = get_evaluated_kingdoms_json_path(index=idx,kingdom_id=kingdom_id)
         os.makedirs(f"data/kingdoms/evaluated/{idx}/", exist_ok=True)
         write_data_to_json_file(out_put_file,output_data)
+        
+    for n, d in working_file_list.items():
+        write_data_to_json_file(n,d)
