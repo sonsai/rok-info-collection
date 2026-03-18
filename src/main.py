@@ -94,7 +94,7 @@ elif mode == "save_kvk_data":
         os.makedirs(f"data/kvk/{folder_name}/dkp",exist_ok=True)
         now = datetime.datetime.now()
         days = 1
-        if now.hour < 6:
+        if now.hour < 3:
             days = 2
         temp_end = (now - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
         if start > temp_end:
