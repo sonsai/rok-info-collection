@@ -148,8 +148,7 @@ elif mode == "save_kingdoms_data":
     os.makedirs("data/player", exist_ok=True)
 
     for kingdom_id in range(int(id_from), int(id_to)):
-        idx = kingdom_id // 100 
-        days_type_file_dict = {}
+        idx = kingdom_id // 100
         for p in [1,60,180]:
             os.makedirs(f"data/kingdoms/{p}d/{idx}", exist_ok=True)
             kingdoms_file_name = f"data/kingdoms/{p}d/{idx}/{kingdom_id}.json"
@@ -164,35 +163,30 @@ elif mode == "save_kingdoms_data":
             if not data:
                 continue
 
-            days_type_file_dict[kingdoms_file_name] = {
+            detail_data = {
                 "kingdom":kingdom_id,
                 "from_date":from_date,
                 "to_date":to_date,
                 "data":data
             }
-            # with open(kingdoms_file_name, "w", encoding="utf-8") as f:
-            #     json.dump(detail_data, f, ensure_ascii=False, indent=2)
-
-            
+            with open(kingdoms_file_name, "w", encoding="utf-8") as f:
+                json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
 # elif mode == "execute_player_list":
 #     id_from = sys.argv[1]
 #     id_to = sys.argv[2]
     
-        if not days_type_file_dict:
-            continue
+
     # for kd in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
         file_name = get_kingdoms_json_path("1",idx,kingdom_id)
-        # if not os.path.exists(file_name):
-        #     continue
-        # player_data = read_json_file(file_name)
+        if not os.path.exists(file_name):
+            continue
+        player_data = read_json_file(file_name)
         # file_name60 = get_kingdoms_json_path("60",idx,kd)
         # player_data_60 = read_json_file(file_name60)
         # file_name180 = get_kingdoms_json_path("180",idx,kd)
         # player_data_180 = read_json_file(file_name180)
-
-        player_data = days_type_file_dict[file_name]
 
         for p in player_data["data"]:
             pid = p["id"]
@@ -268,7 +262,7 @@ elif mode == "save_kingdoms_data":
         result_data = {}
         for days in [1,60,180]:
             file_path = get_kingdoms_json_path(days=days,index=idx,kingdom_id=kingdom_id)
-            data_temp = days_type_file_dict.get(file_path)
+            data_temp = read_json_file(file_path)
             if not data_temp:
                 break
             result_data[f"data_in_{days}"]= data_temp["data"]
@@ -287,14 +281,18 @@ elif mode == "save_kingdoms_data":
                 for now_player in now_eva_dict["data"]:
                     if now_player["id"] == player["id"]:
                         player_in_now_kingdom_flg = True
-                        if now_player["dt"] == player["dt"]:
-                            break
-                        kill_list = now_player["kill"]
-                        if isinstance(kill_list,int):
-                            kill_list = [kill_list]
-                        dq=deque(iterable=kill_list,maxlen=30)
-                        dq.append(player["kill"])
-                        player["kill"] = list(dq)
+                        if now_player["dt"] >= player["dt"]:
+                            if isinstance(now_player["kill"],int):
+                                player["kill"] = [kill_list]
+                            else:
+                                player["kill"] = now_player["kill"]
+                        else:
+                            kill_list = now_player["kill"]
+                            if isinstance(kill_list,int):
+                                kill_list = [kill_list]
+                            dq=deque(iterable=kill_list,maxlen=30)
+                            dq.append(player["kill"])
+                            player["kill"] = list(dq)
                         break
                 if not player_in_now_kingdom_flg:
                     player_info_list_file_name = get_players_json_path(int(player["id"])//1_000_000)
@@ -308,15 +306,19 @@ elif mode == "save_kingdoms_data":
                             for ex_player in ex_eva_dict["data"]:
                                 if ex_player["id"] == player["id"]:
                                     player_in_now_kingdom_flg = True
-                                    if ex_player["dt"] == player["dt"]:
-                                        break
-                                    kill_list = ex_player["kill"]
-                                    if isinstance(kill_list,int):
-                                        kill_list = [kill_list]
-                                    dq=deque(iterable=kill_list,maxlen=30)
-                                    dq.append(player["kill"])
-                                    player["kill"] = list(dq)
-                                    player_in_now_kingdom_flg = True
+                                    if ex_player["dt"] >= player["dt"]:
+                                        if isinstance(ex_player["kill"],int):
+                                            player["kill"] = [kill_list]
+                                        else:
+                                            player["kill"] = ex_player["kill"]
+                                    else:
+                                        kill_list = ex_player["kill"]
+                                        if isinstance(kill_list,int):
+                                            kill_list = [kill_list]
+                                        dq=deque(iterable=kill_list,maxlen=30)
+                                        dq.append(player["kill"])
+                                        player["kill"] = list(dq)
+                                    break
                             if not player_in_now_kingdom_flg:
                                 player["kill"] = [player["kill"]]
                         else:
