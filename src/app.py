@@ -53,7 +53,7 @@ def task_execute_checker():
         except Exception as e:
             print(e)
 
-        time.sleep(300)
+        time.sleep(1800)
 
 def health_check_loop():
 
