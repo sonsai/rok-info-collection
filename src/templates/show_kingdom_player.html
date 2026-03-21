@@ -3,7 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>王国 {{ kingdom }} 数据展示</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+function parseKMN(value) {
+  if (typeof value === "number") return value; // 已经是数字
+
+  const str = String(value).trim().toUpperCase();
+
+  if (str.endsWith("K")) {
+    return parseFloat(str) * 1_000;
+  }
+  if (str.endsWith("M")) {
+    return parseFloat(str) * 1_000_000;
+  }
+  if (str.endsWith("B")) {
+    return parseFloat(str) * 1_000_000_000;
+  }
+
+  return Number(str); // 普通数字字符串
+}
+function formatKMN(num) {
+  if (typeof num !== "number" || isNaN(num)) return num;
+
+  if (num >= 1_000_000_000) {
+    return (num / 1_000_000_000).toFixed(2).replace(/\.00$/, "") + "B";
+  }
+  if (num >= 1_000_000) {
+    return (num / 1_000_000).toFixed(2).replace(/\.00$/, "") + "M";
+  }
+  if (num >= 1_000) {
+    return (num / 1_000).toFixed(2).replace(/\.00$/, "") + "K";
+  }
+
+  return String(num);
+}
+
+let killsChart = null; 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("playerModal");
     const modalBody = document.getElementById("modal-body");
@@ -13,16 +48,19 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("click", function () {
 
             const p = JSON.parse(this.dataset.player);
-            
+            const kill_30 = JSON.parse(p.kill);
+            const kill_days = kill_30.length
+            const labels = kill_30.map((_, i) => `${i + 1}天前`);
             // 计算 T1~T5 最大值用于比例
-            const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(Number);
+            const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(parseKMN);
             const maxKill = Math.max(...kills, 1);
 
             const killBars = kills.map((v, i) => {
                 const percent = (v / maxKill) * 100;
+                fv = formatKMN(v)
                 return `
                     <div class="modal-row">
-                        <span>T${i+1}：${v}</span>
+                        <span>T${i+1}：${fv}</span>
                         <span>${percent.toFixed(0)}%</span>
                     </div>
                     <div class="bar-container">
@@ -33,18 +71,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 计算 阵亡T1~T5 最大值用于比例
             const death = [
-                Number(p.dead_t1 || 0),
-                Number(p.dead_t2 || 0),
-                Number(p.dead_t3 || 0),
-                Number(p.dead_t4 || 0),
-                Number(p.dead_t5 || 0)
-            ].map(Number);
+                p.dead_t1,
+                p.dead_t2|| 0,
+                p.dead_t3|| 0,
+                p.dead_t4 || 0,
+                p.dead_t5 || 0
+            ].map(parseKMN);
             const maxDeath = Math.max(...death, 1);
             const deadBars = death.map((v, i) => {
                 const percent1 = (v / maxDeath) * 100;
+                fv = formatKMN(v)
                 return `
                     <div class="modal-row">
-                        <span>T${i+1}：${v}</span>
+                        <span>T${i+1}：${fv}</span>
                         <span>${percent1.toFixed(0)}%</span>
                     </div>
                     <div class="bar-container">
@@ -55,17 +94,48 @@ document.addEventListener("DOMContentLoaded", function () {
             modalBody.innerHTML = `
                 <div class="modal-row"><span>ID:${p.id}</span></div>
                 <h2>${p.name}</h2>
+                <h4>最近${kill_days}天每天获得的击杀积分</h4>
+                <div id="chartBox">
+                    <canvas id="killsChart"></canvas>
+                </div>`;
 
+            // 等 DOM 插入后再画图
+            setTimeout(() => {
+                const ctx = document.getElementById('killsChart').getContext('2d');
+
+                if (killsChart) killsChart.destroy();
+
+                killsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Kills in recent 30 days',
+                            data: kill_30,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.25,
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }, 0);
+            // 再 append 其他内容
+            modalBody.insertAdjacentHTML("beforeend", `
                 <div class="modal-section">
-                    <h3>击杀（T1 - T5）</h3>
+                    <h4>最近60天击杀单位数（T1 - T5）</h4>
                     ${killBars}
                 </div>
 
                 <div class="modal-section">
-                    <h3>阵亡（T1 - T5）</h3>
+                    <h4>最近60天阵亡单位数（T1 - T5）</h4>
                     ${deadBars}
                 </div>
-            `;
+            `);
 
             modal.style.display = "block";
         });
@@ -86,7 +156,10 @@ document.addEventListener("DOMContentLoaded", function () {
         margin: 0;
         padding: 20px;
     }
-
+    #chartBox {
+      width: 600px;
+      height: 350px;
+    }
     .title {
         font-size: 28px;
         margin-bottom: 20px;
@@ -151,43 +224,29 @@ document.addEventListener("DOMContentLoaded", function () {
         display: none;
         position: fixed;
         z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background: rgba(0,0,0,0.65);
         backdrop-filter: blur(3px);
-        color: #cccccc; 
-        inset: 0;
+
+        /* 关键：允许内部滚动 */
+        overflow-y: auto;
     }
 
     .modal-content {
         background: #1a1a1a;
-        margin: 10% auto;
+        margin: 40px auto; /* 不要用百分比 */
         padding: 20px;
         border-radius: 10px;
         width: 90%;
         max-width: 800px;
         color: #fff;
         border: 1px solid #333;
-    }
-    .modal-section {
-        margin-bottom: 16px;
+
+        /* 关键：限制最大高度并允许内容滚动 */
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
     }
 
-    .modal-section h3 {
-        margin: 6px 0;
-        font-size: 22px;
-        font-weight: 700;
-    }
-
-    .modal-row {
-        display: flex;
-        justify-content: space-between;
-        margin: 4px 0;
-        font-size: 18px;
-        color: #cccccc; 
-    }
     .close-btn {
         float: right;
         font-size: 36px;
@@ -280,7 +339,34 @@ document.addEventListener("DOMContentLoaded", function () {
         margin-bottom: 2px;
         opacity: 0.9;
     }
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
 
+    .tooltip .tip {
+        visibility: hidden;
+        position: fixed;
+        pointer-events: none; 
+        background: #292929;
+        color: #c2c2c2;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;      
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+        font-size: 14px;
+        white-space: nowrap;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity .15s ease;
+        text-align: left;
+    }
+
+    .tooltip:hover .tip {
+        visibility: visible;
+        opacity: 1;
+    }
 </style>
 </head>
 <body>
@@ -295,9 +381,18 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <div class="sub-title">
-        活跃度综合(平均AVERAGE)：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big"><br>
-        战斗综合(平均AVERAGE)：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"><br>
-        各单赛季击杀等级人数：<img src="/static/media/rank/level_s.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['s']}} <img src="/static/media/rank/level_a.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['a']}} <img src="/static/media/rank/level_b.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['b']}} <img src="/static/media/rank/level_c.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['c']}} <img src="/static/media/rank/level_d.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['d']}} 
+        人均活跃度：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big"><br>
+        人均战斗力：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"><br>
+        各击杀等级人数
+        <div class="tooltip"> ⓘ
+            <div class="tip">
+                <img src="/static/media/rank/level_s.png" class="stat-icon">--> 每赛季10亿击杀以上 above 1B kill points per kvk<br>
+                <img src="/static/media/rank/level_a.png" class="stat-icon">--> 每赛季6亿击杀以上 above 600M kill points per kvk<br>
+                <img src="/static/media/rank/level_b.png" class="stat-icon">--> 每赛季4亿击杀以上 above 400M kill points per kvk<br>
+                <img src="/static/media/rank/level_c.png" class="stat-icon">--> 每赛季1亿击杀以上 above 100M kill points per kvk<br>
+                <img src="/static/media/rank/level_d.png" class="stat-icon">--> 每赛季1亿击杀以下 below 100M kill points per kvk
+            </div>
+        </div>：<img src="/static/media/rank/level_s.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['s']}} <img src="/static/media/rank/level_a.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['a']}} <img src="/static/media/rank/level_b.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['b']}} <img src="/static/media/rank/level_c.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['c']}} <img src="/static/media/rank/level_d.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['d']}} 
         <span class="en">60天 / 180天 玩家数据统计 60-Day / 180-Day Player Statistics</span>
     </div>
 </div>
@@ -309,7 +404,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "id": "{{ p.id }}",
         "name": "{{ p.name }}",
         "power": "{{ p.power }}",
-        "kill": "{{ p.kill_60 }}",
+        "kill": "{{ p.kill }}",
+        "kill_60": "{{ p.kill_60 }}",
         "kill_180": "{{ p.kill_180 }}",
         "dead": "{{ p.dead_60 }}",
         "dead_180": "{{ p.dead_180 }}",
