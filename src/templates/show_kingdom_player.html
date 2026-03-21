@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 等 DOM 插入后再画图
             setTimeout(() => {
+                Chart.defaults.color = '#ffffff';
                 const ctx = document.getElementById('killsChart').getContext('2d');
 
                 if (killsChart) killsChart.destroy();
