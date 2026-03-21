@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const p = JSON.parse(this.dataset.player);
             const kill_30 = JSON.parse(p.kill);
             const kill_days = kill_30.length
-            const labels = kill_30.map((_, i) => `${i + 1}天前`);
+            const labels = kill_30.map((_, i) => `${kill_days - i}天前`);
             // 计算 T1~T5 最大值用于比例
             const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(parseKMN);
             const maxKill = Math.max(...kills, 1);
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     data: {
                         labels,
                         datasets: [{
-                            label: 'Kills in recent 30 days',
+                            label: 'kp per day',
                             data: kill_30,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         padding: 20px;
     }
     #chartBox {
-      width: 600px;
-      height: 350px;
+      width: 800px;
+      height: 400px;
     }
     .title {
         font-size: 28px;
