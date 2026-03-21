@@ -242,6 +242,16 @@ def fn(n):
         return f"{n / 1_000:.1f}K"
     else:
         return str(n)
+def pn(s: str):
+    s = s.strip().upper()
+    if s.endswith("B"):
+        return float(s[:-1]) * 1_000_000_000
+    elif s.endswith("M"):
+        return float(s[:-1]) * 1_000_000
+    elif s.endswith("K"):
+        return float(s[:-1]) * 1_000
+    else:
+        return float(s) if "." in s else int(s)
 
 def get_YMD_current_date():
     return datetime.datetime.now().strftime("%Y-%m-%d")
@@ -251,10 +261,10 @@ def get_repo_json_file(path:str)->dict:
     response = get_request(url=url)
     return response.json()
 
-def total_kingdom(data_list,camp,kingdoms):
-    dkp_t4_dead = int(os.environ["DKP_T4_DEAD"])
-    dkp_t5_dead = int(os.environ["DKP_T5_DEAD"])
+def total_kingdom(dkp_list,data_list,camp,kingdoms):
     group_total_kill = 0
+    group_total_t4 = 0
+    group_total_t5 = 0
     group_total_dead_t4 = 0
     group_total_dead_t5 = 0
     result = {
@@ -265,32 +275,50 @@ def total_kingdom(data_list,camp,kingdoms):
     }
     for d in data_list:
         total_kill = 0
+        total_t4 = 0
+        total_t5 = 0
         total_dead_t4 = 0
         total_dead_t5 = 0
 
         # 遍历所有玩家
         for p in d.get("data"):
             total_kill += p.get("kill", 0)
+            total_t4 += p.get("t4", 0)
+            total_t5 += p.get("t5", 0)
             total_dead_t4 += p.get("dead_t4", 0)
             total_dead_t5 += p.get("dead_t5", 0)
         kingdom_json = {
             "KD":d.get("kingdom"),
             "PERIOD":d["from_date"] + " ~ " + d["to_date"],
             "KILL":fn(total_kill),
+            "T4-KILLED":fn(total_t4),
+            "T5-KILLED":fn(total_t5),
             "T4-DEAD":fn(total_dead_t4),
             "T5-DEAD":fn(total_dead_t5),
-            "DKP":fn(total_kill + total_dead_t4 * dkp_t4_dead + total_dead_t5 * dkp_t5_dead)
+            "DKP":fn(
+                total_t4 * dkp_list.get("t4")+ 
+                total_t5 * dkp_list.get("t5")+ 
+                total_dead_t4 * dkp_list.get("t4_dead") + 
+                total_dead_t5 * dkp_list.get("t5_dead"))
         }
         result["kingdoms"].append(kingdom_json)
         group_total_kill += total_kill
+        group_total_t4 += total_t4
+        group_total_t5 += total_t5
         group_total_dead_t4 += total_dead_t4
         group_total_dead_t5 += total_dead_t5
-    result["kingdoms"].sort(key=lambda x: float(x["DKP"][:-1]) if len(x["DKP"]) > 1 else float(x["DKP"]), reverse=True)
+    result["kingdoms"].sort(key=lambda x: pn(x["DKP"]), reverse=True)
     sum = {
         "TOTAL-KILL":fn(group_total_kill),
-        "TOTAL-T4_DEAD":fn(group_total_dead_t4),
-        "TOTAL-T5_DEAD":fn(group_total_dead_t5),
-        "TOTAL-DKP":fn(group_total_kill+group_total_dead_t4*dkp_t4_dead+group_total_dead_t5*dkp_t5_dead)
+        "TOTAL-T4-KILLED":fn(group_total_t4),
+        "TOTAL-T5-KILLED":fn(group_total_t5),
+        "TOTAL-T4-DEAD":fn(group_total_dead_t4),
+        "TOTAL-T5-DEAD":fn(group_total_dead_t5),
+        "TOTAL-DKP":fn(
+                group_total_t4 * dkp_list.get("t4")+ 
+                group_total_t5 * dkp_list.get("t5")+ 
+                group_total_dead_t4 * dkp_list.get("t4_dead") + 
+                group_total_dead_t5 * dkp_list.get("t5_dead"))
     }
     result["sum"] = sum
     return result
@@ -406,15 +434,20 @@ def evaluate_kingdom_by_kingdom_id(kingdom_id:int):
         data_list.append(player)
     return evaluate_kingdom(data_list)
 
-def show_kvk_dkp(kvk_info):
+def show_kvk_dkp(dkp_list, kvk_info):
+
     start = kvk_info.get("start")
     end = kvk_info.get("end")
+    data_start = kvk_info.get("data_start")
+    data_end = kvk_info.get("data_end")
     camps:dict = kvk_info.get("camps")
     
     result = {
         "map":kvk_info.get("kvk_map_id", "Unknown"),
         "start":start,
         "end":end,
+        "data_start":data_start,
+        "data_end":data_end,
         "camps":[]
     }
     folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
@@ -431,8 +464,8 @@ def show_kvk_dkp(kvk_info):
                 response = get_request(url=url)
                 detail_data = response.json()
             data_list.append(detail_data)
-        camp = total_kingdom(data_list=data_list,camp=key,kingdoms=kingdoms)
+        camp = total_kingdom(dkp_list,data_list=data_list,camp=key,kingdoms=kingdoms)
         result["camps"].append(camp)
 
-    result["camps"].sort(key=lambda x: float(x["sum"]["TOTAL-DKP"][:-1]) if len(x["sum"]["TOTAL-DKP"]) > 1 else float(x["sum"]["TOTAL-DKP"]), reverse=True)
+    result["camps"].sort(key=lambda x: pn(x["sum"]["TOTAL-DKP"]), reverse=True)
     return result

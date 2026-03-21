@@ -91,10 +91,12 @@
     <table class="sum-table">
         <tr>
             <th>阵营 CAMP</th>
-            <th>总贡献分 Total DKP</th>
-            <th>总击杀 Total KILL</th>
-            <th>总T4阵亡 Total T4-DEAD</th>
-            <th>总T5阵亡 Total T5-DEAD</th>
+            <th>总贡献分 Total DKP<br>{{dkp_calc_rule}}</th>
+            <!-- <th>总击杀 Total KILL</th> -->
+            <th>总T4击杀数 Total T4-KILLED<br>({{dkp_list['t4']}} point per kill)</th>
+            <th>总T5击杀数 Total T5-KILLED<br>({{dkp_list['t5']}} point per kill)</th>
+            <th>总T4阵亡数 Total T4-DEAD<br>({{dkp_list['t4_dead']}} point per death)</th>
+            <th>总T5阵亡数 Total T5-DEAD<br>({{dkp_list['t5_dead']}} point per death)</th>
         </tr>
 
         {% for camp in data.camps %}
@@ -102,9 +104,11 @@
             <tr>
                 <td>{{ camp.name }}</td>
                 <td>{{ s['TOTAL-DKP'] }}</td>
-                <td>{{ s['TOTAL-KILL'] }}</td>
-                <td>{{ s['TOTAL-T4_DEAD'] }}</td>
-                <td>{{ s['TOTAL-T5_DEAD'] }}</td>
+                <!-- <td>{{ s['TOTAL-KILL'] }}</td> -->
+                <td>{{ s['TOTAL-T4-KILLED'] }}</td>
+                <td>{{ s['TOTAL-T5-KILLED'] }}</td>
+                <td>{{ s['TOTAL-T4-DEAD'] }}</td>
+                <td>{{ s['TOTAL-T5-DEAD'] }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -115,10 +119,12 @@
         <table>
             <tr>
                 <th>王国 KD</th>
-                <th>贡献分 DKP</th>
-                <th>击杀 KILL</th>
-                <th>T4阵亡数 T4-DEAD</th>
-                <th>T5阵亡数 T5-DEAD</th>
+                <th>贡献分 DKP<br>{{dkp_calc_rule}}</th>
+                <!-- <th>击杀 KILL</th> -->
+                <th>T4击杀数 T4-KILLED<br>({{dkp_list['t4']}} point per kill)</th>
+                <th>T5击杀数 T5-KILLED<br>({{dkp_list['t5']}} point per kill)</th>
+                <th>T4阵亡数 T4-DEAD<br>({{dkp_list['t4_dead']}} point per death)</th>
+                <th>T5阵亡数 T5-DEAD<br>({{dkp_list['t5_dead']}} point per death)</th>
                 <th>数据范围 PERIOD</th>
             </tr>
 
@@ -128,7 +134,9 @@
                     {{ kd['KD'] }}
                 </td>
                 <td>{{ kd['DKP'] }}</td>
-                <td>{{ kd['KILL'] }}</td>
+                <!-- <td>{{ kd['KILL'] }}</td> -->
+                <td>{{ kd['T4-KILLED'] }}</td>
+                <td>{{ kd['T5-KILLED'] }}</td>
                 <td>{{ kd['T4-DEAD'] }}</td>
                 <td>{{ kd['T5-DEAD'] }}</td>
                 <td>{{ kd['PERIOD'] }}</td>

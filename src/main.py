@@ -60,9 +60,9 @@ elif mode == "save_kvk_data":
 
     data:dict = get_repo_json_file(KVK_CONFIG_JSON)
     for k,v in data.items():
-        start:str = v["start"]
-        end:str = v["end"]
-        folder_name = v["kvk_map_id"] + "_" + start.replace("-","")
+        start:str = v.get("data_start", v.get("start"))
+        end:str = v.get("data_end", v.get("end"))
+        folder_name = v["kvk_map_id"] + "_" + v["start"].replace("-","")
         os.makedirs(f"data/kvk/{folder_name}/match",exist_ok=True)
         os.makedirs(f"data/kvk/{folder_name}/dkp",exist_ok=True)
         now = datetime.datetime.now()

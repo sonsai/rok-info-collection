@@ -7,6 +7,15 @@
         "end_apply":"2026-03-03",
         "start": "2026-03-13",
         "end": "2026-05-02",
+        "data_start": "2026-03-22",
+        "data_end": "2026-05-02",
+        "dkp_list" : {
+            "t4" : 5,
+            "t5" : 10,
+            "t4_dead" : 15,
+            "t5_dead" : 15
+        },
+        "dkp_calc_rule":"t4*5 + t5*10 + (t4_dead + t5_dead)*15",
         "camps": {
             "烈焰 FIRE": [
                 1038,

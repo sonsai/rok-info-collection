@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 import re
 import threading
 import time
@@ -34,7 +35,7 @@ def task_execute_checker():
               _datetime_dict = response.json()
               _datetime = datetime.datetime.fromisoformat(_datetime_dict.get("datetime"))
               if datetime.datetime.now() > _datetime:
-                  event_type = "save-match-data"
+                  event_type = "save-kingdoms-players-data"
                   post_github_request_api(event_type=event_type)
             except Exception:
               pass
@@ -122,10 +123,27 @@ def rok_match_data():
 def rok_kvk_dkp_data():
     kvk_map_id = request.args.get("kvk_map_id")
     try:
-        detail_data = get_repo_json_file(KVK_CONFIG_JSON)
+        detail_data = read_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
-            data = show_kvk_dkp(detail_data.get(kvk_map_id))
-            return render_template("dkp.html", data=data)
+            target_kvk = detail_data.get(kvk_map_id)
+            dkp_list = target_kvk.get("dkp_list") 
+            if not dkp_list:
+                dkp_list = {
+                    "t4" : 5,
+                    "t5" : 10,
+                    "t4_dead" : 15,
+                    "t5_dead" : 15
+                }
+            dkp_calc_rule = target_kvk.get("dkp_calc_rule")
+            if not dkp_calc_rule:
+                dkp_calc_rule = "t4*5 + t5*10 + (t4_dead + t5_dead)*15"
+            data = show_kvk_dkp(dkp_list, target_kvk)
+            return render_template(
+                "dkp.html",
+                dkp_list=dkp_list,
+                dkp_calc_rule=dkp_calc_rule,
+                data=data
+            )
         else:
             abort(404)
     except HTTPException:
