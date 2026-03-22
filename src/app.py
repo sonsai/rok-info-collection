@@ -19,6 +19,7 @@ from src.utility import (
     get_kingdoms_json_path,
     get_players_json_path,
     get_repo_json_file,
+    kvk_player_data,
     read_json_file,
     show_kvk_match_data,
     show_kvk_dkp)
@@ -87,12 +88,14 @@ def root():
         data = get_repo_json_file(KVK_CONFIG_JSON)
         match_base_url = "/rok-match-data?kvk_map_id="
         dkp_base_url = "/rok-kvk-dkp-data?kvk_map_id="
+        kvk_player_base_url = "/rok-kvk-player-data?kvk_map_id="
         return render_template(
             "index.html",
             data=data,
             current_date=get_YMD_current_date(),
             match_base_url=match_base_url,
-            dkp_base_url=dkp_base_url
+            dkp_base_url=dkp_base_url,
+            kvk_player_base_url=kvk_player_base_url
         )
     except Exception as e:
         print(e)
@@ -151,7 +154,29 @@ def rok_kvk_dkp_data():
     except Exception as e:
         print(e)
         abort(500)
-    
+
+@app.get("/rok-kvk-player-data")
+def rok_kvk_player_data():
+    kvk_map_id = request.args.get("kvk_map_id")
+    try:
+        detail_data = read_json_file(KVK_CONFIG_JSON)
+        if kvk_map_id in detail_data:
+            target_kvk = detail_data.get(kvk_map_id)
+            data = kvk_player_data(target_kvk)
+            return render_template(
+                "kvk_player.html",
+                kvk_info=target_kvk,
+                data=data
+            )
+        else:
+            abort(404)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(e)
+        abort(500)
+
 @app.get("/kingdom-player")
 def kingdom_player():
     try:

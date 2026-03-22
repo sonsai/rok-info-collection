@@ -469,3 +469,30 @@ def show_kvk_dkp(dkp_list, kvk_info):
 
     result["camps"].sort(key=lambda x: pn(x["sum"]["TOTAL-DKP"]), reverse=True)
     return result
+
+def kvk_player_data(kvk_info):
+    camps:dict = kvk_info.get("camps")
+    folder_name = kvk_info["kvk_map_id"] + "_" + kvk_info["start"].replace("-","")
+
+    result = []
+    for key in camps.keys(): 
+        kingdoms = camps.get(key)
+        for kingdom_id in kingdoms:
+            file_name = f"data/kvk/{folder_name}/dkp/{kingdom_id}.json"
+            if os.path.exists(file_name):
+                kingdom_data = read_json_file(file_name)
+                for player in kingdom_data["data"]:
+                    for k,v in player.items():
+                        if isinstance(v,int):
+                            player[k]=fn(v)
+                    player["camp"] = key
+                    player["kingdom"] = kingdom_id
+                    result.append(player)
+            else:
+                continue
+    
+    result.sort(key=lambda x: pn(x["kill"]), reverse=True)
+    return result
+
+
+    

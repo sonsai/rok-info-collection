@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>KVK Player Data</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #f0f0f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #111;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #adadad;
+            position: sticky;
+            top: 0;
+            background-color: #333; /* 表头背景色，避免透明 */
+            z-index: 10; /* 确保表头在最上层 */
+        }
+
+        tr:nth-child(even) {
+            background-color: #1a1a1a;
+            color: #adadad;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #111;
+            color: #adadad;
+        }
+
+        .fire {
+            background-color:#814c4c;
+        }
+        .water {
+            background-color:#20456e;
+        }
+        .earth {
+            background-color:#6b572d;
+        }
+        .wind {
+            background-color:#372442;
+        }
+
+        .sum-table {
+            margin-top: 5px;
+        }
+        .back-button {
+            padding: 10px 18px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .btn-row {
+            display: flex;
+            justify-content: space-between; /* 左右分布 */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="btn-row">
+    <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
+        返回 Back
+    </button>
+</div>
+    <h2>玩家数据 Player Data</h2>
+    <h2>Map: {{ kvk_info.kvk_map_id }}</h2>
+    <h2>Start: {{ kvk_info.start }} — End: {{ kvk_info.end }}</h2>
+    <table class="sum-table">
+        <tr>
+            <th>#</th>
+            <th>阵营<br>CAMP</th>
+            <th>王国<br>KINGDOM</th>
+            <th>ID</th>
+            <th>玩家名<br>PLAYER NAME</th>
+            <th>战力<br>POWER</th>
+            <th>击杀积分<br>KP</th>
+            <th>阵亡数<br>DEAD</th>
+            <!-- <th>T1击杀数 T1 KILLED</th>
+            <th>T2击杀数 T2 KILLED</th>
+            <th>T3击杀数 T3 KILLED</th> -->
+            <th>T4击杀数<br>T4 KILLED</th>
+            <th>T5击杀数<br>T5 KILLED</th>
+            <!-- <th>T1阵亡数 T1 DEAD</th>
+            <th>T2阵亡数 T2 DEAD</th>
+            <th>T3阵亡数 T3 DEAD</th> -->
+            <th>T4阵亡数<br>T4 DEAD</th>
+            <th>T5阵亡数<br>T5 DEAD</th>
+            <th>采集<br>COLLECT</th>
+            <th>帮助<br>HELP</th>
+        </tr>
+        
+        {% for player in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td class="{% if 'FIRE' in player.camp %}fire
+                {% elif 'WATER' in player.camp %}water
+                {% elif 'EARTH' in player.camp %}earth
+                {% elif 'WIND' in player.camp %}wind
+                {% endif %}">{{ player.camp }}</td>
+                <td>{{ player.kingdom }}</td>
+                <td>{{ player.id }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.power }}</td>
+                <td>{{ player.kill }}</td>
+                <td>{{ player.dead }}</td>
+                <!-- <td>{{ player.t1 }}</td>
+                <td>{{ player.t2 }}</td>
+                <td>{{ player.t3 }}</td> -->
+                <td>{{ player.t4 }}</td>
+                <td>{{ player.t5 }}</td>
+                <!-- <td>{{ player.dead_t1 }}</td>
+                <td>{{ player.dead_t2 }}</td>
+                <td>{{ player.dead_t3 }}</td> -->
+                <td>{{ player.dead_t4 }}</td>
+                <td>{{ player.dead_t5 }}</td>
+                <td>{{ player.collect }}</td>
+                <td>{{ player.help }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
