@@ -7,7 +7,7 @@ import time
 
 from werkzeug.exceptions import HTTPException
 from flask import Flask, abort, render_template, request
-from src.consts import CHECK_INTERVAL, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON, KVK_NEXT, MATCH_NEXT
+from src.consts import CHECK_INTERVAL, DATA_NEXT, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON, KVK_NEXT, MATCH_NEXT
 from src.clients.get_request import get_request
 from src.clients.post_github_request_api import post_github_request_api
 from src.utility import (
@@ -30,13 +30,13 @@ def task_execute_checker():
     while True:
         try:
             # 匹配数据获取
-            next_run_datetime_json_url = GITHUB_RAW_URL + MATCH_NEXT
+            next_run_datetime_json_url = GITHUB_RAW_URL + DATA_NEXT
             try:
               response = get_request(url=next_run_datetime_json_url)
               _datetime_dict = response.json()
               _datetime = datetime.datetime.fromisoformat(_datetime_dict.get("datetime"))
               if datetime.datetime.now() > _datetime:
-                  event_type = "save-kingdoms-players-data"
+                  event_type = "update_next_run_time"
                   post_github_request_api(event_type=event_type)
             except Exception:
               pass
@@ -55,7 +55,7 @@ def task_execute_checker():
         except Exception as e:
             print(e)
 
-        time.sleep(1800)
+        time.sleep(300)
 
 def health_check_loop():
 
@@ -72,11 +72,17 @@ def health_check_loop():
 
         time.sleep(CHECK_INTERVAL)
         
+t1 = None
+t2 = None
 def start_background_thread():
-    t1 = threading.Thread(target=health_check_loop, daemon=True)
-    t1.start()
-    t2 = threading.Thread(target=task_execute_checker, daemon=True)
-    t2.start()
+    global t1, t2
+    if t1 is None or not t1.is_alive():
+        t1 = threading.Thread(target=health_check_loop, daemon=True)
+        t1.start()
+
+    if t2 is None or not t2.is_alive():
+        t2 = threading.Thread(target=task_execute_checker, daemon=True)
+        t2.start()
 
 @app.route("/health")
 def health():

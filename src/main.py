@@ -6,7 +6,7 @@ import shutil
 import sys
 from src.clients.get_request import get_request
 from src.clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
-from src.consts import GITHUB_RAW_URL, KVK_CONFIG_JSON, MATCH_NEXT
+from src.consts import DATA_NEXT, GITHUB_RAW_URL, KVK_CONFIG_JSON, MATCH_NEXT
 from src.utility import (
     evaluate_kingdom,
     evaluate_player,
@@ -53,11 +53,6 @@ elif mode == "dkp_data":
     
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
-    with open("data/kvk/next_run_datetime.json", "w", encoding="utf-8") as f:
-        _datetime = datetime.datetime.now() + datetime.timedelta(hours=12)
-        _datetime_dict = {"datetime":_datetime.isoformat()}
-        json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
-
     data:dict = get_repo_json_file(KVK_CONFIG_JSON)
     for k,v in data.items():
         start:str = v.get("data_start", v.get("start"))
@@ -122,10 +117,6 @@ elif mode == "save_kvk_data":
 elif mode == "save_match_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
-    with open(MATCH_NEXT, "w", encoding="utf-8") as f:
-        _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
-        _datetime_dict = {"datetime":_datetime.isoformat()}
-        json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
     for kingdom_id in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
         os.makedirs(f"data/match/{idx}",exist_ok=True)
@@ -359,3 +350,9 @@ elif mode == "save_kingdoms_data":
         
     for n, d in working_file_list.items():
         write_data_to_json_file(n,d)
+
+elif mode=="update_next_run_time":
+    with open(DATA_NEXT, "w", encoding="utf-8") as f:
+        _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
+        _datetime_dict = {"datetime":_datetime.isoformat()}
+        json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)

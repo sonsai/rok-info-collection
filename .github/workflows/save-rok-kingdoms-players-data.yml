@@ -1,6 +1,10 @@
 name: Save Kingdoms Players Data
 
 on:
+  workflow_run:
+    workflows: ["Update Next Run Time"]   # 必须与 A.yml 的 name 完全一致
+    types:
+      - completed
   repository_dispatch:
     types: [save-kingdoms-players-data]
   workflow_dispatch:
