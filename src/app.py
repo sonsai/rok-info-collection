@@ -163,7 +163,8 @@ def rok_kvk_dkp_data():
 
 @app.get("/rok-kvk-player-data")
 def rok_kvk_player_data():
-    kvk_map_id = request.args.get("kvk_map_id")
+    kvk_map_id = request.args.get("kvk_map_id",type=str)
+    max_len = request.args.get("max_len",type=int, default=600)
     try:
         detail_data = read_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
@@ -172,7 +173,7 @@ def rok_kvk_player_data():
             return render_template(
                 "kvk_player.html",
                 kvk_info=target_kvk,
-                data=data
+                data=data[:max_len]
             )
         else:
             abort(404)

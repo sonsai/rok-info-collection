@@ -96,7 +96,7 @@
 </div>
     <h2>玩家数据 Player Data</h2>
     <h2>Map: {{ kvk_info.kvk_map_id }}</h2>
-    <h2>Start: {{ kvk_info.start }} — End: {{ kvk_info.end }}</h2>
+    <h2>数据范围: {{ kvk_info.data_start or kvk_info.start}} — {{ kvk_info.data_end or kvk_info.end}}</h2>
     <table class="sum-table">
         <tr>
             <th>#</th>
