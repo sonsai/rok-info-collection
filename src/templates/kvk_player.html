@@ -102,7 +102,7 @@
             <th>#</th>
             <th>阵营<br>CAMP</th>
             <th>王国<br>KINGDOM</th>
-            <th>ID</th>
+            <!-- <th>ID</th> -->
             <th>玩家名<br>PLAYER NAME</th>
             <th>战力<br>POWER</th>
             <th>击杀积分<br>KP</th>
@@ -117,8 +117,8 @@
             <th>T3阵亡数 T3 DEAD</th> -->
             <th>T4阵亡数<br>T4 DEAD</th>
             <th>T5阵亡数<br>T5 DEAD</th>
-            <th>采集<br>COLLECT</th>
-            <th>帮助<br>HELP</th>
+            <!-- <th>采集<br>COLLECT</th>
+            <th>帮助<br>HELP</th> -->
         </tr>
         
         {% for player in data %}
@@ -130,7 +130,7 @@
                 {% elif 'WIND' in player.camp %}wind
                 {% endif %}">{{ player.camp }}</td>
                 <td>{{ player.kingdom }}</td>
-                <td>{{ player.id }}</td>
+                <!-- <td>{{ player.id }}</td> -->
                 <td>{{ player.name }}</td>
                 <td>{{ player.power }}</td>
                 <td>{{ player.kill }}</td>
@@ -145,8 +145,8 @@
                 <td>{{ player.dead_t3 }}</td> -->
                 <td>{{ player.dead_t4 }}</td>
                 <td>{{ player.dead_t5 }}</td>
-                <td>{{ player.collect }}</td>
-                <td>{{ player.help }}</td>
+                <!-- <td>{{ player.collect }}</td>
+                <td>{{ player.help }}</td> -->
             </tr>
         {% endfor %}
     </table>
