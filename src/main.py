@@ -8,6 +8,7 @@ from src.clients.get_request import get_request
 from src.clients.get_listed_kingdoms_member_info_api import get_listed_kingdoms_member_info_api
 from src.consts import DATA_NEXT, GITHUB_RAW_URL, KVK_CONFIG_JSON, MATCH_NEXT
 from src.utility import (
+    check_tokens,
     evaluate_kingdom,
     evaluate_player,
     get_evaluated_kingdoms_json_path,
@@ -26,6 +27,8 @@ from src.utility import (
 )
 
 mode = os.environ["MODE"]
+
+check_tokens()
 
 if mode == "match_data":
     try:
