@@ -284,7 +284,7 @@ elif mode == "save_kingdoms_data":
                             kill_list = now_player["kill"]
                             if isinstance(kill_list,int):
                                 kill_list = [kill_list]
-                            dq=deque(iterable=kill_list,maxlen=30)
+                            dq=deque(iterable=kill_list,maxlen=60)
                             dq.append(player["kill"])
                             player["kill"] = list(dq)
                         break
@@ -309,7 +309,7 @@ elif mode == "save_kingdoms_data":
                                         kill_list = ex_player["kill"]
                                         if isinstance(kill_list,int):
                                             kill_list = [kill_list]
-                                        dq=deque(iterable=kill_list,maxlen=30)
+                                        dq=deque(iterable=kill_list,maxlen=60)
                                         dq.append(player["kill"])
                                         player["kill"] = list(dq)
                                     break
