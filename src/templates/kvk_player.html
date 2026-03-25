@@ -97,6 +97,8 @@
     <h2>玩家数据 Player Data</h2>
     <h2>Map: {{ kvk_info.kvk_map_id }}</h2>
     <h2>数据范围: {{ kvk_info.data_start or kvk_info.start}} — {{ kvk_info.data_end or kvk_info.end}}</h2>
+    <input type="text" id="searchInput" placeholder="输入关键字筛选..." style="
+    width: 200px; padding: 6px; margin-bottom: 10px; background:#222; color:#fff; border:1px solid #555;">
     <table class="sum-table">
         <tr>
             <th>#</th>
@@ -129,9 +131,13 @@
                 {% elif 'EARTH' in player.camp %}earth
                 {% elif 'WIND' in player.camp %}wind
                 {% endif %}">{{ player.camp }}</td>
-                <td>{{ player.kingdom }}</td>
+                <td onclick="location.href='/kingdom-player?id={{ player.kingdom }}'">
+                    {{ player.kingdom }}
+                </td>
                 <!-- <td>{{ player.id }}</td> -->
-                <td>{{ player.name }}</td>
+                <td onclick="location.href='/kingdom-player?id={{ player.id }}'">
+                    {{ player.name }}
+                </td>
                 <td>{{ player.power }}</td>
                 <td>{{ player.kill }}</td>
                 <td>{{ player.dead }}</td>
@@ -150,5 +156,20 @@
             </tr>
         {% endfor %}
     </table>
+    <script>
+        function filterTable() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll(".sum-table tr");
+
+            rows.forEach((row, index) => {
+                if (index === 0) return; // 跳过表头
+
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+
+        document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    </script>
 </body>
 </html>

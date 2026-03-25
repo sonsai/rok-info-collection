@@ -121,9 +121,38 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     options: {
                         responsive: true,
-                        scales: { y: { beginAtZero: true } }
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
+                                        if (value >= 1_000) return (value / 1_000) + 'K';
+                                        return value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const value = context.parsed.y;
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
+                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
+                                        return value;
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: false   // 如果你也想隐藏图例
+                            }
+                        }
                     }
                 });
+
             }, 0);
             // 再 append 其他内容
             modalBody.insertAdjacentHTML("beforeend", `
