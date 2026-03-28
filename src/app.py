@@ -207,6 +207,8 @@ def kingdom_player():
         eva_result = read_json_file(get_evaluated_kingdoms_json_path(int(kingdom_id)//100,kingdom_id))
         data_list =[]
         for player in eva_result.get("data"):
+            if "kill_60" not in player.keys():
+                player["kill_60"] = sum(player["kill"])
             for k,v in player.items():
                 player[k] = fn(v) if isinstance(v, int) and not re.match(r".*t[1-5]$", k) else v
             if player_id:

@@ -331,6 +331,8 @@ elif mode == "save_kingdoms_data":
                 for k,v in player_60.items():
                     if k not in ["id","name","max_power","power","dt"]:
                         player[f"{k}_60"] = v
+            else:
+                player["kill_60"] = sum(player["kill"])
             for p in result_data.get("data_in_180",{}):  
                 if p["id"] == player["id"]:
                     player_180 = p
