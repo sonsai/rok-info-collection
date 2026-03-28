@@ -42,6 +42,6 @@ jobs:
           git add data/player
 
           # 如果没有变化，避免报错
-          git diff --cached --quiet || git commit -m "Update kingdoms&player data"
+          git diff --cached --quiet || git commit -m "[render skip]Update kingdoms&player data"
 
           git push

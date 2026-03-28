@@ -1,20 +1,15 @@
 name: Save Match Data
 
 on:
-  workflow_run:
-    workflows: ["Save Kingdoms Players Data"]   # 必须与 A.yml 的 name 完全一致
-    types:
-      - completed
+  push:
+    paths:
+      - "data/kvk/kvk_info.json"
   repository_dispatch:
     types: [save-match-data]
   workflow_dispatch:
 
 jobs:
-  run-only-if-success:
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' &&
-       github.event.workflow_run.conclusion == 'success')
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
