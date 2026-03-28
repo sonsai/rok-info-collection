@@ -323,7 +323,7 @@ elif mode == "save_kingdoms_data":
                player["kill"] = [player["kill"]]
             player_60 = None
             player_180 = None
-            for p in result_data["data_in_60"]:  
+            for p in result_data.get("data_in_60",{}):  
                 if p["id"] == player["id"]:
                     player_60 = p
                     break
@@ -331,7 +331,7 @@ elif mode == "save_kingdoms_data":
                 for k,v in player_60.items():
                     if k not in ["id","name","max_power","power","dt"]:
                         player[f"{k}_60"] = v
-            for p in result_data["data_in_180"]:  
+            for p in result_data.get("data_in_180",{}):  
                 if p["id"] == player["id"]:
                     player_180 = p
                     break
