@@ -94,7 +94,7 @@ elif mode == "save_kvk_data":
                 pass
             else:
                 idx = k // 100
-                match_file_name = get_kvk_match_json_path(folder_name,k)
+                match_file_name = get_match_json_path(idx,k)
                 shutil.copy(match_file_name, kvk_match_file_name)
 
             response_dict = get_listed_kingdoms_member_info_api(
