@@ -2,20 +2,20 @@
     "C13112": {
         "kvk_map_id": "C13112",
         "kvk_type": "tides_of_war",
-        "vcr":true,
+        "vcr": true,
         "kvk_type_cn": "时移势易[TIDES OF WAR]",
-        "end_apply":"2026-03-03",
+        "end_apply": "2026-03-03",
         "start": "2026-03-13",
         "end": "2026-05-02",
         "data_start": "2026-03-22",
         "data_end": "2026-05-02",
-        "dkp_list" : {
-            "t4" : 5,
-            "t5" : 10,
-            "t4_dead" : 15,
-            "t5_dead" : 15
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
         },
-        "dkp_calc_rule":"t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
         "camps": {
             "FIRE": [
                 1038,
@@ -54,9 +54,9 @@
     "C13005": {
         "kvk_map_id": "C13005",
         "kvk_type": "tides_of_war",
-        "vcr":true,
+        "vcr": true,
         "kvk_type_cn": "时移势易[TIDES OF WAR]",
-        "end_apply":"2025-12-12",
+        "end_apply": "2025-12-12",
         "start": "2025-12-24",
         "end": "2026-02-12",
         "camps": {
@@ -102,11 +102,171 @@
             ]
         }
     },
+    "C13122": {
+        "kvk_map_id": "C13122",
+        "kvk_type": "heroic_anthem",
+        "vcr": true,
+        "kvk_type_cn": "英雄赞歌[HEROIC ANTHEM]",
+        "end_apply": "2026-04-03",
+        "start": "2026-04-10",
+        "end": "2026-06-01",
+        "data_start": "2026-04-10",
+        "data_end": "2026-06-01",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "FIRE": [
+                3512,
+                1331,
+                3002,
+                3309,
+                3737,
+                1003
+            ],
+            "EARTH": [
+                3419,
+                2930,
+                1158,
+                2412,
+                2879,
+                2849
+            ],
+            "WATER": [
+                2858,
+                1921,
+                3656,
+                3483,
+                1943,
+                1805
+            ],
+            "WIND": [
+                2409,
+                3640,
+                3191,
+                1187,
+                2975,
+                1721
+            ]
+        }
+    },
+    "C13123": {
+        "kvk_map_id": "C13123",
+        "kvk_type": "heroic_anthem",
+        "vcr": true,
+        "kvk_type_cn": "英雄赞歌[HEROIC ANTHEM]",
+        "end_apply": "2026-04-03",
+        "start": "2026-04-10",
+        "end": "2026-06-01",
+        "data_start": "2026-04-10",
+        "data_end": "2026-06-01",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "FIRE": [
+                1807,
+                3621,
+                1949,
+                1195,
+                3369,
+                1289
+            ],
+            "EARTH": [
+                3454,
+                3636,
+                3196,
+                1756,
+                2143,
+                2410
+            ],
+            "WATER": [
+                2887,
+                2379,
+                3134,
+                1301,
+                3529,
+                1200
+            ],
+            "WIND": [
+                1203,
+                3502,
+                1617,
+                3540,
+                1559,
+                2978
+            ]
+        }
+    },
+    "C13126": {
+        "kvk_map_id": "C13126",
+        "kvk_type": "heroic_anthem",
+        "vcr": true,
+        "kvk_type_cn": "英雄赞歌[HEROIC ANTHEM]",
+        "end_apply": "2026-04-03",
+        "start": "2026-04-10",
+        "end": "2026-06-01",
+        "data_start": "2026-04-10",
+        "data_end": "2026-06-01",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "FIRE": [
+                1186,
+                1604,
+                1373,
+                1619,
+                1635,
+                1159,
+                2926
+            ],
+            "EARTH": [
+                2833,
+                2864,
+                2911,
+                2837,
+                2393,
+                2447,
+                2448
+            ],
+            "WATER": [
+                1492,
+                3132,
+                3339,
+                3533,
+                3600,
+                3071,
+                3041
+            ],
+            "WIND": [
+                1741,
+                1894,
+                2253,
+                2263,
+                1825,
+                1864,
+                2333
+            ]
+        }
+    },
     "C13094": {
         "kvk_map_id": "C13094",
         "kvk_type": "heroic_anthem",
         "kvk_type_cn": "英雄赞歌[HEROIC_ANTHEM]",
-        "end_apply":"2026-03-03",
+        "end_apply": "2026-03-03",
         "start": "2026-03-13",
         "end": "2026-05-02",
         "camps": {
