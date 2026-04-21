@@ -17,7 +17,9 @@
       "name": "EISA ALKETBI",
       "max_power": 131872090,
       "power": 122814447,
-      "collect": 10454062,
+      "collect": [
+        10454062
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -34,7 +36,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -42,6 +46,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 3,
+      "collect_60": 10454062,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "a",
@@ -58,7 +64,9 @@
       "name": "BoNoNo",
       "max_power": 115652290,
       "power": 115652290,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -100,7 +108,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -151,7 +161,9 @@
       "name": "ˢʲ义GoGeto",
       "max_power": 96809260,
       "power": 96809260,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -193,7 +205,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -244,7 +258,9 @@
       "name": "Lysindaᴿᴸ",
       "max_power": 92049743,
       "power": 92047645,
-      "collect": 115,
+      "collect": [
+        115
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -286,7 +302,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -337,7 +355,9 @@
       "name": "BLACK  EARTH SY",
       "max_power": 118367076,
       "power": 91199072,
-      "collect": 25492956,
+      "collect": [
+        25492956
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -379,7 +399,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 7,
+      "help": [
+        7
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -430,7 +452,9 @@
       "name": "PNGO",
       "max_power": 88513136,
       "power": 86111570,
-      "collect": 23273250,
+      "collect": [
+        23273250
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -472,7 +496,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -523,7 +549,9 @@
       "name": "Ph0enix123",
       "max_power": 83186123,
       "power": 83186123,
-      "collect": 8722875,
+      "collect": [
+        8722875
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -565,7 +593,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 4,
+      "help": [
+        4
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -616,7 +646,9 @@
       "name": "بو جود",
       "max_power": 125291833,
       "power": 81894866,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -648,7 +680,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -699,7 +733,9 @@
       "name": "义BO rafi",
       "max_power": 86575806,
       "power": 81831355,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -712,7 +748,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -763,7 +801,9 @@
       "name": "亗 حماس 亗",
       "max_power": 87197309,
       "power": 81683067,
-      "collect": 15678358,
+      "collect": [
+        15678358
+      ],
       "dead": 0,
       "kill": [
         144,
@@ -805,7 +845,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -856,7 +898,9 @@
       "name": "ˢʲ义AbuRafat",
       "max_power": 82669984,
       "power": 80821394,
-      "collect": 1774500,
+      "collect": [
+        1774500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -898,7 +942,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -949,7 +995,9 @@
       "name": "ˢʲ义REBARᴿ",
       "max_power": 80053108,
       "power": 79446648,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -991,7 +1039,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1042,7 +1092,9 @@
       "name": "ˢʲ义SWE",
       "max_power": 79037205,
       "power": 78731655,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1084,7 +1136,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1135,7 +1189,9 @@
       "name": "islam H",
       "max_power": 77752959,
       "power": 77752959,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1177,7 +1233,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1228,7 +1286,9 @@
       "name": "ABU İBRAHİM",
       "max_power": 77669514,
       "power": 77247360,
-      "collect": 9407233,
+      "collect": [
+        9407233
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1270,7 +1330,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1321,7 +1383,9 @@
       "name": "Ahmed ū",
       "max_power": 77184535,
       "power": 77141205,
-      "collect": 9787916,
+      "collect": [
+        9787916
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1363,7 +1427,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 5,
+      "help": [
+        5
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1414,7 +1480,9 @@
       "name": "X bear X",
       "max_power": 76199819,
       "power": 75703493,
-      "collect": 10543070,
+      "collect": [
+        10543070
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1456,7 +1524,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1507,7 +1577,9 @@
       "name": "XHayali",
       "max_power": 74362458,
       "power": 74361962,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1549,7 +1621,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1600,7 +1674,9 @@
       "name": "msj177",
       "max_power": 87327576,
       "power": 74110729,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1642,7 +1718,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1693,7 +1771,9 @@
       "name": "Glalfox",
       "max_power": 74075733,
       "power": 74067483,
-      "collect": 11534250,
+      "collect": [
+        11534250
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1735,7 +1815,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1786,7 +1868,9 @@
       "name": "ˢʲ义om",
       "max_power": 73709585,
       "power": 73481291,
-      "collect": 17989906,
+      "collect": [
+        17989906
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1828,7 +1912,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1836,6 +1922,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 1682900,
+      "help_60": 3,
+      "collect_60": 17989906,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "c",
@@ -1852,7 +1940,9 @@
       "name": "AMIN 옺ツ",
       "max_power": 75507163,
       "power": 73258380,
-      "collect": 8820000,
+      "collect": [
+        8820000
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1894,7 +1984,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 4,
+      "help": [
+        4
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -1945,7 +2037,9 @@
       "name": "KHkh1029",
       "max_power": 88116466,
       "power": 73236322,
-      "collect": 10174500,
+      "collect": [
+        10174500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -1987,7 +2081,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2038,7 +2134,9 @@
       "name": "Ahmad Syria",
       "max_power": 66768044,
       "power": 66768044,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2080,7 +2178,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2131,7 +2231,9 @@
       "name": "MeowFakeFarm11",
       "max_power": 103269885,
       "power": 60485691,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2173,7 +2275,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2224,7 +2328,9 @@
       "name": "Albert67",
       "max_power": 58832489,
       "power": 58830669,
-      "collect": 1617893,
+      "collect": [
+        1617893
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2266,7 +2372,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2317,7 +2425,9 @@
       "name": "Farm sometime",
       "max_power": 55792145,
       "power": 55792145,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2359,7 +2469,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2410,7 +2522,9 @@
       "name": "RedhandedJill",
       "max_power": 56554901,
       "power": 53601048,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2452,7 +2566,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2503,7 +2619,9 @@
       "name": "D 义 Luffy",
       "max_power": 74120234,
       "power": 53349152,
-      "collect": 5880000,
+      "collect": [
+        5880000
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2531,7 +2649,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2582,7 +2702,9 @@
       "name": "TAliT",
       "max_power": 52147778,
       "power": 49814973,
-      "collect": 7985250,
+      "collect": [
+        7985250
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2624,7 +2746,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 4,
+      "help": [
+        4
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2675,7 +2799,9 @@
       "name": "Mini juampix",
       "max_power": 68341500,
       "power": 49076061,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2699,7 +2825,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2707,6 +2835,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -2723,7 +2853,9 @@
       "name": "BLACK  SY مزارع",
       "max_power": 49179945,
       "power": 49046283,
-      "collect": 28861624,
+      "collect": [
+        28861624
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2765,7 +2897,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 4,
+      "help": [
+        4
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2816,7 +2950,9 @@
       "name": "Bichix",
       "max_power": 49819669,
       "power": 48627904,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2829,7 +2965,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2866,7 +3004,9 @@
       "name": "MQN",
       "max_power": 44921709,
       "power": 44916285,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2908,7 +3048,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -2945,7 +3087,9 @@
       "name": "义 سمكو ˢʲ",
       "max_power": 43248623,
       "power": 43248623,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -2987,7 +3131,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3038,7 +3184,9 @@
       "name": "ڪوڪايين",
       "max_power": 39944712,
       "power": 39944712,
-      "collect": 5551875,
+      "collect": [
+        5551875
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3080,7 +3228,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3131,7 +3281,9 @@
       "name": "żżżDBZ",
       "max_power": 39159572,
       "power": 38696313,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3173,7 +3325,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3224,7 +3378,9 @@
       "name": "Irisha555",
       "max_power": 39821261,
       "power": 37345516,
-      "collect": 9350270,
+      "collect": [
+        9350270
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3266,7 +3422,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3317,7 +3475,9 @@
       "name": "亗A义A亗",
       "max_power": 38860325,
       "power": 37012118,
-      "collect": 6831562,
+      "collect": [
+        6831562
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3359,7 +3519,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3410,7 +3572,9 @@
       "name": "goodboy f2p",
       "max_power": 35709384,
       "power": 35704508,
-      "collect": 3927525,
+      "collect": [
+        3927525
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3425,7 +3589,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3433,6 +3599,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 2,
+      "collect_60": 3927525,
       "collect_180": 87740125,
       "dead_180": 0,
       "kill_180": 0,
@@ -3463,7 +3631,9 @@
       "name": "Camelot  4",
       "max_power": 34193412,
       "power": 34106412,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3505,7 +3675,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3556,7 +3728,9 @@
       "name": "black bzh",
       "max_power": 32675675,
       "power": 32675675,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3598,7 +3772,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3649,7 +3825,9 @@
       "name": "Ahmad Rafat",
       "max_power": 37973577,
       "power": 31606297,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3691,7 +3869,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3742,7 +3922,9 @@
       "name": "ASxLisek",
       "max_power": 31133297,
       "power": 31133297,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3776,7 +3958,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3784,6 +3968,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -3800,7 +3986,9 @@
       "name": "rolla25",
       "max_power": 32275175,
       "power": 30321028,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3842,7 +4030,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3893,7 +4083,9 @@
       "name": "the gray wolff",
       "max_power": 28941630,
       "power": 28594146,
-      "collect": 5381250,
+      "collect": [
+        5381250
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3925,7 +4117,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -3933,6 +4127,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 1,
+      "collect_60": 5381250,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -3949,7 +4145,9 @@
       "name": "総統72888371",
       "max_power": 30687850,
       "power": 28444720,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -3991,7 +4189,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4042,7 +4242,9 @@
       "name": "Sohyun04",
       "max_power": 29247332,
       "power": 28153441,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4084,7 +4286,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4121,7 +4325,9 @@
       "name": "waliyd",
       "max_power": 26191399,
       "power": 26191399,
-      "collect": 11302962,
+      "collect": [
+        11302962
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4163,7 +4369,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 4,
+      "help": [
+        4
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4200,7 +4408,9 @@
       "name": "مزارع BLACK SY",
       "max_power": 25298436,
       "power": 25298436,
-      "collect": 25861500,
+      "collect": [
+        25861500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4242,7 +4452,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4293,7 +4505,9 @@
       "name": "TheOnyxMermaid",
       "max_power": 25727166,
       "power": 23991791,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4327,7 +4541,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4335,6 +4551,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "collect_180": 1990970,
       "dead_180": 403745,
       "kill_180": 440140,
@@ -4365,7 +4583,9 @@
       "name": "Ton ER",
       "max_power": 22153545,
       "power": 22153545,
-      "collect": 3402000,
+      "collect": [
+        3402000
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4407,7 +4627,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4458,7 +4680,9 @@
       "name": "Javi igual no 7",
       "max_power": 21207684,
       "power": 21207684,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4500,7 +4724,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4508,6 +4734,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -4524,7 +4752,9 @@
       "name": "Javi igual no j",
       "max_power": 22922185,
       "power": 20732345,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4566,7 +4796,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4574,6 +4806,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 2293380,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -4590,7 +4824,9 @@
       "name": "sawalha303",
       "max_power": 19652303,
       "power": 19652303,
-      "collect": 5381250,
+      "collect": [
+        5381250
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4632,7 +4868,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4640,6 +4878,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 5381250,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -4656,7 +4896,9 @@
       "name": "Red flower",
       "max_power": 19435309,
       "power": 19435309,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4676,7 +4918,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4713,7 +4957,9 @@
       "name": "балу 2",
       "max_power": 19532278,
       "power": 19119740,
-      "collect": 7560020,
+      "collect": [
+        7560020
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4755,7 +5001,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4806,7 +5054,9 @@
       "name": "MiniSweet",
       "max_power": 19007880,
       "power": 19007880,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4818,7 +5068,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4826,6 +5078,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -4842,7 +5096,9 @@
       "name": "Noura٪1",
       "max_power": 17442682,
       "power": 17442682,
-      "collect": 6861750,
+      "collect": [
+        6861750
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4884,7 +5140,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4921,7 +5179,9 @@
       "name": "bunwa 1",
       "max_power": 16642919,
       "power": 16642919,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -4963,7 +5223,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -4971,6 +5233,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -4987,7 +5251,9 @@
       "name": "mhmd93",
       "max_power": 16626721,
       "power": 16626721,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5029,7 +5295,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5066,7 +5334,9 @@
       "name": "Gubernur83692547",
       "max_power": 17616378,
       "power": 16604081,
-      "collect": 17083500,
+      "collect": [
+        17083500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5087,7 +5357,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5095,6 +5367,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 3,
+      "collect_60": 17083500,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -5111,7 +5385,9 @@
       "name": "Ahmedü",
       "max_power": 16609880,
       "power": 15761852,
-      "collect": 6189750,
+      "collect": [
+        6189750
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5126,7 +5402,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5134,6 +5412,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 2,
+      "collect_60": 6189750,
       "collect_180": 61000176,
       "dead_180": 526545,
       "kill_180": 635990,
@@ -5164,7 +5444,9 @@
       "name": "REÏNA DAT",
       "max_power": 15617492,
       "power": 15617492,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5206,7 +5488,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5214,6 +5498,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -5230,7 +5516,9 @@
       "name": "dARKwARRIOR",
       "max_power": 15420223,
       "power": 15420223,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5265,7 +5553,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5316,7 +5606,9 @@
       "name": "ˢʲLAELˢʲ",
       "max_power": 16095086,
       "power": 15414538,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5358,7 +5650,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5409,7 +5703,9 @@
       "name": "Zikiii",
       "max_power": 15378151,
       "power": 15378151,
-      "collect": 6226500,
+      "collect": [
+        6226500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5451,7 +5747,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5488,7 +5786,9 @@
       "name": "Ahmedú",
       "max_power": 15011820,
       "power": 14807918,
-      "collect": 8316000,
+      "collect": [
+        8316000
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5503,7 +5803,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 2,
+      "help": [
+        2
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5511,6 +5813,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 2,
+      "collect_60": 8316000,
       "collect_180": 73953848,
       "dead_180": 267651,
       "kill_180": 301560,
@@ -5541,7 +5845,9 @@
       "name": "ˢʲ义SJ62",
       "max_power": 14559297,
       "power": 14559297,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5583,7 +5889,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5634,7 +5942,9 @@
       "name": "亗 اقطار 义",
       "max_power": 14222015,
       "power": 14222015,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5676,7 +5986,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5727,7 +6039,9 @@
       "name": "Rolla Farm",
       "max_power": 14141477,
       "power": 14141477,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5744,7 +6058,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5752,6 +6068,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -5768,7 +6086,9 @@
       "name": "総督83382854",
       "max_power": 17025169,
       "power": 14071831,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5810,7 +6130,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5861,7 +6183,9 @@
       "name": "rolla2",
       "max_power": 15160411,
       "power": 13729506,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5903,7 +6227,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5940,7 +6266,9 @@
       "name": "SpiritOfTheSun",
       "max_power": 14360297,
       "power": 13572647,
-      "collect": 4980150,
+      "collect": [
+        4980150
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -5973,7 +6301,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -5981,6 +6311,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 1,
+      "collect_60": 4980150,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -5997,7 +6329,9 @@
       "name": "Jieraiya sensi",
       "max_power": 13290019,
       "power": 13290019,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6023,7 +6357,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6031,6 +6367,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -6047,7 +6385,9 @@
       "name": "Javi igual no 4",
       "max_power": 13108639,
       "power": 13108639,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6089,7 +6429,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6097,6 +6439,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 307930,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -6113,7 +6457,9 @@
       "name": "Governador83388640",
       "max_power": 13339001,
       "power": 12878268,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6130,7 +6476,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6138,6 +6486,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -6154,7 +6504,9 @@
       "name": "亗 حتم ツ",
       "max_power": 10468846,
       "power": 10468846,
-      "collect": 6547275,
+      "collect": [
+        6547275
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6196,7 +6548,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6247,7 +6601,9 @@
       "name": "Ahmad Rafat 2",
       "max_power": 11156924,
       "power": 10142118,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6289,7 +6645,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6297,6 +6655,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "collect_180": 474159000,
       "dead_180": 0,
       "kill_180": 0,
@@ -6327,7 +6687,9 @@
       "name": "亗KOMNBO义",
       "max_power": 9841133,
       "power": 9841133,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6369,7 +6731,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6420,7 +6784,9 @@
       "name": "Skenderbeu69",
       "max_power": 9833733,
       "power": 9833733,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6462,7 +6828,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6499,7 +6867,9 @@
       "name": "FESTIVIA",
       "max_power": 9693782,
       "power": 9693782,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6541,7 +6911,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6549,6 +6921,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 942110,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -6565,7 +6939,9 @@
       "name": "ˢʲ义TAEKR",
       "max_power": 9214605,
       "power": 9214605,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6607,7 +6983,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6658,7 +7036,9 @@
       "name": "Breizh blackbzh",
       "max_power": 10670969,
       "power": 8707569,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6700,7 +7080,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6751,7 +7133,9 @@
       "name": "PABLOESCOBARQ1",
       "max_power": 8411460,
       "power": 8411460,
-      "collect": 2480625,
+      "collect": [
+        2480625
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6793,7 +7177,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6844,7 +7230,9 @@
       "name": "القائد ارسلان",
       "max_power": 8231599,
       "power": 8231599,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6886,7 +7274,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -6923,7 +7313,9 @@
       "name": "Abu Rafat farm",
       "max_power": 8186821,
       "power": 8186821,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -6965,7 +7357,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7016,7 +7410,9 @@
       "name": "khled famr 7",
       "max_power": 7819129,
       "power": 7819129,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7032,7 +7428,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7040,6 +7438,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7056,7 +7456,9 @@
       "name": "pleasant",
       "max_power": 8816225,
       "power": 7435222,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7098,7 +7500,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7149,7 +7553,9 @@
       "name": "ˢʲ TORABE 义",
       "max_power": 7350872,
       "power": 7350872,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7191,7 +7597,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7242,7 +7650,9 @@
       "name": "Lysinda farm",
       "max_power": 6992502,
       "power": 6898741,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7268,7 +7678,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7319,7 +7731,9 @@
       "name": "Queen of Mimi",
       "max_power": 6385781,
       "power": 6385781,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7361,7 +7775,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7369,6 +7785,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7385,7 +7803,9 @@
       "name": "ˢʲ义TEN",
       "max_power": 6191919,
       "power": 6191919,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7427,7 +7847,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7478,7 +7900,9 @@
       "name": "Taquito662",
       "max_power": 5995886,
       "power": 5995886,
-      "collect": 6230802,
+      "collect": [
+        6230802
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7514,7 +7938,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7522,6 +7948,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 3,
+      "collect_60": 6230802,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7538,7 +7966,9 @@
       "name": "MQN FARM 1",
       "max_power": 5815919,
       "power": 5809451,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7580,7 +8010,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7617,7 +8049,9 @@
       "name": "Governor83393891",
       "max_power": 5262173,
       "power": 5262173,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7659,7 +8093,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7696,7 +8132,9 @@
       "name": "الحاكم92540342",
       "max_power": 5010651,
       "power": 4778704,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0
@@ -7706,7 +8144,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7714,6 +8154,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7730,7 +8172,9 @@
       "name": "Amin farm 2",
       "max_power": 4723982,
       "power": 4507478,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7758,7 +8202,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7809,7 +8255,9 @@
       "name": "Glow III",
       "max_power": 4349097,
       "power": 4349097,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7851,7 +8299,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7859,6 +8309,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7875,7 +8327,9 @@
       "name": "Abu Rafat farm2",
       "max_power": 4042217,
       "power": 4042217,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7917,7 +8371,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7925,6 +8381,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -7941,7 +8399,9 @@
       "name": "الحاكم59636076",
       "max_power": 4484610,
       "power": 3960192,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -7983,7 +8443,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -7991,6 +8453,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 302,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8007,7 +8471,9 @@
       "name": "ساموراي ᴮｚ",
       "max_power": 3800579,
       "power": 3800579,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8024,7 +8490,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8032,6 +8500,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8048,7 +8518,9 @@
       "name": "Sawalha19",
       "max_power": 3546444,
       "power": 3546444,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8090,7 +8562,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8098,6 +8572,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 148359,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8114,7 +8590,9 @@
       "name": "Ahmed ú",
       "max_power": 3532805,
       "power": 3532805,
-      "collect": 2131500,
+      "collect": [
+        2131500
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8129,7 +8607,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8137,6 +8617,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 1,
+      "collect_60": 2131500,
       "collect_180": 24433897,
       "dead_180": 0,
       "kill_180": 0,
@@ -8167,7 +8649,9 @@
       "name": "KING TOMS",
       "max_power": 3312300,
       "power": 3312300,
-      "collect": 7691721,
+      "collect": [
+        7691721
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8209,7 +8693,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 3,
+      "help": [
+        3
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8217,6 +8703,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 3465,
+      "help_60": 3,
+      "collect_60": 7691721,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8233,7 +8721,9 @@
       "name": "あいうおえ",
       "max_power": 2986873,
       "power": 2986873,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8252,7 +8742,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8260,6 +8752,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8276,7 +8770,9 @@
       "name": "Archerkun",
       "max_power": 2819233,
       "power": 2819233,
-      "collect": 6648439,
+      "collect": [
+        6648439
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8318,7 +8814,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8355,7 +8853,9 @@
       "name": "Ahmed û",
       "max_power": 2749161,
       "power": 2741652,
-      "collect": 2205000,
+      "collect": [
+        2205000
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8370,7 +8870,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8378,6 +8880,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 1,
+      "collect_60": 2205000,
       "collect_180": 19191514,
       "dead_180": 0,
       "kill_180": 0,
@@ -8408,7 +8912,9 @@
       "name": "Правитель211449289",
       "max_power": 2593685,
       "power": 2593685,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8450,7 +8956,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8501,7 +9009,9 @@
       "name": "SHYAMEL",
       "max_power": 2364881,
       "power": 2364881,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8536,7 +9046,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8573,7 +9085,9 @@
       "name": "Zetran",
       "max_power": 2188067,
       "power": 2188067,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8599,7 +9113,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8607,6 +9123,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8623,7 +9141,9 @@
       "name": "あいいうええお",
       "max_power": 2086324,
       "power": 2022960,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8663,7 +9183,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8700,7 +9222,9 @@
       "name": "Daryl Farm 1",
       "max_power": 1813477,
       "power": 1813477,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8726,7 +9250,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8734,6 +9260,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8750,7 +9278,9 @@
       "name": "الحاكم27385615",
       "max_power": 1394109,
       "power": 1392549,
-      "collect": 3232471,
+      "collect": [
+        3232471
+      ],
       "dead": 0,
       "kill": [
         0
@@ -8760,7 +9290,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8768,6 +9300,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 3232471,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8784,7 +9318,9 @@
       "name": "亗 ساحق 义",
       "max_power": 1095712,
       "power": 1087232,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8826,7 +9362,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8863,7 +9401,9 @@
       "name": "Gobernador83851559",
       "max_power": 978771,
       "power": 978771,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8905,7 +9445,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8913,6 +9455,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8929,7 +9473,9 @@
       "name": "Gobernador83056404",
       "max_power": 913053,
       "power": 913053,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8941,7 +9487,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8949,6 +9497,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -8965,7 +9515,9 @@
       "name": "Zarządca83382803",
       "max_power": 951780,
       "power": 894938,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -8986,7 +9538,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -8994,6 +9548,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9010,7 +9566,9 @@
       "name": "ผู้ว่าการ83366540",
       "max_power": 877611,
       "power": 877611,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9052,7 +9610,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9060,6 +9620,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9076,7 +9638,9 @@
       "name": "TaquitoDePapas",
       "max_power": 809931,
       "power": 809931,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9094,7 +9658,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9102,6 +9668,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9118,7 +9686,9 @@
       "name": "الحاكم154051492",
       "max_power": 568339,
       "power": 568339,
-      "collect": 461560,
+      "collect": [
+        461560
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9160,7 +9730,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 1,
+      "help": [
+        1
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9168,6 +9740,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 1,
+      "collect_60": 461560,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9184,7 +9758,9 @@
       "name": "Gobernador93725066",
       "max_power": 472599,
       "power": 472542,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9204,7 +9780,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9241,7 +9819,9 @@
       "name": "الحاكم153095968",
       "max_power": 465870,
       "power": 465870,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9256,7 +9836,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9264,6 +9846,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9280,7 +9864,9 @@
       "name": "الحاكم154051956",
       "max_power": 435270,
       "power": 435270,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9322,7 +9908,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9330,6 +9918,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9346,7 +9936,9 @@
       "name": "YodAminex",
       "max_power": 354025,
       "power": 354025,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9385,7 +9977,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9393,6 +9987,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9409,7 +10005,9 @@
       "name": "ابو رافي F5",
       "max_power": 301803,
       "power": 301803,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9422,7 +10020,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9459,7 +10059,9 @@
       "name": "Governor83397717",
       "max_power": 238307,
       "power": 238307,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9481,7 +10083,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9489,6 +10093,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9505,7 +10111,9 @@
       "name": "الحاكم221591652",
       "max_power": 183325,
       "power": 183325,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0
@@ -9515,7 +10123,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9523,6 +10133,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9539,7 +10151,9 @@
       "name": "Gouverneur83338447",
       "max_power": 156510,
       "power": 156510,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9552,7 +10166,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9560,6 +10176,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9576,7 +10194,9 @@
       "name": "Gobernador83356022",
       "max_power": 146975,
       "power": 146975,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9601,7 +10221,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9609,6 +10231,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9625,7 +10249,9 @@
       "name": "Governor223725445",
       "max_power": 42501,
       "power": 42501,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9653,7 +10279,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9661,6 +10289,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9677,7 +10307,9 @@
       "name": "Governor209483923",
       "max_power": 41996,
       "power": 41996,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9719,7 +10351,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9770,7 +10404,9 @@
       "name": "Governor224801518",
       "max_power": 41731,
       "power": 41731,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9783,7 +10419,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9791,6 +10429,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9807,7 +10447,9 @@
       "name": "Governor224100239",
       "max_power": 41561,
       "power": 41561,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9830,7 +10472,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9838,6 +10482,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9854,7 +10500,9 @@
       "name": "Governor224769584",
       "max_power": 41186,
       "power": 41186,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9868,7 +10516,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9876,6 +10526,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9892,7 +10544,9 @@
       "name": "Governor223658379",
       "max_power": 40866,
       "power": 40866,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9921,7 +10575,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9929,6 +10585,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9945,7 +10603,9 @@
       "name": "Governor223638924",
       "max_power": 40256,
       "power": 40256,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -9974,7 +10634,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -9982,6 +10644,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -9998,7 +10662,9 @@
       "name": "Governor224305892",
       "max_power": 36356,
       "power": 36356,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -10017,7 +10683,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -10025,6 +10693,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -10041,7 +10711,9 @@
       "name": "Governor224731444",
       "max_power": 30239,
       "power": 30239,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -10055,7 +10727,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -10063,6 +10737,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -10079,7 +10755,9 @@
       "name": "Governor224293504",
       "max_power": 26984,
       "power": 26984,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -10098,7 +10776,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -10106,6 +10786,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -10122,7 +10804,9 @@
       "name": "Governor224294466",
       "max_power": 26734,
       "power": 26734,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -10141,7 +10825,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -10149,6 +10835,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 0,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
@@ -10165,7 +10853,9 @@
       "name": "Governor224042361",
       "max_power": 42336,
       "power": 25011,
-      "collect": 0,
+      "collect": [
+        0
+      ],
       "dead": 0,
       "kill": [
         0,
@@ -10188,7 +10878,9 @@
       "t3": 0,
       "t4": 0,
       "t5": 0,
-      "help": 0,
+      "help": [
+        0
+      ],
       "dt": "2026/04/20",
       "dead_t1": 0,
       "dead_t2": 0,
@@ -10196,6 +10888,8 @@
       "dead_t4": 0,
       "dead_t5": 0,
       "kill_60": 1624,
+      "help_60": 0,
+      "collect_60": 0,
       "grade_kill": "d",
       "grade_dead": "d",
       "grade_power": "d",
