@@ -39,6 +39,8 @@ function formatKMN(num) {
 }
 
 let killsChart = null; 
+let helpChart = null; 
+let collectChart = null; 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("playerModal");
     const modalBody = document.getElementById("modal-body");
@@ -50,7 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const p = JSON.parse(this.dataset.player);
             const kill_30 = JSON.parse(p.kill);
             const kill_days = kill_30.length
-            const labels = kill_30.map((_, i) => `${kill_days - i}天前`);
+            const kill_labels = kill_30.map((_, i) => `${kill_days - i}天前`);
+            const collect_30 = JSON.parse(p.collect);
+            const collect_days = collect_30.length
+            const collect_labels = collect_30.map((_, i) => `${collect_days - i}天前`);
+            const help_30 = JSON.parse(p.help);
+            const help_days = help_30.length
+            const help_labels = help_30.map((_, i) => `${help_days - i}天前`);
             // 计算 T1~T5 最大值用于比例
             const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(parseKMN);
             const maxKill = Math.max(...kills, 1);
@@ -97,19 +105,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h4>最近${kill_days}天每天获得的击杀积分</h4>
                 <div id="chartBox">
                     <canvas id="killsChart"></canvas>
+                </div>
+                <h4>最近${collect_days}天每天的采集量</h4>
+                <div id="chartBox">
+                    <canvas id="collectChart"></canvas>
+                </div>
+                <h4>最近${help_days}天每天的帮助次数</h4>
+                <div id="chartBox">
+                    <canvas id="helpChart"></canvas>
                 </div>`;
 
             // 等 DOM 插入后再画图
             setTimeout(() => {
                 Chart.defaults.color = '#ffffff';
-                const ctx = document.getElementById('killsChart').getContext('2d');
-
+                const ctx_kill = document.getElementById('killsChart').getContext('2d');
+                const ctx_collect = document.getElementById('collectChart').getContext('2d');
+                const ctx_help = document.getElementById('helpChart').getContext('2d');
                 if (killsChart) killsChart.destroy();
-
-                killsChart = new Chart(ctx, {
-                    type: 'line',
+                if (collectChart) collectChart.destroy();
+                if (helpChart) helpChart.destroy();
+                killsChart = new Chart(ctx_kill, {
+                    type: 'bar',
                     data: {
-                        labels,
+                        labels: kill_labels,
                         datasets: [{
                             label: 'kp per day',
                             data: kill_30,
@@ -153,6 +171,99 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
 
+                collectChart = new Chart(ctx_collect, {
+                    type: 'line',
+                    data: {
+                        labels: collect_labels,
+                        datasets: [{
+                            label: 'collect per day',
+                            data: collect_30,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.25,
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
+                                        if (value >= 1_000) return (value / 1_000) + 'K';
+                                        return value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const value = context.parsed.y;
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
+                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
+                                        return value;
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: false   // 如果你也想隐藏图例
+                            }
+                        }
+                    }
+                });
+                
+                helpChart = new Chart(ctx_help, {
+                    type: 'line',
+                    data: {
+                        labels: help_labels,
+                        datasets: [{
+                            label: 'help per day',
+                            data: help_30,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.25,
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
+                                        if (value >= 1_000) return (value / 1_000) + 'K';
+                                        return value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const value = context.parsed.y;
+                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
+                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
+                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
+                                        return value;
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: false   // 如果你也想隐藏图例
+                            }
+                        }
+                    }
+                });
             }, 0);
             // 再 append 其他内容
             modalBody.insertAdjacentHTML("beforeend", `
@@ -459,9 +570,11 @@ document.addEventListener("DOMContentLoaded", function () {
         "dead_t4_180": "{{ p.dead_t4_180 }}",
         "dead_t5": "{{ p.dead_t5_60 }}",
         "dead_t5_180": "{{ p.dead_t5_180 }}",
-        "collect": "{{ p.collect_60 }}",
+        "collect": "{{ p.collect }}",
+        "collect_60": "{{ p.collect_60 }}",
         "collect_180": "{{ p.collect_180 }}",
-        "help": "{{ p.help_60 }}",
+        "help": "{{ p.help }}",
+        "help_60": "{{ p.help_60 }}",
         "help_180": "{{ p.help_180 }}"
      }'>
 

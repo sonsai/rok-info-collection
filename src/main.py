@@ -166,21 +166,11 @@ elif mode == "save_kingdoms_data":
             with open(kingdoms_file_name, "w", encoding="utf-8") as f:
                 json.dump(detail_data, f, ensure_ascii=False, indent=2)
 
-# elif mode == "execute_player_list":
-#     id_from = sys.argv[1]
-#     id_to = sys.argv[2]
-    
-
-    # for kd in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
         file_name = get_kingdoms_json_path("1",idx,kingdom_id)
         if not os.path.exists(file_name):
             continue
         player_data = read_json_file(file_name)
-        # file_name60 = get_kingdoms_json_path("60",idx,kd)
-        # player_data_60 = read_json_file(file_name60)
-        # file_name180 = get_kingdoms_json_path("180",idx,kd)
-        # player_data_180 = read_json_file(file_name180)
 
         for p in player_data["data"]:
             pid = p["id"]
@@ -213,43 +203,8 @@ elif mode == "save_kingdoms_data":
                     "kingdom":[player_data["kingdom"]],
                     "name":[p["name"]]
                 }
-            # p60 = get_player_from_kingdom(pid,player_data_60)
-            # p180 = get_player_from_kingdom(pid,player_data_180)
-            # player_info = player_info_list[pid]
-            # player_info["power"] = p.get("power")
-            # player_info["dt"] = p.get("dt")
-
-            # player_info["kill_60"] = p60.get("kill")
-            # player_info["kill_180"] = p180.get("kill")
-            # player_info["dead_60"] = p60.get("dead")
-            # player_info["dead_180"] = p180.get("dead")
-            # player_info["collect_60"] = p60.get("collect")
-            # player_info["collect_180"] = p180.get("collect")
-            # player_info["help_60"] = p60.get("help")
-            # player_info["help_180"] = p180.get("help")
-            # player_info["t4_60"] = p60.get("t4")
-            # player_info["t4_180"] = p180.get("t4")
-            # player_info["t5_60"] = p60.get("t5")
-            # player_info["t5_180"] = p180.get("t5")
-            # player_info["dead_t4_60"] = p60.get("dead_t4")
-            # player_info["dead_t4_180"] = p180.get("dead_t4")
-            # player_info["dead_t5_60"] = p60.get("dead_t5")
-            # player_info["dead_t5_180"] = p180.get("dead_t5")
-
-
-
-            # 错误数据修正
-            # for key in ["data","kingdom","from_date","to_date"]:
-            #     if key in player_info_list:
-            #         player_info_list.pop(key)
-
-                
+  
             working_file_list[player_info_list_file_name] = player_info_list
-            
-
-# elif mode == "evaluate_kingdom":
-#     id_from = sys.argv[1]
-#     id_to = sys.argv[2]
     
     # for kingdom_id in range(int(id_from), int(id_to)):
         idx=int(kingdom_id) // 100
@@ -270,57 +225,63 @@ elif mode == "save_kingdoms_data":
             now_eva_dict=read_json_file(now_eva_file_path)
         data_list = []
         for player in result_data["data_in_1"]:
-            if not new_kingdom_flg:
-                player_in_now_kingdom_flg = False
-                for now_player in now_eva_dict["data"]:
-                    if now_player["id"] == player["id"]:
-                        player_in_now_kingdom_flg = True
-                        if now_player["dt"] >= player["dt"]:
-                            if isinstance(now_player["kill"],int):
-                                player["kill"] = [kill_list]
+
+            def edit_queue_data(key,player,now_eva_dict,working_file_list,new_kingdom_flg):
+                if not new_kingdom_flg:
+                    player_in_now_kingdom_flg = False
+                    for now_player in now_eva_dict["data"]:
+                        if now_player["id"] == player["id"]:
+                            player_in_now_kingdom_flg = True
+                            if now_player["dt"] >= player["dt"]:
+                                if isinstance(now_player[key],int):
+                                    player[key] = [now_player[key]]
+                                else:
+                                    player[key] = now_player[key]
                             else:
-                                player["kill"] = now_player["kill"]
-                        else:
-                            kill_list = now_player["kill"]
-                            if isinstance(kill_list,int):
-                                kill_list = [kill_list]
-                            dq=deque(iterable=kill_list,maxlen=60)
-                            dq.append(player["kill"])
-                            player["kill"] = list(dq)
-                        break
-                if not player_in_now_kingdom_flg:
-                    player_info_list_file_name = get_players_json_path(int(player["id"])//1_000_000)
-                    player_info_list = working_file_list[player_info_list_file_name]
-                    kd_list = player_info_list[player["id"]]["kingdom"]
-                    if len(kd_list) > 1:
-                        ex_kd= player_info_list[player["id"]]["kingdom"][-2]
-                        ex_eva_file_path = get_evaluated_kingdoms_json_path(index=int(ex_kd) // 100,kingdom_id=ex_kd)
-                        if os.path.exists(ex_eva_file_path):
-                            ex_eva_dict = read_json_file(ex_eva_file_path)
-                            for ex_player in ex_eva_dict["data"]:
-                                if ex_player["id"] == player["id"]:
-                                    player_in_now_kingdom_flg = True
-                                    if ex_player["dt"] >= player["dt"]:
-                                        if isinstance(ex_player["kill"],int):
-                                            player["kill"] = [kill_list]
+                                key_list = now_player[key]
+                                if isinstance(key_list,int):
+                                    key_list = [key_list]
+                                dq=deque(iterable=key_list,maxlen=60)
+                                dq.append(player[key])
+                                player[key] = list(dq)
+                            break
+                    if not player_in_now_kingdom_flg:
+                        player_info_list_file_name = get_players_json_path(int(player["id"])//1_000_000)
+                        player_info_list = working_file_list[player_info_list_file_name]
+                        kd_list = player_info_list[player["id"]]["kingdom"]
+                        if len(kd_list) > 1:
+                            ex_kd= player_info_list[player["id"]]["kingdom"][-2]
+                            ex_eva_file_path = get_evaluated_kingdoms_json_path(index=int(ex_kd) // 100,kingdom_id=ex_kd)
+                            if os.path.exists(ex_eva_file_path):
+                                ex_eva_dict = read_json_file(ex_eva_file_path)
+                                for ex_player in ex_eva_dict["data"]:
+                                    if ex_player["id"] == player["id"]:
+                                        player_in_now_kingdom_flg = True
+                                        if ex_player["dt"] >= player["dt"]:
+                                            if isinstance(ex_player[key],int):
+                                                player[key] = [ex_player[key]]
+                                            else:
+                                                player[key] = ex_player[key]
                                         else:
-                                            player["kill"] = ex_player["kill"]
-                                    else:
-                                        kill_list = ex_player["kill"]
-                                        if isinstance(kill_list,int):
-                                            kill_list = [kill_list]
-                                        dq=deque(iterable=kill_list,maxlen=60)
-                                        dq.append(player["kill"])
-                                        player["kill"] = list(dq)
-                                    break
-                            if not player_in_now_kingdom_flg:
-                                player["kill"] = [player["kill"]]
+                                            key_list = ex_player[key]
+                                            if isinstance(key_list,int):
+                                                key_list = [key_list]
+                                            dq=deque(iterable=key_list,maxlen=60)
+                                            dq.append(player[key])
+                                            player[key] = list(dq)
+                                        break
+                                if not player_in_now_kingdom_flg:
+                                    player[key] = [player[key]]
+                            else:
+                                player[key] = [player[key]]
                         else:
-                            player["kill"] = [player["kill"]]
-                    else:
-                        player["kill"] = [player["kill"]]
-            else:
-               player["kill"] = [player["kill"]]
+                            player[key] = [player[key]]
+                else:
+                    player[key] = [player[key]]
+
+            edit_queue_data("kill",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
+            edit_queue_data("help",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
+            edit_queue_data("collect",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
             player_60 = None
             player_180 = None
             for p in result_data.get("data_in_60",{}):  
@@ -333,6 +294,8 @@ elif mode == "save_kingdoms_data":
                         player[f"{k}_60"] = v
             else:
                 player["kill_60"] = sum(player["kill"])
+                player["help_60"] = sum(player["help"])
+                player["collect_60"] = sum(player["collect"])
             for p in result_data.get("data_in_180",{}):  
                 if p["id"] == player["id"]:
                     player_180 = p
