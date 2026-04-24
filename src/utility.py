@@ -178,7 +178,7 @@ def evaluate_player(data):
             ]
         ),
         grade(
-            data.get("collect_180", 0) // 2,
+            data.get("collect_180", 0) // 3,
             [
                 (1_500_000_000, 5),   # 15亿
                 (1_000_000_000, 4),   # 10亿

@@ -1,547 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-<meta charset="UTF-8">
-<title>王国 {{ kingdom }} 数据展示</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-function parseKMN(value) {
-  if (typeof value === "number") return value; // 已经是数字
-
-  const str = String(value).trim().toUpperCase();
-
-  if (str.endsWith("K")) {
-    return parseFloat(str) * 1_000;
-  }
-  if (str.endsWith("M")) {
-    return parseFloat(str) * 1_000_000;
-  }
-  if (str.endsWith("B")) {
-    return parseFloat(str) * 1_000_000_000;
-  }
-
-  return Number(str); // 普通数字字符串
-}
-function formatKMN(num) {
-  if (typeof num !== "number" || isNaN(num)) return num;
-
-  if (num >= 1_000_000_000) {
-    return (num / 1_000_000_000).toFixed(2).replace(/\.00$/, "") + "B";
-  }
-  if (num >= 1_000_000) {
-    return (num / 1_000_000).toFixed(2).replace(/\.00$/, "") + "M";
-  }
-  if (num >= 1_000) {
-    return (num / 1_000).toFixed(2).replace(/\.00$/, "") + "K";
-  }
-
-  return String(num);
-}
-
-let killsChart = null; 
-let helpChart = null; 
-let collectChart = null; 
-document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("playerModal");
-    const modalBody = document.getElementById("modal-body");
-    const closeBtn = document.querySelector(".close-btn");
-
-    document.querySelectorAll(".card").forEach(card => {
-        card.addEventListener("click", function () {
-
-            const p = JSON.parse(this.dataset.player);
-            const kill_30 = JSON.parse(p.kill);
-            const kill_days = kill_30.length
-            const kill_labels = kill_30.map((_, i) => `${kill_days - i}天前`);
-            const collect_30 = JSON.parse(p.collect);
-            const collect_days = collect_30.length
-            const collect_labels = collect_30.map((_, i) => `${collect_days - i}天前`);
-            const help_30 = JSON.parse(p.help);
-            const help_days = help_30.length
-            const help_labels = help_30.map((_, i) => `${help_days - i}天前`);
-            // 计算 T1~T5 最大值用于比例
-            const kills = [p.t1, p.t2, p.t3, p.t4, p.t5].map(parseKMN);
-            const maxKill = Math.max(...kills, 1);
-
-            const killBars = kills.map((v, i) => {
-                const percent = (v / maxKill) * 100;
-                fv = formatKMN(v)
-                return `
-                    <div class="modal-row">
-                        <span>T${i+1}：${fv}</span>
-                        <span>${percent.toFixed(0)}%</span>
-                    </div>
-                    <div class="bar-container">
-                        <div class="bar" style="width:${percent}%;"></div>
-                    </div>
-                `;
-            }).join("");
-
-            // 计算 阵亡T1~T5 最大值用于比例
-            const death = [
-                p.dead_t1,
-                p.dead_t2|| 0,
-                p.dead_t3|| 0,
-                p.dead_t4 || 0,
-                p.dead_t5 || 0
-            ].map(parseKMN);
-            const maxDeath = Math.max(...death, 1);
-            const deadBars = death.map((v, i) => {
-                const percent1 = (v / maxDeath) * 100;
-                fv = formatKMN(v)
-                return `
-                    <div class="modal-row">
-                        <span>T${i+1}：${fv}</span>
-                        <span>${percent1.toFixed(0)}%</span>
-                    </div>
-                    <div class="bar-container">
-                        <div class="bar" style="width:${percent1}%;"></div>
-                    </div>
-                `;
-            }).join("");
-            modalBody.innerHTML = `
-                <div class="modal-row"><span>ID:${p.id}</span></div>
-                <h2>${p.name}</h2>
-                <h4>最近${kill_days}天每天获得的击杀积分</h4>
-                <div id="chartBox">
-                    <canvas id="killsChart"></canvas>
-                </div>
-                <h4>最近${collect_days}天每天的采集量</h4>
-                <div id="chartBox">
-                    <canvas id="collectChart"></canvas>
-                </div>
-                <h4>最近${help_days}天每天的帮助次数</h4>
-                <div id="chartBox">
-                    <canvas id="helpChart"></canvas>
-                </div>`;
-
-            // 等 DOM 插入后再画图
-            setTimeout(() => {
-                Chart.defaults.color = '#ffffff';
-                const ctx_kill = document.getElementById('killsChart').getContext('2d');
-                const ctx_collect = document.getElementById('collectChart').getContext('2d');
-                const ctx_help = document.getElementById('helpChart').getContext('2d');
-                if (killsChart) killsChart.destroy();
-                if (collectChart) collectChart.destroy();
-                if (helpChart) helpChart.destroy();
-                killsChart = new Chart(ctx_kill, {
-                    type: 'bar',
-                    data: {
-                        labels: kill_labels,
-                        datasets: [{
-                            label: 'kp per day',
-                            data: kill_30,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.25,
-                            pointRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function (value) {
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
-                                        if (value >= 1_000) return (value / 1_000) + 'K';
-                                        return value;
-                                    }
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        const value = context.parsed.y;
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
-                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
-                                        return value;
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: false   // 如果你也想隐藏图例
-                            }
-                        }
-                    }
-                });
-
-                collectChart = new Chart(ctx_collect, {
-                    type: 'line',
-                    data: {
-                        labels: collect_labels,
-                        datasets: [{
-                            label: 'collect per day',
-                            data: collect_30,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.25,
-                            pointRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function (value) {
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
-                                        if (value >= 1_000) return (value / 1_000) + 'K';
-                                        return value;
-                                    }
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        const value = context.parsed.y;
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
-                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
-                                        return value;
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: false   // 如果你也想隐藏图例
-                            }
-                        }
-                    }
-                });
-                
-                helpChart = new Chart(ctx_help, {
-                    type: 'line',
-                    data: {
-                        labels: help_labels,
-                        datasets: [{
-                            label: 'help per day',
-                            data: help_30,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.25,
-                            pointRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function (value) {
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000) + 'M';
-                                        if (value >= 1_000) return (value / 1_000) + 'K';
-                                        return value;
-                                    }
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        const value = context.parsed.y;
-                                        if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(1) + 'B';
-                                        if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + 'M';
-                                        if (value >= 1_000) return (value / 1_000).toFixed(1) + 'K';
-                                        return value;
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: false   // 如果你也想隐藏图例
-                            }
-                        }
-                    }
-                });
-            }, 0);
-            // 再 append 其他内容
-            modalBody.insertAdjacentHTML("beforeend", `
-                <div class="modal-section">
-                    <h4>最近60天击杀单位数（T1 - T5）</h4>
-                    ${killBars}
-                </div>
-
-                <div class="modal-section">
-                    <h4>最近60天阵亡单位数（T1 - T5）</h4>
-                    ${deadBars}
-                </div>
-            `);
-
-            modal.style.display = "block";
-        });
-    });
-
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
-});
-</script>
-
-
-
-<style>
-    body {
-        background: #0d0d0d;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-    }
-    #chartBox {
-      width: 800px;
-      height: 400px;
-    }
-    .title {
-        font-size: 28px;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-
-    .card {
-        background: rgba(255, 255, 255, 0.06);
-        padding: 12px 16px; /* 原本 16px 20px → 更紧凑 */
-        border-radius: 8px;
-        width: 95%; /* 原本 90% → 自动填满 */
-        border-left: 4px solid #4CAF50;
-        max-width: 900px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px; /* 控制内部间距 */
-        align-self: center;
-    }
-
-    /* 玩家名字 */
-    .name {
-        font-size: 26px; /* 原本 26px → 更紧凑 */
-        font-weight: bold;
-        margin: 2px 0 6px 0; /* 减少上下空白 */
-    }
-
-    /* 小标题 */
-    .section-title {
-        font-size: 20px; /* 原本 20px → 更紧凑 */
-        font-weight: bold;
-        margin: 0;
-        opacity: 0.85;
-    }
-
-    /* grid 布局更紧凑 */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 4px 8px; /* 原本 6px 10px → 更紧凑 */
-        font-size: 20px; /* 原本 18px → 更紧凑 */
-        opacity: 0.9;
-    }
-
-    /* 每个数据项 */
-    .grid span {
-        display: flex;
-        flex-direction: column;
-        font-weight: 600;
-        line-height: 1.2;
-    }
-
-    /* 整体列表更紧凑 */
-    .player-list {
-        display: flex;
-        flex-direction: column;
-        gap: 12px; /* 原本 16px → 更紧凑 */
-        max-height: 75vh;
-        overflow-y: auto;
-        padding-right: 6px;
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(3px);
-
-        /* 关键：允许内部滚动 */
-        overflow-y: auto;
-    }
-
-    .modal-content {
-        background: #1a1a1a;
-        margin: 40px auto; /* 不要用百分比 */
-        padding: 20px;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 800px;
-        color: #fff;
-        border: 1px solid #333;
-
-        /* 关键：限制最大高度并允许内容滚动 */
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-    }
-
-    .close-btn {
-        float: right;
-        font-size: 36px;
-        cursor: pointer;
-    }
-    .bar-container {
-        background: #333;
-        border-radius: 4px;
-        height: 10px;
-        width: 100%;
-        margin-top: 4px;
-    }
-
-    .bar {
-        height: 100%;
-        background: #4CAF50;
-        border-radius: 4px;
-    }
-    .back-button {
-        padding: 10px 18px;
-        background: #2a2a2a;
-        border: 1px solid #444;
-        border-radius: 6px;
-        color: #e0e0e0;
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: 600;
-    }
-    /* 顶部标题整体布局 */
-    .page-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #333;
-    }
-
-    /* 主标题（中英双语） */
-    .main-title {
-        font-size: 34px;
-        font-weight: 900;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-
-        /* 渐变文字效果 */
-        background: linear-gradient(90deg, #ffffff, #a4a5a4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-    }
-
-    /* 主标题英文 */
-    .main-title .en {
-        display: block;
-        font-size: 18px;
-        font-weight: 500;
-        opacity: 0.8;
-        margin-top: 4px;
-        letter-spacing: 1px;
-        color: #ccc;
-        -webkit-text-fill-color: #ccc;
-    }
-
-    /* 副标题（中英双语） */
-    .sub-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin-top: 10px;
-        color: #ddd;
-    }
-    .sub-title .stat-icon-big {
-        width: 28px;
-        height: 28px;
-        opacity: 0.9;
-    }
-
-    .sub-title .en {
-        display: block;
-        font-size: 15px;
-        opacity: 0.7;
-        margin-top: 2px;
-    }
-    .sub-title img {
-        vertical-align: middle;
-    }
-    .stat-icon {
-        width: 28px;
-        height: 28px;
-        margin-top: 4px;
-        margin-bottom: 2px;
-        opacity: 0.9;
-    }
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .tooltip .tip {
-        visibility: hidden;
-        position: fixed;
-        pointer-events: none; 
-        background: #292929;
-        color: #c2c2c2;
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid #ccc;      
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-        font-size: 14px;
-        white-space: nowrap;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity .15s ease;
-        text-align: left;
-    }
-
-    .tooltip:hover .tip {
-        visibility: visible;
-        opacity: 1;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>王国 {{ kingdom }} 数据展示</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/show_kingdom_player.js"></script>
+    <link rel="stylesheet" href="/static/css/show_kingdom_player.css">
 </head>
+
 <body>
     <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
         返回 Back
     </button>
-<br>
-<div class="page-header">
-    <div class="main-title">
-        王国 {{ kingdom }} 数据展示
-        <span class="en">Kingdom {{ kingdom }} Data Overview</span>
-    </div>
+    <br>
+    <div class="page-header">
+        <div class="main-title">
+            王国 {{ kingdom }} 数据展示
+            <span class="en">Kingdom {{ kingdom }} Data Overview</span>
+        </div>
 
-    <div class="sub-title">
-        人均活跃度：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png" class="stat-icon-big"><br>
-        人均战斗力：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"><br>
-        各击杀等级人数
-        <div class="tooltip"> ⓘ
-            <div class="tip">
-                <img src="/static/media/rank/level_s.png" class="stat-icon">--> 每赛季10亿击杀以上 above 1B kill points per kvk<br>
-                <img src="/static/media/rank/level_a.png" class="stat-icon">--> 每赛季6亿击杀以上 above 600M kill points per kvk<br>
-                <img src="/static/media/rank/level_b.png" class="stat-icon">--> 每赛季4亿击杀以上 above 400M kill points per kvk<br>
-                <img src="/static/media/rank/level_c.png" class="stat-icon">--> 每赛季1亿击杀以上 above 100M kill points per kvk<br>
-                <img src="/static/media/rank/level_d.png" class="stat-icon">--> 每赛季1亿击杀以下 below 100M kill points per kvk
-            </div>
-        </div>：<img src="/static/media/rank/level_s.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['s']}} <img src="/static/media/rank/level_a.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['a']}} <img src="/static/media/rank/level_b.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['b']}} <img src="/static/media/rank/level_c.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['c']}} <img src="/static/media/rank/level_d.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['d']}} 
-        <span class="en">60天 / 180天 玩家数据统计 60-Day / 180-Day Player Statistics</span>
+        <div class="sub-title">
+            人均活跃度：<img src="/static/media/rank/level_{{kingdom_grade['grade_activation']}}.png"
+                class="stat-icon-big"><br>
+            人均战斗力：<img src="/static/media/rank/level_{{kingdom_grade['grade_fighting']}}.png" class="stat-icon-big"><br>
+            各击杀等级人数
+            <div class="tooltip"> ⓘ
+                <div class="tip">
+                    <img src="/static/media/rank/level_s.png" class="stat-icon">--> 每赛季10亿击杀以上 above 1B kill points per
+                    kvk<br>
+                    <img src="/static/media/rank/level_a.png" class="stat-icon">--> 每赛季6亿击杀以上 above 600M kill points per
+                    kvk<br>
+                    <img src="/static/media/rank/level_b.png" class="stat-icon">--> 每赛季4亿击杀以上 above 400M kill points per
+                    kvk<br>
+                    <img src="/static/media/rank/level_c.png" class="stat-icon">--> 每赛季1亿击杀以上 above 100M kill points per
+                    kvk<br>
+                    <img src="/static/media/rank/level_d.png" class="stat-icon">--> 每赛季1亿击杀以下 below 100M kill points per
+                    kvk
+                </div>
+            </div>：<img src="/static/media/rank/level_s.png"
+                class="stat-icon-big">={{kingdom_grade['fighter_bukets']['s']}} <img
+                src="/static/media/rank/level_a.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['a']}}
+            <img src="/static/media/rank/level_b.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['b']}}
+            <img src="/static/media/rank/level_c.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['c']}}
+            <img src="/static/media/rank/level_d.png" class="stat-icon-big">={{kingdom_grade['fighter_bukets']['d']}}
+            <span class="en">60天 / 180天 玩家数据统计 60-Day / 180-Day Player Statistics</span>
+        </div>
     </div>
-</div>
-<br>
+    <br>
 
-<div class="player-list">
-    {% for p in players %}
-    <div class="card" data-player='{
+    <div class="player-list">
+        {% for p in players %}
+        <div class="card" data-player='{
         "id": "{{ p.id }}",
         "name": "{{ p.name }}",
         "power": "{{ p.power }}",
@@ -578,29 +88,50 @@ document.addEventListener("DOMContentLoaded", function () {
         "help_180": "{{ p.help_180 }}"
      }'>
 
-        <div class="grid">
-            <span>ID：{{ p.id }}</span>
-        </div>
-        <div class="name">{{ p.name }}</div>
+            <div class="grid">
+                <span>ID：{{ p.id }}</span>
+            </div>
+            <div class="name">{{ p.name }}</div>
 
-        <div class="grid">
-            <span><div class="section-title">战力Power： </div><div>{{ p.power }}</div><img src="/static/media/rank/level_{{ p.grade_power }}.png" class="stat-icon"></span>
-            <span><div class="section-title">击杀KP：</div> <div>{{ p.kill_60 or "-" }} / {{ p.kill_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_kill }}.png" class="stat-icon"></span>
-            <span><div class="section-title">阵亡Dead：</div> <div>{{ p.dead_60 or "-" }} / {{ p.dead_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_dead }}.png" class="stat-icon"></span>
-            <span><div class="section-title">采集Collect：</div><div>{{ p.collect_60 or "-" }} / {{ p.collect_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_collect }}.png" class="stat-icon"></span>
-            <span><div class="section-title">帮助Help：</div><div>{{ p.help_60 or "-" }} / {{ p.help_180 or "-" }}</div><img src="/static/media/rank/level_{{ p.grade_help }}.png" class="stat-icon"></span>
-        </div>
+            <div class="grid">
+                <span>
+                    <div class="section-title">战力Power： </div>
+                    <div>{{ p.power }}</div><img src="/static/media/rank/level_{{ p.grade_power }}.png"
+                        class="stat-icon">
+                </span>
+                <span>
+                    <div class="section-title">击杀KP：</div>
+                    <div>{{ p.kill_60 or "-" }} / {{ p.kill_180 or "-" }}</div><img
+                        src="/static/media/rank/level_{{ p.grade_kill }}.png" class="stat-icon">
+                </span>
+                <span>
+                    <div class="section-title">阵亡Dead：</div>
+                    <div>{{ p.dead_60 or "-" }} / {{ p.dead_180 or "-" }}</div><img
+                        src="/static/media/rank/level_{{ p.grade_dead }}.png" class="stat-icon">
+                </span>
+                <span>
+                    <div class="section-title">采集Collect：</div>
+                    <div>{{ p.collect_60 or "-" }} / {{ p.collect_180 or "-" }}</div><img
+                        src="/static/media/rank/level_{{ p.grade_collect }}.png" class="stat-icon">
+                </span>
+                <span>
+                    <div class="section-title">帮助Help：</div>
+                    <div>{{ p.help_60 or "-" }} / {{ p.help_180 or "-" }}</div><img
+                        src="/static/media/rank/level_{{ p.grade_help }}.png" class="stat-icon">
+                </span>
+            </div>
 
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-<div id="playerModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div id="modal-body">
-            <!-- 动态填入玩家数据 -->
+    <div id="playerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modal-body">
+                <!-- 动态填入玩家数据 -->
+            </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>
