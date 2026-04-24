@@ -301,17 +301,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }, 0);
             // 再 append 其他内容
-            modalBody.insertAdjacentHTML("beforeend", `
-                <div class="modal-section">
-                    <h4>最近60天击杀单位数（T1 - T5）</h4>
-                    ${killBars}
-                </div>
+            // modalBody.insertAdjacentHTML("beforeend", `
+            //     <div class="modal-section">
+            //         <h4>最近60天击杀单位数（T1 - T5）</h4>
+            //         ${killBars}
+            //     </div>
 
-                <div class="modal-section">
-                    <h4>最近60天阵亡单位数（T1 - T5）</h4>
-                    ${deadBars}
-                </div>
-            `);
+            //     <div class="modal-section">
+            //         <h4>最近60天阵亡单位数（T1 - T5）</h4>
+            //         ${deadBars}
+            //     </div>
+            // `);
 
             modal.style.display = "block";
         });
