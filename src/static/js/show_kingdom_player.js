@@ -187,10 +187,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 collectChart = new Chart(ctx_collect, {
-                    type: 'line',
                     data: {
                         labels: collect_labels,
                         datasets: [{
+                            type: 'bar',
                             label: 'collect per day',
                             data: collect_30,
                             borderColor: 'rgba(75, 192, 192, 1)',
@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             pointRadius: 4
                         },
                         {
+                            type: 'line',
                             label: '30M Line',
                             data: collect_labels.map(() => 25_000_000), // 每个点都固定值
                             borderColor: 'red',
@@ -244,18 +245,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 helpChart = new Chart(ctx_help, {
-                    type: 'line',
                     data: {
                         labels: help_labels,
                         datasets: [{
+                            type: 'bar',
                             label: 'help per day',
                             data: help_30,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.25,
-                            pointRadius: 4
                         },
                         {
+                            type: 'line',
                             label: '60 Line',
                             data: help_labels.map(() => 100), // 每个点都固定值
                             borderColor: 'red',
