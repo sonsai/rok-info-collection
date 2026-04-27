@@ -4,9 +4,10 @@ import os
 import re
 import threading
 import time
+import logging
 
 from werkzeug.exceptions import HTTPException
-from flask import Flask, abort, render_template, request
+from flask import Flask, abort, jsonify, render_template, request
 from src.consts import CHECK_INTERVAL, DATA_NEXT, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON, KVK_NEXT, MATCH_NEXT
 from src.clients.get_request import get_request
 from src.clients.post_github_request_api import post_github_request_api
@@ -17,6 +18,7 @@ from src.utility import (
     get_YMD_current_date,
     get_evaluated_kingdoms_json_path,
     get_kingdoms_json_path,
+    get_match_data,
     get_players_json_path,
     get_repo_json_file,
     kvk_player_data,
@@ -25,6 +27,7 @@ from src.utility import (
     show_kvk_dkp)
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
 
 def task_execute_checker():
     while True:
@@ -90,6 +93,14 @@ def health():
 
 @app.get("/")
 def root():
+    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+    ua = request.headers.get("User-Agent")
+    referer = request.headers.get("Referer")
+    path = request.path
+    method = request.method
+    args = request.args.to_dict()
+
+    logging.info(f"[VISITOR] IP={ip} METHOD={method} PATH={path} ARGS={args} UA={ua} REFERER={referer}")
     try:
         data = get_repo_json_file(KVK_CONFIG_JSON)
         match_base_url = "/rok-match-data?kvk_map_id="
@@ -101,7 +112,10 @@ def root():
             current_date=get_YMD_current_date(),
             match_base_url=match_base_url,
             dkp_base_url=dkp_base_url,
-            kvk_player_base_url=kvk_player_base_url
+            kvk_player_base_url=kvk_player_base_url,
+            mode_kvk="active",
+            mode_search="",
+            mode_match=""
         )
     except Exception as e:
         print(e)
@@ -260,6 +274,28 @@ def server_error(e):
         message_en="Internal Server Error",
         e=e
     ), 500
+
+@app.route("/api/data")
+def api_data():
+    page = int(request.args.get("page", 1))
+    keyword = request.args.get("keyword", "").strip()
+    total_page = 29
+
+    # 防止越界
+    if keyword:
+        total_page = 1
+
+    if page < 1:
+        page = 1
+    if page > total_page:
+        page = total_page
+    match_data_list = get_match_data(idx = page + 9, kingdom_id=keyword)
+    return jsonify({
+        "page": page,
+        "total_page": total_page,
+        "match_data_list": match_data_list
+    })
+
 
 if __name__ == "__main__":
     start_background_thread()

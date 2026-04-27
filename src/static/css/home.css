@@ -1,0 +1,254 @@
+.nav {
+    display: flex;
+    justify-content: center;
+    /* 让按钮水平居中 */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav button {
+    padding: 10px 18px;
+    background: #e7e7e7;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #929292;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    width: 180px;
+}
+
+.nav button.active {
+    background: #3a3a3a;
+    border-color: #555;
+    color: #ffffff;
+}
+
+.page {
+    display: none;
+}
+
+.page.show {
+    display: block;
+}
+
+/* 全局深色主题 */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #000;
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* 搜索栏 */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-bar input {
+    width: 260px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #1a1a1a;
+    color: #ddd;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.search-bar input::placeholder {
+    color: #777;
+}
+
+.search-bar input:focus {
+    border-color: #666;
+    box-shadow: 0 0 5px #666;
+}
+
+.search-bar button {
+    padding: 10px 18px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.search-bar button:hover {
+    background: #3a3a3a;
+    border-color: #555;
+    transform: translateY(-1px);
+}
+
+/* KVK 卡片背景 */
+.item {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 30px;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+}
+
+/* 背景图 */
+.heroic_anthem {
+    background-image: url('/static/media/s4heroic_anthem_cover.png');
+}
+
+.tides_of_war {
+    background-image: url('/static/media/s14tides_of_war_cover.png');
+}
+
+.king_of_all_britain {
+    background-image: url('/static/media/s19king_of_all_britain_cover.png');
+}
+
+.king_of_the_nile {
+    background-image: url('/static/media/s9king_of_the_nile_cover.png');
+}
+
+.siege_of_orleans {
+    background-image: url('/static/media/s10siege_of_orleans_cover.png');
+}
+
+.warriors_unbound {
+    background-image: url('/static/media/s11warriors_unbound_cover.png');
+}
+
+.storm_of_stratagems {
+    background-image: url('/static/media/s12storm_of_stratagems_cover.png');
+}
+
+/* 卡片内容 */
+.item-card {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 18px 22px;
+    border-radius: 10px;
+}
+
+.item-card-vcr {
+    padding: 18px 22px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/static/media/vcr.png');
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.item-title {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.item-meta {
+    font-size: 18px;
+    color: #eee;
+}
+
+.camp-line {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 4px 0;
+    padding: 0px 5px;
+}
+
+.kd-item {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 3px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.kd1545 {
+    background: #fc8c8c;
+    color: #2a2a2a;
+}
+
+/* 按钮 */
+a.button-link {
+    padding: 8px 16px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+a.button-link:hover {
+    background: #0056b3;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    background-color: #111;
+}
+
+th,
+td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #333;
+    color: #adadad;
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    /* 表头背景色，避免透明 */
+    z-index: 10;
+    /* 确保表头在最上层 */
+}
+
+tr:nth-child(even) {
+    background: #1a1a1a;
+}
+
+tr:nth-child(odd) {
+    background: #111;
+}
+
+.stat-icon {
+    width: 28px;
+    height: 28px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    opacity: 0.9;
+}
+
+img {
+    vertical-align: middle;
+}

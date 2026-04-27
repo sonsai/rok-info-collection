@@ -379,7 +379,10 @@ def show_kvk_match_data(
             dead = detail_data["data"]["dead"]
             kill = detail_data["data"]["kill"]
             power = detail_data["data"]["power"]
-            kvk_score = detail_data["data"]["kvkKillScore"]
+            if "kvkKillScore" in detail_data["data"]:
+                kvk_score = detail_data["data"]["kvkKillScore"]
+            else:
+                kvk_score = 0
             eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
             if show_kingdom:
                 kingdom_json = {
@@ -566,4 +569,46 @@ def check_tokens():
     except:
         print("tokens reset failed.")
         raise
-    
+
+def get_match_data(idx:int, kingdom_id:str):
+    match_data_list = []
+    if kingdom_id:
+        ranges = kingdom_id.split(" ")
+    else:
+        ranges = range((idx)*100,(idx+1)*100)
+    for k in ranges:
+        try:
+            k = int(k)
+        except:
+            continue
+        if kingdom_id:
+            idx = k // 100
+        file_name = f"data/match/{idx}/{k}.json"
+        if Path(file_name).exists():
+            with open(file_name, "r", encoding="utf-8") as ff:
+                detail_data = json.load(ff)
+
+            if not detail_data["data"]:
+                continue
+            dead = detail_data["data"]["dead"]
+            kill = detail_data["data"]["kill"]
+            power = detail_data["data"]["power"]
+            if "kvkKillScore" in detail_data["data"]:
+                kvk_score = detail_data["data"]["kvkKillScore"]
+            else:
+                kvk_score = 0
+            eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
+            kingdom_json = {
+                "KD":k,
+                "FIGHTING-RANK":eva_result["grade_fighting"],
+                "FIHGHTER-BUKETS":eva_result["fighter_bukets"],
+                "ACTIVATION-RANK":eva_result["grade_activation"],
+                "UPDATED-AT":detail_data["data"]["day"],
+                "KVK-SCORE":fn(kvk_score),
+                "POWER":fn(power),
+                "DEAD":fn(dead),
+                "KILL":fn(kill)
+            }
+
+            match_data_list.append(kingdom_json)
+    return match_data_list
