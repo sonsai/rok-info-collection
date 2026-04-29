@@ -62,7 +62,7 @@ elif mode == "save_kvk_data":
     for k,v in data.items():
         start:str = v.get("data_start", v.get("start"))
         end:str = v.get("data_end", v.get("end"))
-        folder_name = v["kvk_map_id"] + "_" + v["start"].replace("-","")
+        folder_name = str(v["kvk_map_id"]) + "_" + v["start"].replace("-","")
         os.makedirs(f"data/kvk/{folder_name}/match",exist_ok=True)
         os.makedirs(f"data/kvk/{folder_name}/dkp",exist_ok=True)
         now = datetime.datetime.now()
@@ -379,3 +379,121 @@ elif mode=="save_kvk_history_data":
                     write_data_to_json_file(file_path,kd_history_dict)
 
 
+elif mode=="test":
+    import requests
+    import json
+
+    API_URL = "https://app.rokstats.online/api/kvk/lost-kingdoms/current"
+    # API_URL = "https://app.rokstats.online/api/kvk/lost-kingdoms/history"
+    def fetch_kvk_data():
+        """Fetch KVK data from rokstats API."""
+        response = requests.get(API_URL, timeout=10)
+        response.raise_for_status()
+        return response.json()
+
+    def convert_to_custom_format(raw):
+        """
+        Convert rokstats API format → your custom KVK JSON format.
+        """
+        result = {}
+
+        for item in raw["lostKingdoms"]:
+            kvk_id = str(item.get("code"))  # e.g., "C13089"
+            start = item.get("battlePhaseStart").split("T")[0]
+            end = item.get("immigrationBegins").split("T")[0]
+            if start < "2025-12-01":
+                continue
+            # Camps
+            camps_raw = item.get("participants", [])
+            camps = {}
+
+            map_type={
+                "402":"heroic_anthem",
+                "1401":"tides_of_war",
+                "1902":"king_of_all_britain",
+                "1001":"siege_of_orleans"
+            }
+            
+            map_info = {
+                "tides_of_war":{
+                    "1":"FIRE",
+                    "2":"EARTH",
+                    "3":"WIND",
+                    "4":"WATER"
+                },
+                "heroic_anthem":{
+                    "1":"FIRE",
+                    "2":"EARTH",
+                    "3":"WIND",
+                    "4":"WATER"
+                },
+                "king_of_all_britain":{
+                    "1":"NORTHUMBRIA",
+                    "2":"EAST_ANGLIA",
+                    "3":"MERCIA",
+                    "4":"WESSEX"
+                },
+                "siege_of_orleans":{
+                    "1":"Brittany",
+                    "2":"Picardy",
+                    "3":"Bourbon",
+                    "4":"Auvergne",
+                    "5":"La Marche",
+                    "6":"Poitou"
+                },
+            }
+
+            map_code = str(item.get("map").get("code"))
+            kvk_type = map_type.get(map_code,None)
+            if not kvk_type:
+                continue
+            for k in camps_raw:
+                serverId = int(k["serverId"]) + 1000
+                camp_num = str(k["campNum"])
+                camp_name = map_info.get(kvk_type,{}).get(camp_num,camp_num)
+                if camp_name in camps:
+                    clean_list = camps[camp_name]
+                    clean_list.append(serverId)
+                else:
+                    camps[camp_name] = [serverId]
+
+
+            result[kvk_id] = {
+                "kvk_map_id": kvk_id,
+                "kvk_type": kvk_type,
+                "vcr": False,
+                "kvk_type_cn": "",  # You can fill this manually if needed
+                "end_apply": start,
+                "start": start,
+                "end": end,
+                "data_start": start,
+                "data_end": end,
+                "dkp_list": {
+                    "t4": 5,
+                    "t5": 10,
+                    "t4_dead": 15,
+                    "t5_dead": 15
+                },
+                "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+                "camps": camps
+            }
+
+        return result
+
+    def save_json(data, filename="kvk.json"):
+        """Save JSON to file."""
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        print(f"Saved to {filename}")
+
+
+    print("Fetching KVK data...")
+    raw = fetch_kvk_data()
+    print("Converting format...")
+    converted = convert_to_custom_format(raw)
+    kvk_infos = read_json_file(KVK_CONFIG_JSON)
+    for k,v in converted.items():
+        if k in kvk_infos:
+            continue
+        kvk_infos[k]=v
+    save_json(kvk_infos,KVK_CONFIG_JSON)
