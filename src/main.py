@@ -59,7 +59,10 @@ elif mode == "dkp_data":
 elif mode == "save_kvk_data":
     os.makedirs("data/kvk/",exist_ok=True)
     data:dict = get_repo_json_file(KVK_CONFIG_JSON)
+    cnt = 0
+    all = len(data.items())
     for k,v in data.items():
+        cnt+=1
         start:str = v.get("data_start", v.get("start"))
         end:str = v.get("data_end", v.get("end"))
         folder_name = str(v["kvk_map_id"]) + "_" + v["start"].replace("-","")
@@ -118,6 +121,7 @@ elif mode == "save_kvk_data":
             kingdoms_file_name = get_kvk_dkp_json_path(folder_name,k)
             with open(kingdoms_file_name, "w", encoding="utf-8") as f:
                 json.dump(detail_data, f, ensure_ascii=False, indent=2)
+        print(f"Now {cnt} in {all}")
 
 elif mode == "save_match_data":
     id_from = sys.argv[1]
@@ -354,14 +358,20 @@ elif mode=="save_kvk_history_data":
                             continue
                     target_camp = next((c for c in match_data["camps"] if c["name"] == camp), {})
                     target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
-                    match_score_percent = pn(target_kd["KVK-SCORE"]) / pn(target_camp["sum"]["TOTAL-KVK-SCORE"])
+                    if pn(target_camp["sum"]["TOTAL-KVK-SCORE"]) != 0:
+                        match_score_percent = pn(target_kd["KVK-SCORE"]) / pn(target_camp["sum"]["TOTAL-KVK-SCORE"])
+                    else:
+                        match_score_percent = 0
                     match_rank = f"{target_camp['kingdoms'].index(target_kd) + 1} / {len(target_camp['kingdoms'])}"
                     target_camp = next((c for c in dkp_data["camps"] if c["name"] == camp), {})
                     target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
                     dkp_percent = pn(target_kd["DKP"]) / pn(target_camp["sum"]["TOTAL-DKP"])
                     dkp_rank= f"{target_camp['kingdoms'].index(target_kd) + 1} / {len(target_camp['kingdoms'])}"
                     evaluate = "d"
-                    rate = dkp_percent / match_score_percent
+                    if match_score_percent !=0:
+                        rate = dkp_percent / match_score_percent
+                    else:
+                        rate = 1.0
                     if rate > 1.5:
                         evaluate = "s"
                     elif rate >= 1.0:
@@ -379,7 +389,7 @@ elif mode=="save_kvk_history_data":
                     write_data_to_json_file(file_path,kd_history_dict)
 
 
-elif mode=="test":
+elif mode=="update_kvk_info":
     import requests
     import json
 
@@ -398,7 +408,7 @@ elif mode=="test":
         result = {}
 
         for item in raw["lostKingdoms"]:
-            kvk_id = str(item.get("code"))  # e.g., "C13089"
+            kvk_id = "C" + str(item.get("code"))  # e.g., "C13089"
             start = item.get("battlePhaseStart").split("T")[0]
             end = item.get("immigrationBegins").split("T")[0]
             if start < "2025-12-01":
