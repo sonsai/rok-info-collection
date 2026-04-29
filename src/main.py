@@ -13,12 +13,14 @@ from src.utility import (
     evaluate_player,
     get_evaluated_kingdoms_json_path,
     get_kingdoms_json_path,
+    get_kingdoms_kvk_history_json_path,
     get_kvk_dkp_json_path,
     get_kvk_match_json_path,
     get_match_json_path,
     get_player_from_kingdom,
     get_players_json_path,
     get_repo_json_file,
+    pn,
     read_json_file,
     show_kvk_match_data, 
     show_kvk_dkp,
@@ -324,3 +326,63 @@ elif mode=="update_next_run_time":
         _datetime = datetime.datetime.now() + datetime.timedelta(days=1)
         _datetime_dict = {"datetime":_datetime.isoformat()}
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
+
+elif mode=="save_kvk_history_data":
+    kvk_datas:dict = get_repo_json_file(KVK_CONFIG_JSON)
+    for kvk,data in kvk_datas.items():
+        if "updated" in data:
+            continue
+        if data["end"] > datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"):
+            continue
+        else:
+            data["updated"]=True
+            match_data=show_kvk_match_data(data)
+            dkp_list = data.get("dkp_list") 
+            if not dkp_list:
+                dkp_list = {
+                    "t4" : 5,
+                    "t5" : 10,
+                    "t4_dead" : 15,
+                    "t5_dead" : 15
+                }
+            dkp_data=show_kvk_dkp(dkp_list,data)
+            kingdom_list = []
+            for camp,kds in data["camps"].items():
+                for kd in kds:
+                    file_path = get_kingdoms_kvk_history_json_path(kd)
+                    kd_history_dict = {}
+                    if os.path.exists(file_path):
+                        kd_history_dict = read_json_file(file_path)
+                        if kvk in kd_history_dict:
+                            continue
+                    target_camp = next((c for c in match_data["camps"] if c["name"] == camp), {})
+                    target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
+                    match_score_percent = pn(target_kd["KVK-SCORE"]) / pn(target_camp["sum"]["TOTAL-KVK-SCORE"])
+                    match_rank = f"{target_camp["kingdoms"].index(target_kd) + 1} / {len(target_camp["kingdoms"])}"
+                    target_camp = next((c for c in dkp_data["camps"] if c["name"] == camp), {})
+                    target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
+                    dkp_percent = pn(target_kd["DKP"]) / pn(target_camp["sum"]["TOTAL-DKP"])
+                    dkp_rank= f"{target_camp["kingdoms"].index(target_kd) + 1} / {len(target_camp["kingdoms"])}"
+                    evaluate = "d"
+                    rate = dkp_percent / match_score_percent
+                    if rate > 1.2:
+                        evaluate = "s"
+                    elif rate > 1.0:
+                        evaluate = "a"
+                    elif rate > 0.9:
+                        evaluate = "b"
+                    elif rate > 0.7:
+                        evaluate = "c"
+                        
+                    kd_history_dict[kvk] = {
+                        "match_score_percent":f"{round(match_score_percent*100,2)}%",
+                        "dkp_percent":f"{round(dkp_percent*100,2)}%",
+                        "evaluate":evaluate,
+                        "match_rank":match_rank,
+                        "dkp_rank":dkp_rank
+                    }
+                    index = kd // 100
+                    os.makedirs(f"data/kingdoms/history/{index}/", exist_ok=True)
+                    write_data_to_json_file(file_path,kd_history_dict)
+
+

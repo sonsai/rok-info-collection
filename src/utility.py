@@ -33,6 +33,10 @@ def get_kingdoms_json_path(days,index,kingdom_id):
 def get_evaluated_kingdoms_json_path(index,kingdom_id):
     return f"data/kingdoms/evaluated/{index}/{kingdom_id}.json"
 
+def get_kingdoms_kvk_history_json_path(kingdom_id):
+    index = kingdom_id // 100
+    return f"data/kingdoms/history/{index}/{kingdom_id}.json"
+
 def get_players_json_path(pidx):
     return f"data/player/player_list_{pidx}.json"
 
@@ -583,6 +587,13 @@ def get_match_data(idx:int, kingdom_id:str):
             continue
         if kingdom_id:
             idx = k // 100
+
+        history_file_name = get_kingdoms_kvk_history_json_path(k)
+        history_data={}
+        if Path(history_file_name).exists():
+            with open(history_file_name, "r", encoding="utf-8") as ff:
+                history_data = json.load(ff)
+
         file_name = f"data/match/{idx}/{k}.json"
         if Path(file_name).exists():
             with open(file_name, "r", encoding="utf-8") as ff:
@@ -598,6 +609,16 @@ def get_match_data(idx:int, kingdom_id:str):
             else:
                 kvk_score = 0
             eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
+            
+            history_evaluate = "-"
+            if history_data:
+                history_evaluate = ""
+                last_items = list(history_data.items())[-3:]
+                for kvk, v in last_items:
+                    if history_evaluate:
+                        history_evaluate = history_evaluate+"<br>"
+                    history_evaluate = history_evaluate+f"{kvk}:匹配分占比 {v["match_score_percent"]} ,DKP占比 {v["dkp_percent"]} ,KVK表现评价 <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small'>"
+            
             kingdom_json = {
                 "KD":k,
                 "FIGHTING-RANK":eva_result["grade_fighting"],
@@ -607,7 +628,8 @@ def get_match_data(idx:int, kingdom_id:str):
                 "KVK-SCORE":fn(kvk_score),
                 "POWER":fn(power),
                 "DEAD":fn(dead),
-                "KILL":fn(kill)
+                "KILL":fn(kill),
+                "KVK-HISTORY":history_evaluate
             }
 
             match_data_list.append(kingdom_json)

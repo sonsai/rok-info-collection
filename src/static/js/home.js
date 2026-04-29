@@ -31,7 +31,7 @@ function loadPage(page, keyword="") {
             totalPage = data.total_page;
             currentPage = data.page;
             // 渲染内容
-            header = "<table><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数 NUMBER OF KP GRADE</th><th>战斗综合评级(平均)<br>FIGHT RANK</th>                    <th>活跃综合评级(平均)<br>ACTIVE RANK</th>                    <th>匹配积分<br>KVK SCORE</th>                    <th>战力<br>POWER</th>                    <th>阵亡<br>DEAD</th>                    <th>击杀<br>KILL</th>                    <th>更新时间 UPDATE</th>                </tr>"
+            header = "<table><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数 NUMBER OF KP GRADE</th><th>战斗综合评级(平均)<br>FIGHT RANK</th>                    <th>活跃综合评级(平均)<br>ACTIVE RANK</th>                    <th>匹配积分<br>KVK SCORE</th><th>KVK历史<br>HISTORY KVK</th>                    <th>战力<br>POWER</th>                    <th>阵亡<br>DEAD</th>                    <th>击杀<br>KILL</th>                    <th>更新时间 UPDATE</th>                </tr>"
 
             body = data.match_data_list.map(kd => `
 <tr>
@@ -46,6 +46,7 @@ function loadPage(page, keyword="") {
     <td><img src="/static/media/rank/level_${kd['FIGHTING-RANK']}.png" class="stat-icon"></td>
     <td><img src="/static/media/rank/level_${kd['ACTIVATION-RANK']}.png" class="stat-icon"></td>
     <td>${kd['KVK-SCORE']}</td>
+    <td>${kd['KVK-HISTORY']}</td>
     <td>${kd['POWER']}</td>
     <td>${kd['DEAD']}</td>
     <td>${kd['KILL']}</td>
