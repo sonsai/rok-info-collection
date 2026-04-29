@@ -617,7 +617,7 @@ def get_match_data(idx:int, kingdom_id:str):
                 for kvk, v in last_items:
                     if history_evaluate:
                         history_evaluate = history_evaluate+"<br>"
-                    history_evaluate = history_evaluate+f"{kvk}:匹配分占比 {v["match_score_percent"]} ,DKP占比 {v["dkp_percent"]} ,KVK表现评价 <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small'>"
+                    history_evaluate = history_evaluate+f"{kvk}:匹配分占比 {v['match_score_percent']} ,DKP占比 {v['dkp_percent']} ,KVK表现评价 <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small'>"
             
             kingdom_json = {
                 "KD":k,
