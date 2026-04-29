@@ -358,11 +358,11 @@ elif mode=="save_kvk_history_data":
                     target_camp = next((c for c in match_data["camps"] if c["name"] == camp), {})
                     target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
                     match_score_percent = pn(target_kd["KVK-SCORE"]) / pn(target_camp["sum"]["TOTAL-KVK-SCORE"])
-                    match_rank = f"{target_camp["kingdoms"].index(target_kd) + 1} / {len(target_camp["kingdoms"])}"
+                    match_rank = f"{target_camp['kingdoms'].index(target_kd) + 1} / {len(target_camp['kingdoms'])}"
                     target_camp = next((c for c in dkp_data["camps"] if c["name"] == camp), {})
                     target_kd = next((t for t in target_camp["kingdoms"] if t["KD"] == kd), {})
                     dkp_percent = pn(target_kd["DKP"]) / pn(target_camp["sum"]["TOTAL-DKP"])
-                    dkp_rank= f"{target_camp["kingdoms"].index(target_kd) + 1} / {len(target_camp["kingdoms"])}"
+                    dkp_rank= f"{target_camp['kingdoms'].index(target_kd) + 1} / {len(target_camp['kingdoms'])}"
                     evaluate = "d"
                     rate = dkp_percent / match_score_percent
                     if rate > 1.2:
