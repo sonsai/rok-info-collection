@@ -330,12 +330,9 @@ elif mode=="update_next_run_time":
 elif mode=="save_kvk_history_data":
     kvk_datas:dict = get_repo_json_file(KVK_CONFIG_JSON)
     for kvk,data in kvk_datas.items():
-        if "updated" in data:
-            continue
         if data["end"] > datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"):
             continue
         else:
-            data["updated"]=True
             match_data=show_kvk_match_data(data)
             dkp_list = data.get("dkp_list") 
             if not dkp_list:
@@ -365,14 +362,10 @@ elif mode=="save_kvk_history_data":
                     dkp_rank= f"{target_camp['kingdoms'].index(target_kd) + 1} / {len(target_camp['kingdoms'])}"
                     evaluate = "d"
                     rate = dkp_percent / match_score_percent
-                    if rate > 1.2:
+                    if rate > 1.5:
                         evaluate = "s"
-                    elif rate > 1.0:
+                    elif rate >= 1.0:
                         evaluate = "a"
-                    elif rate > 0.9:
-                        evaluate = "b"
-                    elif rate > 0.7:
-                        evaluate = "c"
                         
                     kd_history_dict[kvk] = {
                         "match_score_percent":f"{round(match_score_percent*100,2)}%",
