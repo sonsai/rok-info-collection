@@ -209,9 +209,9 @@ a.button-link:hover {
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     width: 100%;
-    margin-top: 10px;
     background-color: #111;
 }
 
@@ -231,6 +231,7 @@ th {
     /* 表头背景色，避免透明 */
     z-index: 10;
     /* 确保表头在最上层 */
+    border-bottom: 1px solid #555; 
 }
 
 tr:nth-child(even) {

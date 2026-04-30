@@ -388,6 +388,19 @@ def show_kvk_match_data(
             else:
                 kvk_score = 0
             eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
+            history_file_name = get_kingdoms_kvk_history_json_path(k)
+            history_data={}
+            if Path(history_file_name).exists():
+                with open(history_file_name, "r", encoding="utf-8") as ff:
+                    history_data = json.load(ff)
+            history_evaluate = "-"
+            if history_data:
+                history_evaluate = ""
+                last_items = list(history_data.items())[-3:]
+                for kvk, v in last_items:
+                    if history_evaluate:
+                        history_evaluate = history_evaluate+"<br>"
+                    history_evaluate = history_evaluate+f"{kvk}: <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small' title='匹配分占比：{v['match_score_percent']}&#10;DKP占比：{v['dkp_percent']}'>"
             if show_kingdom:
                 kingdom_json = {
                     "KD":k,
@@ -398,7 +411,8 @@ def show_kvk_match_data(
                     "KVK-SCORE":fn(kvk_score),
                     "POWER":fn(power),
                     "DEAD":fn(dead),
-                    "KILL":fn(kill)
+                    "KILL":fn(kill),
+                    "KVK-HISTORY":history_evaluate
                 }
                 camp["kingdoms"].append(kingdom_json)
             total_dead += dead
@@ -617,7 +631,12 @@ def get_match_data(idx:int, kingdom_id:str):
                 for kvk, v in last_items:
                     if history_evaluate:
                         history_evaluate = history_evaluate+"<br>"
-                    history_evaluate = history_evaluate+f"{kvk}: <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small' title='匹配分占比：{v['match_score_percent']}&#10;DKP占比：{v['dkp_percent']}'>"
+                    history_evaluate = history_evaluate+f"""
+                    <span onclick="location.href='/rok-match-data?kvk_map_id={kvk}'">{kvk}</span>:
+                    <img src="/static/media/rank/level_{v['evaluate']}.png"
+                        class="stat-icon-small"
+                        title="匹配分占比：{v['match_score_percent']}&#10;DKP占比：{v['dkp_percent']}">
+                    """
                     # history_evaluate = history_evaluate+f"{kvk}:匹配分占比 {v['match_score_percent']} ,DKP占比 {v['dkp_percent']} ,KVK表现评价 <img src='/static/media/rank/level_{v['evaluate']}.png' class='stat-icon-small'>"
             
             kingdom_json = {

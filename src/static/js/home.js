@@ -25,13 +25,14 @@ let timer = null;
 let totalPage = 1;
 
 function loadPage(page, keyword="") {
+    document.getElementById("match_data_table").innerHTML = "<h2>Data Loading...</h2>"
     fetch(`/api/data?page=${page}&keyword=${keyword}`)
         .then(res => res.json())
         .then(data => {
             totalPage = data.total_page;
             currentPage = data.page;
             // 渲染内容
-            header = "<table><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数<br>NUMBER OF KP GRADE</th><th>战斗综合评级(平均)<br>FIGHT RANK</th><th>匹配积分<br>KVK SCORE</th><th>战力<br>POWER</th><th>击杀<br>KILL</th><th>历届KVK评价<br>KVK EVALUATIONS</th></tr>"
+            header = "<table><thead><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数<br>NUMBER OF KP GRADE</th><th>战斗综合评级(平均)<br>FIGHT RANK</th><th>匹配积分<br>KVK SCORE</th><th>战力<br>POWER</th><th>击杀<br>KILL</th><th>历届KVK评价<br>KVK EVALUATIONS</th></tr></thead><tbody>"
 
             body = data.match_data_list.map(kd => `
 <tr>
@@ -50,7 +51,7 @@ function loadPage(page, keyword="") {
     <td>${kd['KVK-HISTORY']}</td>
 </tr>
 `).join("");
-            footer = "</table>"
+            footer = "</tbody></table>"
             document.getElementById("match_data_table").innerHTML = header + body + footer
             // 更新页码
             currentPage = data.page;
