@@ -267,6 +267,23 @@ def get_repo_json_file(path:str)->dict:
     response = get_request(url=url)
     return response.json()
 
+def show_kvk_info_data(data:dict[str,dict]):
+    data = dict(sorted(data.items(), key=lambda x: x[0], reverse=True))
+
+    result_data = {}
+    result_data["vcr"] = {}
+    result_data["on_going"] = {}
+    result_data["finished"] = {}
+    for k, v in data.items():
+        if v.get("vcr",False):
+            result_data["vcr"][k] = v
+            continue
+        if v["end"] < datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"):
+            result_data["finished"][k] = v
+        else:
+            result_data["on_going"][k] = v
+    return result_data
+
 def total_kingdom(dkp_list,data_list,camp,kingdoms):
     group_total_kill = 0
     group_total_t4 = 0

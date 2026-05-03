@@ -24,13 +24,67 @@
     </div>
     <div id="page2" class="page  {% if mode_kvk == 'active' %} show {% endif %}">
         <h1>KVK 列表 · KVK List</h1>
-        <div style="max-height: 75vh;overflow-y: auto; overflow-x: hidden;">
+        <details open>
+            <summary>VCR KVK</summary>
+            <div class="kvk-list">
+                {% set data = show_data.get("vcr") %}
+                {% for key, item in data.items() %}
+
+                {% set status_label = "进行中 · Ongoing" %}
+                {% if item.start > current_date %}
+                {% set status_label = "未开始 · Not Started" %}
+                {% elif item.end <= current_date %} {% set status_label="已结束 · Finished" %} {% endif %} <div
+                    class="item {{ item.kvk_type }}">
+                    <div class="{{ 'item-card-vcr' if item.vcr is true else 'item-card' }}">
+
+                        <div class="item-header">
+                            <div class="item-title">{{ key }} — {{ status_label }}</div>
+                        </div>
+
+                        <div class="item-meta">
+                            类型 Type: {{ item.kvk_type_cn or item.kvk_type or 'N/A' }} |
+                            时间 Time: {{ item.start }} ~ {{ item.end }}
+                        </div>
+
+                        <div class="parent">
+                            {% for camp_name, kds in item.camps.items() %}
+                            <div class=" {{ camp_name }}">
+                                <div class="camp-line">{{ camp_name }}:</div>
+                                {% for kd in kds|sort %}
+                                <div class="kd-item kd{{ kd }}">
+                                    <span onclick="location.href='/kingdom-player?id={{ kd }}'">
+                                        {{ kd }}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <br>
+
+                        <div>
+                            <a class="button-link" href="{{ match_base_url }}{{ key }}">匹配数据 Match Data</a>
+                            <a class="button-link" href="{{ dkp_base_url }}{{ key }}">DKP 数据 DKP Data</a>
+                            <a class="button-link" href="{{ kvk_player_base_url }}{{ key }}">玩家数据 Player Data</a>
+                        </div>
+
+                    </div>
+            </div>
+
+            {% endfor %}
+    </div>
+    </details>
+    <details>
+        <summary>On Going KVK</summary>
+        <div class="kvk-list">
+            {% set data = show_data.get("on_going") %}
             {% for key, item in data.items() %}
 
             {% set status_label = "进行中 · Ongoing" %}
             {% if item.start > current_date %}
             {% set status_label = "未开始 · Not Started" %}
-            {% elif item.end < current_date %} {% set status_label="已结束 · Finished" %} {% endif %} <div
+            {% elif item.end <= current_date %} {% set status_label="已结束 · Finished" %} {% endif %} <div
                 class="item {{ item.kvk_type }}">
                 <div class="{{ 'item-card-vcr' if item.vcr is true else 'item-card' }}">
 
@@ -43,18 +97,72 @@
                         时间 Time: {{ item.start }} ~ {{ item.end }}
                     </div>
 
-                    <div class="camps">
-                        {% for camp_name, kds in item.camps.items() %}
-                        <div class="camp-line">{{ camp_name }}:</div>
-                        {% for kd in kds %}
-                        <div class="kd-item kd{{ kd }}">
-                            <span onclick="location.href='/kingdom-player?id={{ kd }}'">
-                                {{ kd }}
-                            </span>
+                    <div class="parent">
+                            {% for camp_name, kds in item.camps.items() %}
+                            <div class=" {{ camp_name }}">
+                                <div class="camp-line">{{ camp_name }}:</div>
+                                {% for kd in kds|sort %}
+                                <div class="kd-item kd{{ kd }}">
+                                    <span onclick="location.href='/kingdom-player?id={{ kd }}'">
+                                        {{ kd }}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                        {% endfor %}
+
+                    <br>
+
+                    <div>
+                        <a class="button-link" href="{{ match_base_url }}{{ key }}">匹配数据 Match Data</a>
+                        <a class="button-link" href="{{ dkp_base_url }}{{ key }}">DKP 数据 DKP Data</a>
+                        <a class="button-link" href="{{ kvk_player_base_url }}{{ key }}">玩家数据 Player Data</a>
                     </div>
+
+                </div>
+
+        </div>
+        {% endfor %}
+
+        </div>
+    </details>
+    <details>
+        <summary>Finished KVK</summary>
+        <div class="kvk-list">
+            {% set data = show_data.get("finished") %}
+            {% for key, item in data.items() %}
+
+            {% set status_label = "进行中 · Ongoing" %}
+            {% if item.start > current_date %}
+            {% set status_label = "未开始 · Not Started" %}
+            {% elif item.end <= current_date %} {% set status_label="已结束 · Finished" %} {% endif %} <div
+                class="item {{ item.kvk_type }}">
+                <div class="{{ 'item-card-vcr' if item.vcr is true else 'item-card' }}">
+
+                    <div class="item-header">
+                        <div class="item-title">{{ key }} — {{ status_label }}</div>
+                    </div>
+
+                    <div class="item-meta">
+                        类型 Type: {{ item.kvk_type_cn or item.kvk_type or 'N/A' }} |
+                        时间 Time: {{ item.start }} ~ {{ item.end }}
+                    </div>
+
+                    <div class="parent">
+                            {% for camp_name, kds in item.camps.items() %}
+                            <div class="{{ camp_name }}">
+                                <div class="camp-line">{{ camp_name }}:</div>
+                                {% for kd in kds|sort %}
+                                <div class="kd-item kd{{ kd }}">
+                                    <span onclick="location.href='/kingdom-player?id={{ kd }}'">
+                                        {{ kd }}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
 
                     <br>
 
@@ -68,7 +176,8 @@
         </div>
 
         {% endfor %}
-    </div>
+        </div>
+    </details>
     </div>
     <div id="page3" class="page {% if mode_match == 'active' %} show {% endif %}">
         <h1>王国匹配数据列表 · KVK Match Data List</h1>

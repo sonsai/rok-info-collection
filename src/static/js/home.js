@@ -82,3 +82,15 @@ document.getElementById("lastBtn").onclick = () => loadPage(totalPage);
 
 // 初始化
 loadPage(1);
+
+document.querySelectorAll("details").forEach((d) => {
+    d.addEventListener("toggle", function () {
+        if (this.open) {
+            document.querySelectorAll("details").forEach((other) => {
+                if (other !== this) {
+                    other.open = false;
+                }
+            });
+        }
+    });
+});

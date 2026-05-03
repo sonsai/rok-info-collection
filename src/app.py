@@ -23,6 +23,7 @@ from src.utility import (
     get_repo_json_file,
     kvk_player_data,
     read_json_file,
+    show_kvk_info_data,
     show_kvk_match_data,
     show_kvk_dkp)
 
@@ -103,12 +104,13 @@ def root():
     logging.info(f"[VISITOR] IP={ip} METHOD={method} PATH={path} ARGS={args} UA={ua} REFERER={referer}")
     try:
         data = get_repo_json_file(KVK_CONFIG_JSON)
+        show_data = show_kvk_info_data(data)
         match_base_url = "/rok-match-data?kvk_map_id="
         dkp_base_url = "/rok-kvk-dkp-data?kvk_map_id="
         kvk_player_base_url = "/rok-kvk-player-data?kvk_map_id="
         return render_template(
             "index.html",
-            data=data,
+            show_data=show_data,
             current_date=get_YMD_current_date(),
             match_base_url=match_base_url,
             dkp_base_url=dkp_base_url,

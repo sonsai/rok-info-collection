@@ -139,9 +139,11 @@ h1 {
     background: rgba(0, 0, 0, 0.65);
     padding: 18px 22px;
     border-radius: 10px;
+    min-width: 720px;
 }
 
 .item-card-vcr {
+    min-width: 720px;
     padding: 18px 22px;
     border-radius: 10px;
     background-size: cover;
@@ -170,8 +172,8 @@ h1 {
 .camp-line {
     font-size: 18px;
     font-weight: bold;
-    margin: 4px 0;
     padding: 0px 5px;
+    margin-bottom: 5px;
 }
 
 .kd-item {
@@ -260,4 +262,47 @@ tr:nth-child(odd) {
 
 img {
     vertical-align: middle;
+}
+
+summary {
+    font-size: large;margin: 10px;
+}
+div .kvk-list {
+    max-height: 60vh;overflow-y: auto; overflow-x: hidden;
+}
+
+.parent {
+    display: flex;
+    flex-wrap: wrap;   /* 允许换行 */
+    gap: 10px;         /* 子元素间距，可选 */
+}
+
+.parent > div {
+    flex: 0 0 auto;    /* 保持自身宽度，不被压缩 */
+    border: 2px solid #525252;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+div .MERCIA, .FIRE, .Poitou {
+    background: #814c4c80;
+}
+
+div .WESSEX, .EARTH, .Auvergne {
+    background: #6b572d80;
+}
+
+div .NORTHUMBRIA, .WIND, .Picardy {
+    background: #37244280;
+}
+
+div .EAST_ANGLIA, .WATER, .La {
+    background: #20456e80;
+}
+div .Bourbon {
+    background: #44c28780;
+}
+div .Brittany {
+    background: #80a5cf80;
 }
