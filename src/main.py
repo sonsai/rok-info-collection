@@ -126,6 +126,7 @@ elif mode == "save_kvk_data":
 elif mode == "save_match_data":
     id_from = sys.argv[1]
     id_to = sys.argv[2]
+    no_data_cnt = 0
     for kingdom_id in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
         os.makedirs(f"data/match/{idx}",exist_ok=True)
@@ -133,7 +134,13 @@ elif mode == "save_match_data":
         response_dict = get_match_data_api(str(kingdom_id))
         data = response_dict.get("data")
         if not data:
-            break
+            no_data_cnt += 1
+            if no_data_cnt > 2:
+                break
+            else:
+                continue
+        else:
+            no_data_cnt = 0
         detail_data = {
             "kingdom":kingdom_id,
             "date":datetime.datetime.now().strftime("%Y-%m-%d"),
