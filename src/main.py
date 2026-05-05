@@ -132,6 +132,8 @@ elif mode == "save_match_data":
         match_file_name = get_match_json_path(idx,kingdom_id)
         response_dict = get_match_data_api(str(kingdom_id))
         data = response_dict.get("data")
+        if not data:
+            break
         detail_data = {
             "kingdom":kingdom_id,
             "date":datetime.datetime.now().strftime("%Y-%m-%d"),
