@@ -1,12 +1,6 @@
-name: Save KVK History Data
+name: Update KVK Info
 
 on:
-  workflow_run:
-    workflows: ["Save Match Data"]   # 必须与 A.yml 的 name 完全一致
-    types:
-      - completed
-  repository_dispatch:
-    types: [save-kvk-history-data]
   workflow_dispatch:
 
 jobs:
@@ -14,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            src
+            data/next_run_datetime.json
+          sparse-checkout-cone-mode: false
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -24,22 +24,20 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install requests
-
+          
       - name: Run Python with env
         run: python -m src.main
         env:
-          ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
-          ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
-          MODE: save_kvk_history_data
+          MODE: update_kvk_info
           
       - name: Commit result file
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data/kingdoms/history/
+          git add data/kvk/
 
           # 如果没有变化，避免报错
-          git diff --cached --quiet || git commit -m "Update kingdoms kvk history data"
+          git diff --cached --quiet || git commit -m "[render skip]Update kvk info"
 
           git push
