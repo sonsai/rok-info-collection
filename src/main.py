@@ -341,7 +341,7 @@ elif mode=="update_next_run_time":
         json.dump(_datetime_dict, f, ensure_ascii=False, indent=2)
 
 elif mode=="save_kvk_history_data":
-    kvk_datas:dict = get_repo_json_file(KVK_CONFIG_JSON)
+    kvk_datas:dict = read_json_file(KVK_CONFIG_JSON)
     for kvk,data in kvk_datas.items():
         if data["end"] > datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"):
             continue

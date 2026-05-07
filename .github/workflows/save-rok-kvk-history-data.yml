@@ -2,7 +2,7 @@ name: Save KVK History Data
 
 on:
   workflow_run:
-    workflows: ["Save Match Data"]   # 必须与 A.yml 的 name 完全一致
+    workflows: ["Save KvK Data"]   # 必须与 A.yml 的 name 完全一致
     types:
       - completed
   repository_dispatch:
@@ -10,7 +10,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
+  run-only-if-success:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
