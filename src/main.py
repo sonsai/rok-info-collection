@@ -155,8 +155,11 @@ elif mode == "save_kingdoms_data":
     
     working_file_list = {}
     os.makedirs("data/player", exist_ok=True)
-
+    no_data_cnt = 0
     for kingdom_id in range(int(id_from), int(id_to)):
+        print(f"当前王国ID：{kingdom_id}")
+        if no_data_cnt >= 9:
+            break
         idx = kingdom_id // 100
         for p in [1,60,180]:
             os.makedirs(f"data/kingdoms/{p}d/{idx}", exist_ok=True)
@@ -170,7 +173,10 @@ elif mode == "save_kingdoms_data":
                 )
             data = response_dict.get("data")
             if not data:
+                no_data_cnt += 1
                 continue
+            else:
+                no_data_cnt = 0
 
             detail_data = {
                 "kingdom":kingdom_id,
