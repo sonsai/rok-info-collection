@@ -97,9 +97,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 `;
             }).join("");
+            if (!p.past_names){
+                past_names = "无数据"
+            }else{
+                past_names = p.past_names.replace(/[\[\]']/g, '');
+
+            }
+            if (!p.past_kingdoms){
+                past_kingdoms = "无数据"
+            }else{
+                past_kingdoms = p.past_kingdoms.replace(/[\[\]']/g, '');
+            }
             modalBody.innerHTML = `
                 <div class="modal-row"><span>ID:${p.id}</span></div>
-                <h2>${p.name}</h2>
+                <h2>${p.name} </h2>
+                <h4>曾用名：${past_names}&nbsp;&nbsp;&nbsp;&nbsp;曾效力国：${past_kingdoms}</h4>
                 <h4>最近${kill_days}天每天获得的击杀积分(S Rank 10B in 60 days)</h4>
                 <div id="chartBox">
                     <canvas id="killsChart"></canvas>

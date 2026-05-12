@@ -22,6 +22,7 @@ from src.utility import (
     get_repo_json_file,
     pn,
     read_json_file,
+    set_history_info,
     show_kvk_match_data, 
     show_kvk_dkp,
     get_match_data_api,
@@ -326,6 +327,7 @@ elif mode == "save_kingdoms_data":
                     if k not in ["id","name","max_power","power","dt"]:
                         player[f"{k}_180"] = v
             player = evaluate_player(player)
+            player = set_history_info(player)
             data_list.append(player)
         eva_result = evaluate_kingdom(data_list)
         output_data = {
