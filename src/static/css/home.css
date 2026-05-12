@@ -1,3 +1,5 @@
+/* Home 页面特定样式 */
+
 .nav {
     display: flex;
     justify-content: center;
@@ -30,20 +32,6 @@
 
 .page.show {
     display: block;
-}
-
-/* 全局深色主题 */
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #000;
-    color: #fff;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #fff;
 }
 
 /* 搜索栏 */
@@ -210,73 +198,28 @@ a.button-link {
 a.button-link:hover {
     background: #4d535a;
 }
+
 table {
     border-collapse: separate;
     border-spacing: 0;
-    width: 100%;
-    background-color: #111;
-}
-
-th,
-td {
-    border: 1px solid #444;
-    padding: 8px;
-    text-align: center;
-}
-
-td.kd {
-    cursor: pointer;
-}
-
-td.kd:hover {
-    background: #4d535a;
 }
 
 th {
-    background-color: #333;
-    color: #adadad;
     position: sticky;
     top: 0;
-    background-color: #333;
-    /* 表头背景色，避免透明 */
-    z-index: 10;
-    /* 确保表头在最上层 */
-    border-bottom: 1px solid #555; 
-}
-
-tr:nth-child(even) {
-    background: #1a1a1a;
-}
-
-tr:nth-child(odd) {
-    background: #111;
-}
-
-.stat-icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 2px;
-    opacity: 0.9;
-}
-
-
-.stat-icon-small {
-    width: 22px;
-    height: 22px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    opacity: 0.9;
-}
-
-img {
-    vertical-align: middle;
+    color: #adadad;
+    border-bottom: 1px solid #555;
 }
 
 summary {
-    font-size: large;margin: 10px;
+    font-size: large;
+    margin: 10px;
 }
+
 div .kvk-list {
-    max-height: 60vh;overflow-y: auto; overflow-x: hidden;
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .parent {
@@ -308,9 +251,11 @@ div .NORTHUMBRIA, .WIND, .Picardy {
 div .EAST_ANGLIA, .WATER, .La {
     background: #20456e80;
 }
+
 div .Bourbon {
     background: #44c28780;
 }
+
 div .Brittany {
     background: #80a5cf80;
 }
