@@ -185,6 +185,7 @@ h1 {
     font-size: 16px;
     font-weight: 600;
     color: #e0e0e0;
+    cursor: pointer;
 }
 
 .kd1545 {
@@ -207,9 +208,8 @@ a.button-link {
 }
 
 a.button-link:hover {
-    background: #0056b3;
+    background: #4d535a;
 }
-
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -222,6 +222,14 @@ td {
     border: 1px solid #444;
     padding: 8px;
     text-align: center;
+}
+
+td.kd {
+    cursor: pointer;
+}
+
+td.kd:hover {
+    background: #4d535a;
 }
 
 th {

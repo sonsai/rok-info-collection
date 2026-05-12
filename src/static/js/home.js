@@ -36,7 +36,7 @@ function loadPage(page, keyword="") {
 
             body = data.match_data_list.map(kd => `
 <tr>
-    <td onclick="location.href='/kingdom-player?id=${kd['KD']}'">${kd['KD']}</td>
+    <td class="kd" onclick="location.href='/kingdom-player?id=${kd['KD']}'">${kd['KD']}</td>
     <td>
         <img src="/static/media/rank/level_s.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['s']}
         <img src="/static/media/rank/level_a.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['a']}
