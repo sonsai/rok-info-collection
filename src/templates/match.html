@@ -155,6 +155,7 @@
                     </div>
                 </div>
             </th>
+            <th>总战斗评分 TOTAL FIGHTING POINTS</th>
             <th>总匹配积分 TOTAL KVK SCORE</th>
             <th>总战力 TOTAL POWER</th>
             <th>总阵亡 TOTAL DEAD</th>
@@ -172,6 +173,7 @@
                 <img src="/static/media/rank/level_c.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['c']}}
                 <img src="/static/media/rank/level_d.png" class="stat-icon">={{s['TOTAL-FIGHTER-BUKETS']['d']}}
             </td>
+            <td>{{ s['TOTAL-FIGHTER-POINTS'] }}</td>
             <td>{{ s['TOTAL-KVK-SCORE'] }}</td>
             <td>{{ s['TOTAL-POWER'] }}</td>
             <td>{{ s['TOTAL-DEAD'] }}</td>
@@ -189,6 +191,7 @@
         <tr>
             <th>王国<br>KINGDOM</th>
             <th>各击杀评级人数 NUMBER OF KP GRADE</th>
+            <th>总战斗评分 FIGHTING POINTS</th>
             <th>战斗综合评级(平均)<br>FIGHT RANK</th>
             <th>活跃综合评级(平均)<br>ACTIVE RANK</th>
             <th>匹配积分<br>KVK SCORE</th>
@@ -210,6 +213,7 @@
                 <img src="/static/media/rank/level_c.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['c']}}
                 <img src="/static/media/rank/level_d.png" class="stat-icon">={{kd['FIHGHTER-BUKETS']['d']}}
             </td>
+            <td>{{ kd['FIGHTER-POINTS'] }}</td>
             <td>
                 <img src="/static/media/rank/level_{{ kd['FIGHTING-RANK'] }}.png" class="stat-icon"><br>
             </td>

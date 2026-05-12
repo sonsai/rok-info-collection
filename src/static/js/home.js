@@ -32,7 +32,7 @@ function loadPage(page, keyword="") {
             totalPage = data.total_page;
             currentPage = data.page;
             // 渲染内容
-            header = "<table><thead><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数<br>NUMBER OF KP GRADE</th><th>战斗综合评级(平均)<br>FIGHT RANK</th><th>匹配积分<br>KVK SCORE</th><th>战力<br>POWER</th><th>击杀<br>KILL</th><th>历届KVK评价<br>KVK EVALUATIONS</th></tr></thead><tbody>"
+            header = "<table><thead><tr><th>王国<br>KINGDOM</th><th>各击杀评级人数<br>NUMBER OF KP GRADE</th><th>战斗评分<br>FIGHTING POINTS</th><th>战斗综合评级(平均)<br>FIGHT RANK</th><th>匹配积分<br>KVK SCORE</th><th>战力<br>POWER</th><th>击杀<br>KILL</th><th>历届KVK评价<br>KVK EVALUATIONS</th></tr></thead><tbody>"
 
             body = data.match_data_list.map(kd => `
 <tr>
@@ -44,6 +44,7 @@ function loadPage(page, keyword="") {
         <img src="/static/media/rank/level_c.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['c']}
         <img src="/static/media/rank/level_d.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['d']}
     </td>
+    <td>${kd['FIHGHTER-POINTS']}</td>
     <td><img src="/static/media/rank/level_${kd['FIGHTING-RANK']}.png" class="stat-icon"></td>
     <td>${kd['KVK-SCORE']}</td>
     <td>${kd['POWER']}</td>

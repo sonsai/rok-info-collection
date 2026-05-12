@@ -391,6 +391,7 @@ def show_kvk_match_data(
         total_kill = 0
         total_power = 0
         total_score = 0
+        total_fighter_points = 0
         total_fighter_bukets={
             "s":0,
             "a":0,
@@ -419,8 +420,15 @@ def show_kvk_match_data(
             else:
                 kvk_score = 0
             eva_dict = read_json_file(get_evaluated_kingdoms_json_path(k//100,k))
+            fighter_points = 0
             if eva_dict:
                 eva_result = eva_dict.get("evaluated_result")
+                fighter_bukets = eva_result.get("fighter_bukets",{})
+                fighter_points += int(fighter_bukets.get("s")) * 10
+                fighter_points += int(fighter_bukets.get("a")) * 6
+                fighter_points += int(fighter_bukets.get("b")) * 4
+                fighter_points += int(fighter_bukets.get("c")) * 1
+
             else:
                 eva_result = {}
             history_file_name = get_kingdoms_kvk_history_json_path(k)
@@ -447,18 +455,21 @@ def show_kvk_match_data(
                     "POWER":fn(power),
                     "DEAD":fn(dead),
                     "KILL":fn(kill),
-                    "KVK-HISTORY":history_evaluate
+                    "KVK-HISTORY":history_evaluate,
+                    "FIGHTER-POINTS":fighter_points
                 }
                 camp["kingdoms"].append(kingdom_json)
             total_dead += dead
             total_kill += kill
             total_power += power
             total_score += kvk_score
+            total_fighter_points += fighter_points
             total_fighter_bukets = sum_dicts(total_fighter_bukets, eva_result.get("fighter_bukets","-"))
         camp["kingdoms"].sort(key=lambda x: float(x["KVK-SCORE"][:-1]) if len(x["KVK-SCORE"]) > 1 else float(x["KVK-SCORE"]), reverse=True)
         if show_sum:
             sum_json = {
                 "TOTAL-FIGHTER-BUKETS":total_fighter_bukets,
+                "TOTAL-FIGHTER-POINTS":total_fighter_points,
                 "TOTAL-KVK-SCORE":fn(total_score),
                 "TOTAL-POWER":fn(total_power),
                 "TOTAL-DEAD":fn(total_dead),
@@ -658,7 +669,12 @@ def get_match_data(idx:int, kingdom_id:str):
             else:
                 kvk_score = 0
             eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
-            
+            fighter_points = 0
+            fighter_bukets = eva_result.get("fighter_bukets",{})
+            fighter_points += int(fighter_bukets.get("s")) * 10
+            fighter_points += int(fighter_bukets.get("a")) * 6
+            fighter_points += int(fighter_bukets.get("b")) * 4
+            fighter_points += int(fighter_bukets.get("c")) * 1
             history_evaluate = "-"
             if history_data:
                 history_evaluate = ""
@@ -678,6 +694,7 @@ def get_match_data(idx:int, kingdom_id:str):
                 "KD":k,
                 "FIGHTING-RANK":eva_result["grade_fighting"],
                 "FIHGHTER-BUKETS":eva_result["fighter_bukets"],
+                "FIHGHTER-POINTS":fighter_points,
                 "ACTIVATION-RANK":eva_result["grade_activation"],
                 "UPDATED-AT":detail_data["data"]["day"],
                 "KVK-SCORE":fn(kvk_score),
