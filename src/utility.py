@@ -423,6 +423,10 @@ def show_kvk_match_data(
             fighter_points = 0
             if "evaluated_result" in detail_data["data"]:
                 eva_result = detail_data["data"].get("evaluated_result")
+            else:
+                eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
+
+            if eva_result:
                 fighter_bukets = eva_result.get("fighter_bukets",{})
                 fighter_points += int(fighter_bukets.get("s")) * 10
                 fighter_points += int(fighter_bukets.get("a")) * 6
@@ -671,6 +675,8 @@ def get_match_data(idx:int, kingdom_id:str):
             # eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
             fighter_points = 0
             evaluate_data = detail_data["data"].get("evaluated_result")
+            if not evaluate_data:
+                evaluate_data = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
             if evaluate_data:
                 fighter_bukets = evaluate_data.get("fighter_bukets",{})
                 fighter_points += int(fighter_bukets.get("s")) * 10
