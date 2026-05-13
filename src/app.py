@@ -1,6 +1,5 @@
 import datetime
 import json
-import os
 import re
 import threading
 import time
@@ -8,16 +7,13 @@ import logging
 
 from werkzeug.exceptions import HTTPException
 from flask import Flask, abort, jsonify, render_template, request
-from src.consts import CHECK_INTERVAL, DATA_NEXT, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON, KVK_NEXT, MATCH_NEXT
+from src.consts import CHECK_INTERVAL, DATA_NEXT, GITHUB_RAW_URL, HEALTH_URL, KVK_CONFIG_JSON
 from src.clients.get_request import get_request
 from src.clients.post_github_request_api import post_github_request_api
 from src.utility import (
-    evaluate_kingdom,
-    evaluate_player,
     fn,
     get_YMD_current_date,
     get_evaluated_kingdoms_json_path,
-    get_kingdoms_json_path,
     get_match_data,
     get_players_json_path,
     get_repo_json_file,

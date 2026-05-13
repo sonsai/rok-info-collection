@@ -419,10 +419,10 @@ def show_kvk_match_data(
                 kvk_score = detail_data["data"]["kvkKillScore"]
             else:
                 kvk_score = 0
-            eva_dict = read_json_file(get_evaluated_kingdoms_json_path(k//100,k))
+            # eva_dict = read_json_file(get_evaluated_kingdoms_json_path(k//100,k))
             fighter_points = 0
-            if eva_dict:
-                eva_result = eva_dict.get("evaluated_result")
+            if "evaluated_result" in detail_data["data"]:
+                eva_result = detail_data["data"].get("evaluated_result")
                 fighter_bukets = eva_result.get("fighter_bukets",{})
                 fighter_points += int(fighter_bukets.get("s")) * 10
                 fighter_points += int(fighter_bukets.get("a")) * 6
@@ -668,13 +668,17 @@ def get_match_data(idx:int, kingdom_id:str):
                 kvk_score = detail_data["data"]["kvkKillScore"]
             else:
                 kvk_score = 0
-            eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
+            # eva_result = read_json_file(get_evaluated_kingdoms_json_path(k//100,k)).get("evaluated_result")
             fighter_points = 0
-            fighter_bukets = eva_result.get("fighter_bukets",{})
-            fighter_points += int(fighter_bukets.get("s")) * 10
-            fighter_points += int(fighter_bukets.get("a")) * 6
-            fighter_points += int(fighter_bukets.get("b")) * 4
-            fighter_points += int(fighter_bukets.get("c")) * 1
+            evaluate_data = detail_data["data"].get("evaluated_result")
+            if evaluate_data:
+                fighter_bukets = evaluate_data.get("fighter_bukets",{})
+                fighter_points += int(fighter_bukets.get("s")) * 10
+                fighter_points += int(fighter_bukets.get("a")) * 6
+                fighter_points += int(fighter_bukets.get("b")) * 4
+                fighter_points += int(fighter_bukets.get("c")) * 1
+            else:
+                evaluate_data = {}
             history_evaluate = "-"
             if history_data:
                 history_evaluate = ""
@@ -692,10 +696,10 @@ def get_match_data(idx:int, kingdom_id:str):
             
             kingdom_json = {
                 "KD":k,
-                "FIGHTING-RANK":eva_result["grade_fighting"],
-                "FIHGHTER-BUKETS":eva_result["fighter_bukets"],
+                "FIGHTING-RANK":evaluate_data.get("grade_fighting","d"),
+                "FIHGHTER-BUKETS":evaluate_data.get("fighter_bukets",{}),
                 "FIHGHTER-POINTS":fighter_points,
-                "ACTIVATION-RANK":eva_result["grade_activation"],
+                "ACTIVATION-RANK":evaluate_data.get("grade_activation","d"),
                 "UPDATED-AT":detail_data["data"]["day"],
                 "KVK-SCORE":fn(kvk_score),
                 "POWER":fn(power),

@@ -142,6 +142,9 @@ elif mode == "save_match_data":
                 continue
         else:
             no_data_cnt = 0
+        evaluate_data = read_json_file(get_evaluated_kingdoms_json_path(idx,kingdom_id))
+        if evaluate_data:
+            data["evaluated_result"] = evaluate_data.get("evaluated_result",{})
         detail_data = {
             "kingdom":kingdom_id,
             "date":datetime.datetime.now().strftime("%Y-%m-%d"),
