@@ -29,7 +29,8 @@ jobs:
       - name: Copy kingdoms to data/ex
         run: |
           mkdir -p data/ex/evaluated
-          mv data/kingdoms/evaluated/* data/ex/evaluated
+          cp -r data/ex/evaluated/* data/kingdoms/evaluated
+          cp -r data/kingdoms/evaluated/* data/ex/evaluated
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -42,7 +43,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python -m src.main 1001 1010
+        run: python -m src.main 1001 2000
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
