@@ -1,0 +1,50 @@
+name: Save Kingdoms Players Data 2
+
+on:
+  workflow_run:
+    workflows: ["Save Kingdoms Players Data 1"]   # 必须与 A.yml 的 name 完全一致
+    types:
+      - completed
+  repository_dispatch:
+    types: [save-kingdoms-players-data-2]
+  workflow_dispatch:
+
+jobs:
+  run-only-if-success:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Python with env
+        run: python -m src.main 2000 3000
+        env:
+          ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
+          ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
+          MODE: save_kingdoms_data
+          
+      - name: Commit result file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/kingdoms/evaluated
+          git add data/player
+
+          # 如果没有变化，避免报错
+          git diff --cached --quiet || git commit -m "[render skip]Update kingdoms&player data"
+
+          git push
