@@ -233,10 +233,10 @@ def evaluate_player(data):
 
     return data
 
-def set_history_info(data):
+def set_history_info(data, player_data_list):
     id = int(data.get("id"))
     player_list_data_path = get_players_json_path(id//1_000_000)
-    player_list_data = read_json_file(player_list_data_path)
+    player_list_data = player_data_list.get(player_list_data_path, {})
     past_player_data = player_list_data.get(str(id))
     if past_player_data:
         past_kingdom_list = past_player_data.get("kingdom")
