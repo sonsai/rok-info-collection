@@ -297,24 +297,24 @@ elif mode == "save_kingdoms_data":
                                             player[key] = list(dq)
                                         if not log_flg:
                                             log_flg = True
-                                            print(f"分类:移民玩家{ex_kd}→{player_info_list[player["id"]]["kingdom"][-1]}, 玩家ID:{player["id"]},keylist{player[key]}")
+                                            print(f"分类:移民玩家{ex_kd}→{player_info_list[player['id']]['kingdom'][-1]}, 玩家ID:{player['id']},keylist{player[key]}")
                                         break
                                 if not player_in_now_kingdom_flg:
                                     if not log_flg:
                                         log_flg = True
-                                        print(f"分类:前王国{ex_kd}无该玩家数据, 玩家ID:{player["id"]}")
+                                        print(f"分类:前王国{ex_kd}无该玩家数据, 玩家ID:{player['id']}")
                                     player[key] = [player[key]]
                             else:
                                 if not log_flg:
                                     log_flg = True
-                                    print(f"分类:没有获取对象王国数据{ex_kd}, 玩家ID:{player["id"]}")
+                                    print(f"分类:没有获取对象王国数据{ex_kd}, 玩家ID:{player['id']}")
                                 player[key] = [player[key]]
                         else:
                             player[key] = [player[key]]
                 else:
                     if not log_flg:
                         log_flg = True
-                        print(f"分类:新王国, 玩家ID:{player["id"]}")
+                        print(f"分类:新王国, 玩家ID:{player['id']}")
                     player[key] = [player[key]]
 
                 return log_flg
