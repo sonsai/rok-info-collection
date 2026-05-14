@@ -330,7 +330,7 @@ elif mode == "save_kingdoms_data":
                     if k not in ["id","name","max_power","power","dt"]:
                         player[f"{k}_180"] = v
             player = evaluate_player(player)
-            player = set_history_info(player)
+            player = set_history_info(player, working_file_list)
             data_list.append(player)
         eva_result = evaluate_kingdom(data_list)
         output_data = {
