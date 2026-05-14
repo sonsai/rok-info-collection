@@ -1,4 +1,4 @@
-name: Save Kingdoms Players Data
+name: Save Kingdoms Players Data 1
 
 on:
   workflow_run:
@@ -30,7 +30,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python -m src.main 1001 8000
+        run: python -m src.main 1001 2000
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
