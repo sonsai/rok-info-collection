@@ -33,6 +33,9 @@ def get_kingdoms_json_path(days,index,kingdom_id):
 def get_evaluated_kingdoms_json_path(index,kingdom_id):
     return f"data/kingdoms/evaluated/{index}/{kingdom_id}.json"
 
+def get_ex_evaluated_kingdoms_json_path(index,kingdom_id):
+    return f"data/ex/evaluated/{index}/{kingdom_id}.json"
+
 def get_kingdoms_kvk_history_json_path(kingdom_id):
     index = kingdom_id // 100
     return f"data/kingdoms/history/{index}/{kingdom_id}.json"

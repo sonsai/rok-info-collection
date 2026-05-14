@@ -18,7 +18,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+        with:
+          sparse-checkout: |
+            data/player
+            data/kingdoms/evaluated
+            src
+          sparse-checkout-cone-mode: false
+
+      - name: Copy kingdoms to data/ex
+        run: |
+          mkdir -p data/ex/evaluated
+          mv data/kingdoms/evaluated/* data/ex/evaluated
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -30,7 +41,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python -m src.main 1001 2000
+        run: python -m src.main 1001 1010
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
@@ -43,6 +54,7 @@ jobs:
 
           git add data/kingdoms/evaluated
           git add data/player
+          git add data/ex
 
           # 如果没有变化，避免报错
           git diff --cached --quiet || git commit -m "[render skip]Update kingdoms&player data"

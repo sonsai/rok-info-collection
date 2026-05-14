@@ -12,6 +12,7 @@ from src.utility import (
     evaluate_kingdom,
     evaluate_player,
     get_evaluated_kingdoms_json_path,
+    get_ex_evaluated_kingdoms_json_path,
     get_kingdoms_json_path,
     get_kingdoms_kvk_history_json_path,
     get_kvk_dkp_json_path,
@@ -244,14 +245,14 @@ elif mode == "save_kingdoms_data":
             continue
 
         new_kingdom_flg = True
-        now_eva_file_path = get_evaluated_kingdoms_json_path(index=idx,kingdom_id=kingdom_id)
+        now_eva_file_path = get_ex_evaluated_kingdoms_json_path(index=idx,kingdom_id=kingdom_id)
         if os.path.exists(now_eva_file_path):
             new_kingdom_flg = False
             now_eva_dict=read_json_file(now_eva_file_path)
         data_list = []
         for player in result_data["data_in_1"]:
-
-            def edit_queue_data(key,player,now_eva_dict,working_file_list,new_kingdom_flg):
+            log_flg = False
+            def edit_queue_data(key,player,now_eva_dict,working_file_list,new_kingdom_flg, log_flg):
                 if not new_kingdom_flg:
                     player_in_now_kingdom_flg = False
                     for now_player in now_eva_dict["data"]:
@@ -276,7 +277,7 @@ elif mode == "save_kingdoms_data":
                         kd_list = player_info_list[player["id"]]["kingdom"]
                         if len(kd_list) > 1:
                             ex_kd= player_info_list[player["id"]]["kingdom"][-2]
-                            ex_eva_file_path = get_evaluated_kingdoms_json_path(index=int(ex_kd) // 100,kingdom_id=ex_kd)
+                            ex_eva_file_path = get_ex_evaluated_kingdoms_json_path(index=int(ex_kd) // 100,kingdom_id=ex_kd)
                             if os.path.exists(ex_eva_file_path):
                                 ex_eva_dict = read_json_file(ex_eva_file_path)
                                 for ex_player in ex_eva_dict["data"]:
@@ -294,19 +295,33 @@ elif mode == "save_kingdoms_data":
                                             dq=deque(iterable=key_list,maxlen=60)
                                             dq.append(player[key])
                                             player[key] = list(dq)
+                                        if not log_flg:
+                                            log_flg = True
+                                            print(f"分类:移民玩家{ex_kd}→{player_info_list[player["id"]]["kingdom"][-1]}, 玩家ID:{player["id"]},keylist{player[key]}")
                                         break
                                 if not player_in_now_kingdom_flg:
+                                    if not log_flg:
+                                        log_flg = True
+                                        print(f"分类:前王国{ex_kd}无该玩家数据, 玩家ID:{player["id"]}")
                                     player[key] = [player[key]]
                             else:
+                                if not log_flg:
+                                    log_flg = True
+                                    print(f"分类:没有获取对象王国数据{ex_kd}, 玩家ID:{player["id"]}")
                                 player[key] = [player[key]]
                         else:
                             player[key] = [player[key]]
                 else:
+                    if not log_flg:
+                        log_flg = True
+                        print(f"分类:新王国, 玩家ID:{player["id"]}")
                     player[key] = [player[key]]
 
-            edit_queue_data("kill",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
-            edit_queue_data("help",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
-            edit_queue_data("collect",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg)
+                return log_flg
+
+            log_flg = edit_queue_data("kill",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg,log_flg=log_flg)
+            log_flg = edit_queue_data("help",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg,log_flg=log_flg)
+            edit_queue_data("collect",player=player,now_eva_dict=now_eva_dict,working_file_list=working_file_list,new_kingdom_flg=new_kingdom_flg,log_flg=log_flg)
             player_60 = None
             player_180 = None
             for p in result_data.get("data_in_60",{}):  
