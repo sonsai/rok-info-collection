@@ -1,4 +1,4 @@
-name: Save Kingdoms Players Data 1
+name: Save Kingdoms Players Data
 
 on:
   workflow_run:
@@ -22,14 +22,12 @@ jobs:
           sparse-checkout: |
             data/player
             data/kingdoms/evaluated
-            data/ex
             src
           sparse-checkout-cone-mode: false
 
       - name: Copy kingdoms to data/ex
         run: |
           mkdir -p data/ex/evaluated
-          cp -r data/ex/evaluated/* data/kingdoms/evaluated
           cp -r data/kingdoms/evaluated/* data/ex/evaluated
 
       - name: Set up Python
@@ -43,7 +41,7 @@ jobs:
           pip install requests
 
       - name: Run Python with env
-        run: python -m src.main 1001 2000
+        run: python -m src.main 1001 8000
         env:
           ROK_B_TOKEN: ${{ secrets.ROK_B_TOKEN}}
           ROK_P_TOKEN: ${{ secrets.ROK_P_TOKEN}}
@@ -56,7 +54,6 @@ jobs:
 
           git add data/kingdoms/evaluated
           git add data/player
-          git add data/ex
 
           # 如果没有变化，避免报错
           git diff --cached --quiet || git commit -m "[render skip]Update kingdoms&player data"
