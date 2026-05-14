@@ -22,6 +22,7 @@ jobs:
           sparse-checkout: |
             data/player
             data/kingdoms/evaluated
+            data/ex
             src
           sparse-checkout-cone-mode: false
 
