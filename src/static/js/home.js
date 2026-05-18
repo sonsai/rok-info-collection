@@ -24,9 +24,9 @@ let currentPage = 1;
 let timer = null;
 let totalPage = 1;
 
-function loadPage(page, keyword="") {
+function loadMatchList(page, keyword="") {
     document.getElementById("match_data_table").innerHTML = "<h2>Data Loading...</h2>"
-    fetch(`/api/data?page=${page}&keyword=${keyword}`)
+    fetch(`/api/match-data?page=${page}&keyword=${keyword}`)
         .then(res => res.json())
         .then(data => {
             totalPage = data.total_page;
@@ -67,7 +67,7 @@ document.getElementById("searchInput").addEventListener("input", function () {
 
     clearTimeout(timer);
     timer = setTimeout(() => {
-        loadPage(1, keyword);  // 输入结束 2 秒后搜索
+        loadMatchList(1, keyword);  // 输入结束 2 秒后搜索
     }, 1000);
 });
 
@@ -82,7 +82,7 @@ document.getElementById("nextBtn").onclick = () => {
 document.getElementById("lastBtn").onclick = () => loadPage(totalPage);
 
 // 初始化
-loadPage(1);
+loadMatchList(1);
 
 document.querySelectorAll("details").forEach((d) => {
     d.addEventListener("toggle", function () {
@@ -95,3 +95,110 @@ document.querySelectorAll("details").forEach((d) => {
         }
     });
 });
+
+
+function loadKVKList(keyword) {
+    fetch(`/api/kvk-data?keyword=${keyword}`)
+        .then(res => res.json())
+        .then(show_data => {
+            renderKVKList(show_data.data.vcr, "vcr-list");
+            renderKVKList(show_data.data.on_going, "on-going-list");
+            renderKVKList(show_data.data.finished, "finished-list");
+        });
+}
+
+function renderKVKList(data, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";  // 清空
+
+    const current_date = new Date();
+
+    Object.entries(data).forEach(([key, item]) => {
+
+        // 状态判断
+        let status_label = "进行中 · Ongoing";
+        if (new Date(item.start) > current_date) {
+            status_label = "未开始 · Not Started";
+        } else if (new Date(item.end) <= current_date) {
+            status_label = "已结束 · Finished";
+        }
+
+        // 外层 item
+        const itemDiv = document.createElement("div");
+        itemDiv.className = `item ${item.kvk_type}`;
+
+        // 卡片
+        const card = document.createElement("div");
+        card.className = item.vcr ? "item-card-vcr" : "item-card";
+
+        // 标题
+        const header = document.createElement("div");
+        header.className = "item-header";
+        header.innerHTML = `<div class="item-title">${key} — ${status_label}</div>`;
+
+        // 元信息
+        const meta = document.createElement("div");
+        meta.className = "item-meta";
+        meta.innerHTML = `
+            类型 Type: ${item.kvk_type_cn || item.kvk_type || "N/A"} |
+            时间 Time: ${item.start} ~ ${item.end}
+        `;
+
+        // 阵营
+        const parent = document.createElement("div");
+        parent.className = "parent";
+
+        Object.entries(item.camps).forEach(([camp_name, kds]) => {
+            const campDiv = document.createElement("div");
+            campDiv.className = camp_name;
+
+            const campLine = document.createElement("div");
+            campLine.className = "camp-line";
+            campLine.textContent = `${camp_name}:`;
+
+            campDiv.appendChild(campLine);
+
+            kds.sort().forEach(kd => {
+                const kdDiv = document.createElement("div");
+                kdDiv.className = `kd-item kd${kd}`;
+                kdDiv.innerHTML = `
+                    <span onclick="location.href='/kingdom-player?id=${kd}'">${kd}</span>
+                `;
+                campDiv.appendChild(kdDiv);
+            });
+
+            parent.appendChild(campDiv);
+        });
+
+        // 链接按钮
+        const links = document.createElement("div");
+        links.innerHTML = `
+            <a class="button-link" href="/match/${key}">匹配数据 Match Data</a>
+            <a class="button-link" href="/dkp/${key}">DKP 数据 DKP Data</a>
+            <a class="button-link" href="/kvk-player/${key}">玩家数据 Player Data</a>
+        `;
+
+        // 组装
+        card.appendChild(header);
+        card.appendChild(meta);
+        card.appendChild(parent);
+        card.appendChild(document.createElement("br"));
+        card.appendChild(links);
+
+        itemDiv.appendChild(card);
+        container.appendChild(itemDiv);
+    });
+}
+
+// 输入框防抖（2 秒）
+document.getElementById("searchKvkInput").addEventListener("input", function () {
+    const keyword = this.value.trim();
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        loadKVKList(keyword);  // 输入结束 2 秒后搜索
+    }, 1000);
+});
+
+// 初始化
+loadKVKList("");

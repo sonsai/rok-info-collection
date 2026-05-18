@@ -273,8 +273,8 @@ def server_error(e):
         e=e
     ), 500
 
-@app.route("/api/data")
-def api_data():
+@app.route("/api/match-data")
+def api_match_data():
     page = int(request.args.get("page", 1))
     keyword = request.args.get("keyword", "").strip()
     total_page = 29
@@ -294,6 +294,27 @@ def api_data():
         "match_data_list": match_data_list
     })
 
+@app.route("/api/kvk-data")
+def api_kvk_data():
+    keyword = request.args.get("keyword", "").strip()
+    ranges = keyword.split(" ") if keyword else []
+    data = get_repo_json_file(KVK_CONFIG_JSON)
+    target_data = {}
+    if ranges:
+        for kd in ranges:
+            for kvk_id,kvk_data in data.items():
+                from itertools import chain
+
+                merged = list(chain.from_iterable(kvk_data.get("camps",{}).values()))
+
+                if int(kd) in merged:
+                    target_data[kvk_id] = kvk_data
+    else:
+        target_data = data
+    show_data = show_kvk_info_data(target_data)
+    return jsonify({
+        "data": show_data
+    })
 
 if __name__ == "__main__":
     start_background_thread()
