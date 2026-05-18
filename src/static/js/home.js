@@ -173,9 +173,9 @@ function renderKVKList(data, containerId) {
         // 链接按钮
         const links = document.createElement("div");
         links.innerHTML = `
-            <a class="button-link" href="/match/${key}">匹配数据 Match Data</a>
-            <a class="button-link" href="/dkp/${key}">DKP 数据 DKP Data</a>
-            <a class="button-link" href="/kvk-player/${key}">玩家数据 Player Data</a>
+            <a class="button-link" href="/rok-match-data?kvk_map_id=${key}">匹配数据 Match Data</a>
+            <a class="button-link" href="/rok-kvk-dkp-data?kvk_map_id=${key}">DKP 数据 DKP Data</a>
+            <a class="button-link" href="/rok-kvk-player-data?kvk_map_id=${key}">玩家数据 Player Data</a>
         `;
 
         // 组装
