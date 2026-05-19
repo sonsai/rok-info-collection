@@ -72,14 +72,14 @@ document.getElementById("searchInput").addEventListener("input", function () {
 });
 
 // 按钮事件
-document.getElementById("firstBtn").onclick = () => loadPage(1);
+document.getElementById("firstBtn").onclick = () => loadMatchList(1);
 document.getElementById("prevBtn").onclick = () => {
-    if (currentPage > 1) loadPage(currentPage - 1);
+    if (currentPage > 1) loadMatchList(currentPage - 1);
 };
 document.getElementById("nextBtn").onclick = () => {
-    if (currentPage < totalPage) loadPage(currentPage + 1);
+    if (currentPage < totalPage) loadMatchList(currentPage + 1);
 };
-document.getElementById("lastBtn").onclick = () => loadPage(totalPage);
+document.getElementById("lastBtn").onclick = () => loadMatchList(totalPage);
 
 // 初始化
 loadMatchList(1);
