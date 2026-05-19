@@ -86,11 +86,11 @@ tr:nth-child(odd) {
 
 /* ========== 交互元素 ========== */
 
-td.kd {
+td.kd, td.player {
     cursor: pointer;
 }
 
-td.kd:hover {
+td.kd:hover, td.player:hover {
     background: #4d535a;
 }
 
@@ -145,4 +145,44 @@ img {
 .tooltip:hover .tip {
     visibility: visible;
     opacity: 1;
+}
+
+.MERCIA, .FIRE, .Poitou, .Dardania {
+    background: #814c4c80;
+}
+
+.WESSEX, .EARTH, .Auvergne, .Mycenae {
+    background: #6b572d80;
+}
+
+.NORTHUMBRIA, .WIND, .Picardy {
+    background: #37244280;
+}
+
+.EAST_ANGLIA, .WATER, .La, .Aeolia {
+    background: #20456e80;
+}
+
+.Bourbon {
+    background: #44c28780;
+}
+
+.Brittany {
+    background: #80a5cf80;
+}
+
+.Lycia {
+    background: #b7be5280;
+}
+
+.search-bar input {
+    width: 260px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #1a1a1a;
+    color: #ddd;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
 }

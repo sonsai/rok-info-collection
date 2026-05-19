@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>KVK Player Data</title>
+    <link rel="stylesheet" href="/static/css/common.css">
 
     <style>
         body {
@@ -54,19 +55,6 @@
             color: #adadad;
         }
 
-        .fire {
-            background-color:#814c4c;
-        }
-        .water {
-            background-color:#20456e;
-        }
-        .earth {
-            background-color:#6b572d;
-        }
-        .wind {
-            background-color:#372442;
-        }
-
         .sum-table {
             margin-top: 5px;
         }
@@ -97,8 +85,7 @@
     <h2>玩家数据 Player Data</h2>
     <h2>Map: {{ kvk_info.kvk_map_id }}</h2>
     <h2>数据范围: {{ kvk_info.data_start or kvk_info.start}} — {{ kvk_info.data_end or kvk_info.end}}</h2>
-    <input type="text" id="searchInput" placeholder="输入关键字筛选..." style="
-    width: 200px; padding: 6px; margin-bottom: 10px; background:#222; color:#fff; border:1px solid #555;">
+    <div class="search-bar"><input type="text" id="searchInput" placeholder="输入关键字筛选..."></div>
     <table class="sum-table">
         <tr>
             <th>#</th>
@@ -126,16 +113,12 @@
         {% for player in data %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td class="{% if 'FIRE' in player.camp %}fire
-                {% elif 'WATER' in player.camp %}water
-                {% elif 'EARTH' in player.camp %}earth
-                {% elif 'WIND' in player.camp %}wind
-                {% endif %}">{{ player.camp }}</td>
-                <td onclick="location.href='/kingdom-player?id={{ player.kingdom }}'">
+                <td class="{{ player.camp }}">{{ player.camp }}</td>
+                <td class="kd" onclick="location.href='/kingdom-player?id={{ player.kingdom }}'">
                     {{ player.kingdom }}
                 </td>
                 <!-- <td>{{ player.id }}</td> -->
-                <td onclick="location.href='/kingdom-player?id={{ player.id }}'">
+                <td class="player" onclick="location.href='/kingdom-player?id={{ player.id }}'">
                     {{ player.name }}
                 </td>
                 <td>{{ player.power }}</td>

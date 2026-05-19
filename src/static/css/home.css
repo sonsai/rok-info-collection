@@ -122,6 +122,10 @@
     background-image: url('/static/media/s12storm_of_stratagems_cover.png');
 }
 
+.song_of_troy {
+    background-image: url('/static/media/s20song_of_troy_cover.png');
+}
+
 /* 卡片内容 */
 .item-card {
     background: rgba(0, 0, 0, 0.65);
@@ -234,28 +238,4 @@ div .kvk-list {
     border-radius: 8px;
     margin-top: 10px;
     padding: 5px;
-}
-
-div .MERCIA, .FIRE, .Poitou {
-    background: #814c4c80;
-}
-
-div .WESSEX, .EARTH, .Auvergne {
-    background: #6b572d80;
-}
-
-div .NORTHUMBRIA, .WIND, .Picardy {
-    background: #37244280;
-}
-
-div .EAST_ANGLIA, .WATER, .La {
-    background: #20456e80;
-}
-
-div .Bourbon {
-    background: #44c28780;
-}
-
-div .Brittany {
-    background: #80a5cf80;
 }

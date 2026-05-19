@@ -298,7 +298,7 @@ def api_match_data():
 def api_kvk_data():
     keyword = request.args.get("keyword", "").strip()
     ranges = keyword.split(" ") if keyword else []
-    data = get_repo_json_file(KVK_CONFIG_JSON)
+    data = read_json_file(KVK_CONFIG_JSON)
     target_data = {}
     if ranges:
         for kd in ranges:
