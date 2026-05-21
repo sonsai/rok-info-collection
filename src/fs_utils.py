@@ -29,6 +29,12 @@ def get_YMD_current_date():
     return datetime.datetime.now().strftime("%Y-%m-%d")
 
 
+def compute_temp_end():
+    now = datetime.datetime.now()
+    delay_days = 2 if now.hour < 3 else 1
+    return (now - datetime.timedelta(days=delay_days)).strftime("%Y-%m-%d")
+
+
 def get_repo_json_file(path: str) -> dict:
     url = GITHUB_RAW_URL + path
     response = get_request(url=url)

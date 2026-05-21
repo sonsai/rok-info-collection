@@ -14,6 +14,7 @@ from src.fs_utils import (
     get_repo_json_file,
     read_json_file,
     write_data_to_json_file,
+    compute_temp_end,
 )
 from src.evaluate_utils import (
     evaluate_kingdom,
@@ -51,6 +52,7 @@ __all__ = [
     "get_ex_evaluated_kingdoms_json_path",
     "get_kingdoms_kvk_history_json_path",
     "get_players_json_path",
+    "compute_temp_end",
     "grade",
     "evaluate_kingdom",
     "evaluate_player",
