@@ -114,11 +114,11 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td class="{{ player.camp }}">{{ player.camp }}</td>
-                <td class="kd" onclick="location.href='/kingdom-player?id={{ player.kingdom }}'">
+                <td class="kd" onclick="submitKD({{ player.kingdom }})">
                     {{ player.kingdom }}
                 </td>
                 <!-- <td>{{ player.id }}</td> -->
-                <td class="player" onclick="location.href='/kingdom-player?id={{ player.id }}'">
+                <td class="player" onclick="submitKD({{ player.id }})">
                     {{ player.name }}
                 </td>
                 <td>{{ player.power }}</td>
@@ -153,6 +153,15 @@
         }
 
         document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    </script>
+    <form id="kdForm" action="/kingdom" method="POST" style="display:none;">
+        <input type="hidden" name="id" id="kdInput">
+    </form>
+    <script>
+        function submitKD(kd) {
+            document.getElementById('kdInput').value = kd;
+            document.getElementById('kdForm').submit();
+        }
     </script>
 </body>
 </html>

@@ -15,9 +15,10 @@ document.querySelectorAll(".nav button").forEach(btn => {
 });
 
 function go() {
-    const v = document.getElementById('idInput').value.trim();
-    if (!v) return;
-    location.href = '/kingdom-player?id=' + v;
+    document.getElementById('f').submit();
+    // const v = document.getElementById('idInput').value.trim();
+    // if (!v) return;
+    // location.href = '/kingdom-player?id=' + v;
 }
 
 let currentPage = 1;
@@ -36,7 +37,9 @@ function loadMatchList(page, keyword="") {
 
             body = data.match_data_list.map(kd => `
 <tr>
-    <td class="kd" onclick="location.href='/kingdom-player?id=${kd['KD']}'">${kd['KD']}</td>
+    <td class="kd" onclick="submitKD('${kd['KD']}')">
+        ${kd['KD']}
+    </td>
     <td>
         <img src="/static/media/rank/level_s.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['s']}
         <img src="/static/media/rank/level_a.png" class="stat-icon">= ${kd['FIHGHTER-BUKETS']['a']}
@@ -52,7 +55,7 @@ function loadMatchList(page, keyword="") {
     <td>${kd['KVK-HISTORY']}</td>
 </tr>
 `).join("");
-            footer = "</tbody></table>"
+            footer = '</tbody></table>'
             document.getElementById("match_data_table").innerHTML = header + body + footer
             // 更新页码
             currentPage = data.page;
@@ -162,7 +165,7 @@ function renderKVKList(data, containerId) {
                 const kdDiv = document.createElement("div");
                 kdDiv.className = `kd-item kd${kd}`;
                 kdDiv.innerHTML = `
-                    <span onclick="location.href='/kingdom-player?id=${kd}'">${kd}</span>
+                    <span onclick="submitKD('${kd}')">${kd}</span>
                 `;
                 campDiv.appendChild(kdDiv);
             });
@@ -173,9 +176,20 @@ function renderKVKList(data, containerId) {
         // 链接按钮
         const links = document.createElement("div");
         links.innerHTML = `
-            <a class="button-link" href="/rok-match-data?kvk_map_id=${key}">匹配数据 Match Data</a>
-            <a class="button-link" href="/rok-kvk-dkp-data?kvk_map_id=${key}">DKP 数据 DKP Data</a>
-            <a class="button-link" href="/rok-kvk-player-data?kvk_map_id=${key}">玩家数据 Player Data</a>
+            <form action="/kvk/match" method="POST" class="inline-form">
+                <input type="hidden" name="kvk_map_id" value="${key}">
+                <button class="button" type="submit">匹配数据 Match Data</button>
+            </form>
+
+            <form action="/kvk/dkp" method="POST" class="inline-form">
+                <input type="hidden" name="kvk_map_id" value="${key}">
+                <button class="button" type="submit">DKP 数据 DKP Data</button>
+            </form>
+
+            <form action="/kvk/player" method="POST" class="inline-form">
+                <input type="hidden" name="kvk_map_id" value="${key}">
+                <button class="button" type="submit">玩家数据 Player Data</button>
+            </form>
         `;
 
         // 组装
@@ -202,3 +216,8 @@ document.getElementById("searchKvkInput").addEventListener("input", function () 
 
 // 初始化
 loadKVKList("");
+
+function submitKD(kd) {
+    document.getElementById('kdInput').value = kd;
+    document.getElementById('kdForm').submit();
+}

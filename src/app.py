@@ -120,9 +120,9 @@ def root():
         abort(500)
 
 
-@app.get("/rok-match-data")
+@app.route("/kvk/match", methods=["POST"])
 def rok_match_data():
-    kvk_map_id = request.args.get("kvk_map_id")
+    kvk_map_id = request.form.get("kvk_map_id")
     try:
         detail_data = get_repo_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
@@ -140,9 +140,9 @@ def rok_match_data():
         abort(500)
     
 
-@app.get("/rok-kvk-dkp-data")
+@app.route("/kvk/dkp", methods=["POST"])
 def rok_kvk_dkp_data():
-    kvk_map_id = request.args.get("kvk_map_id")
+    kvk_map_id = request.form.get("kvk_map_id")
     try:
         detail_data = read_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
@@ -173,10 +173,11 @@ def rok_kvk_dkp_data():
         print(e)
         abort(500)
 
-@app.get("/rok-kvk-player-data")
+
+@app.route("/kvk/player", methods=["POST"])
 def rok_kvk_player_data():
-    kvk_map_id = request.args.get("kvk_map_id",type=str)
-    max_len = request.args.get("max_len",type=int, default=600)
+    kvk_map_id = request.form.get("kvk_map_id",type=str)
+    max_len = request.form.get("max_len",type=int, default=600)
     try:
         detail_data = read_json_file(KVK_CONFIG_JSON)
         if kvk_map_id in detail_data:
@@ -196,12 +197,16 @@ def rok_kvk_player_data():
         print(e)
         abort(500)
 
-@app.get("/kingdom-player")
-def kingdom_player():
+@app.route("/kingdom", methods=["POST"])
+def target():
+    id=request.form.get("id")
+    return kingdom_player(id)
+
+# @app.get("/kingdom-player/{xid}")
+def kingdom_player(xid):
     try:
         player_id = None
         kingdom_id= None
-        xid = request.args.get("id")
         if int(xid) > 10000:
             player_id = xid
         elif 1000 < int(xid):

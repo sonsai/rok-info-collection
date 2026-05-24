@@ -186,7 +186,7 @@
 }
 
 /* 按钮 */
-a.button-link {
+button {
     padding: 8px 16px;
     background: #2a2a2a;
     border: 1px solid #444;
@@ -199,7 +199,7 @@ a.button-link {
     margin-right: 10px;
 }
 
-a.button-link:hover {
+button:hover {
     background: #4d535a;
 }
 
@@ -238,4 +238,8 @@ div .kvk-list {
     border-radius: 8px;
     margin-top: 10px;
     padding: 5px;
+}
+.inline-form {
+    display: inline-block;   /* 让 form 横向排列 */
+    margin-right: 10px;      /* 按钮之间的间距 */
 }

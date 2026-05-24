@@ -19,8 +19,10 @@
         <h1>王国 / 玩家信息查询 · Kingdom / Player Search</h1>
 
         <div class="search-bar">
-            <input type="text" id="idInput" placeholder="Kingdom ID or Player ID">
-            <button onclick="go()">查询 Search</button>
+            <form action="/kingdom" method="POST">
+                <input type="text" name="id" placeholder="Kingdom ID or Player ID">
+                <button type="submit">查询 Search</button>
+            </form>        
         </div>
     </div>
     <div id="page2" class="page  {% if mode_kvk == 'active' %} show {% endif %}">
@@ -28,17 +30,17 @@
         <div class="search-bar"><input type="text" id="searchKvkInput" placeholder="kingdom id(split by spaces)..."></div>
         <details id="vcr-detail" open>
             <summary>VCR KVK</summary>
-            <div id="vcr-list" class="kvk-list">
+            <div id="vcr-list" class="kvk-list"><h2>Data Loading...</h2>
             </div>
         </details>
         <details id="on-going-detail" open>
             <summary>On Going KVK</summary>
-            <div id="on-going-list" class="kvk-list">
+            <div id="on-going-list" class="kvk-list"><h2>Data Loading...</h2>
             </div>
         </details>
         <details id="finished-detail" open>
             <summary>Finished KVK</summary>
-            <div id="finished-list" class="kvk-list">
+            <div id="finished-list" class="kvk-list"><h2>Data Loading...</h2>
             </div>
         </details>
     </div>
@@ -56,7 +58,9 @@
             <h2>Data Loading...</h2>
         </div>
     </div>
-
+    <form id="kdForm" action="/kingdom" method="POST" style="display:none;">
+        <input type="hidden" name="id" id="kdInput">
+    </form>
     <script src="/static/js/home.js"></script>
 </body>
 

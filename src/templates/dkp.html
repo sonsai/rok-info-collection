@@ -11,12 +11,12 @@
 <div class="btn-row">
 
     <button class="back-button" onclick="if(history.length > 1){ history.back(); } else { location.href='/' }">
-        返回 Back
+        返回
     </button>
-
-    <button class="back-button" onclick="location.href='/rok-match-data?kvk_map_id={{ data.map }}'">
-        匹配数据 Match Data
-    </button>
+    <form action="/kvk/match" method="POST">
+        <input type="hidden" name="kvk_map_id" value="{{ data.map }}">
+        <button class="back-button" type="submit">匹配数据</button>
+    </form>
 </div>
     <h2>贡献分数据 DKP Data</h2>
     <h2>Map: {{ data.map }}</h2>
@@ -66,8 +66,8 @@
 
             {% for kd in camp.kingdoms %}
             <tr>
-                <td class="kd" onclick="location.href='/kingdom-player?id={{ kd['KD'] }}'">
-                    {{ kd['KD'] }}
+                <td class="kd" onclick="submitKD({{kd['KD']}})">
+                    {{kd['KD']}}
                 </td>
                 <td>{{ kd['DKP'] }}</td>
                 <!-- <td>{{ kd['KILL'] }}</td> -->
@@ -80,6 +80,14 @@
             {% endfor %}
         </table>
     {% endfor %}
-
+    <form id="kdForm" action="/kingdom" method="POST" style="display:none;">
+        <input type="hidden" name="id" id="kdInput">
+    </form>
+    <script>
+        function submitKD(kd) {
+            document.getElementById('kdInput').value = kd;
+            document.getElementById('kdForm').submit();
+        }
+    </script>
 </body>
 </html>
