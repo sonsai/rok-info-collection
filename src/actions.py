@@ -138,7 +138,7 @@ def save_match_data(id_from, id_to):
     no_data_count = 0
     for kingdom_id in range(int(id_from), int(id_to)):
         idx = kingdom_id // 100
-        ensure_dir(Path("data/match") / idx)
+        ensure_dir(Path("data/match") / str(idx))
         response_data = get_match_data_api(str(kingdom_id)).get("data")
         if not response_data:
             no_data_count += 1
@@ -233,7 +233,7 @@ def save_kvk_history_data():
                     "dkp_rank": dkp_rank,
                 }
 
-                ensure_dir(Path("data/kingdoms/history") / (kd // 100))
+                ensure_dir(Path("data/kingdoms/history") / str(kd // 100))
                 write_data_to_json_file(history_path, history)
 
 
