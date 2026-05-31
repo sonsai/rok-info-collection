@@ -111,8 +111,8 @@ def root():
             match_base_url=match_base_url,
             dkp_base_url=dkp_base_url,
             kvk_player_base_url=kvk_player_base_url,
-            mode_kvk="active",
-            mode_search="",
+            mode_kvk="",
+            mode_search="active",
             mode_match=""
         )
     except Exception as e:
