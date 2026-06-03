@@ -255,6 +255,7 @@ def update_kingdom_data(id_from, id_to, data_pattern, target_date):
     for kingdom_id in range(int(id_from), int(id_to)):
         print(f"当前王国ID：{kingdom_id}")
         if no_data_cnt >= 9:
+            print(f"连续{no_data_cnt}次无数据，退出王国数据获取。当前王国ID：{kingdom_id}")
             break
 
         kingdom_index = kingdom_id // 100
