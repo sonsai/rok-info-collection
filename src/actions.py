@@ -383,7 +383,7 @@ def convert_to_custom_format(raw):
     map_info = {
         "tides_of_war": {"1": "FIRE", "2": "EARTH", "3": "WIND", "4": "WATER"},
         "heroic_anthem": {"1": "FIRE", "2": "EARTH", "3": "WIND", "4": "WATER"},
-        "king_of_all_britain": {"1": "NORTHUMBRIA", "2": "EAST_ANGLIA", "3": "MERCIA", "4": "WESSEX"},
+        "king_of_all_britain": {"1": "NORTHUMBRIA", "2": "EAST_ANGLIA", "3": "WESSEX", "4": "MERCIA"},
         "siege_of_orleans": {"1": "Brittany", "2": "Picardy", "3": "Bourbon", "4": "Auvergne", "5": "La Marche", "6": "Poitou"},
         "song_of_troy": {"1": "Aeolia", "2": "Dardania", "3": "Lycia", "4": "Mycenae"},
         "warriors_unbound": {"1": "FIRE", "2": "EARTH", "3": "WIND", "4": "WATER", "5": "GREENWOOD", "6": "DAYBREAK"},
