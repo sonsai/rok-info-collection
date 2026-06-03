@@ -1,0 +1,40 @@
+{
+  "kingdom": 3567,
+  "date": "2026-06-03",
+  "data": {
+    "name": "3567",
+    "day": "2026-06-01",
+    "collect": 3217268650899,
+    "dead": 1797842334,
+    "kill": 166841475262,
+    "power": 12175833199,
+    "t1": 4635752982,
+    "t2": 505685292,
+    "t3": 620155575,
+    "t4": 5895305829,
+    "t5": 5173463688,
+    "change_collect": -66068534956,
+    "change_dead": -516647,
+    "change_kill": 30024339,
+    "change_power": -85920043,
+    "change_t1": 1726684,
+    "change_t2": 1331261,
+    "change_t3": 1492225,
+    "change_t4": 3018712,
+    "change_t5": -456977,
+    "dt": "2026/06/01",
+    "kvkCnt": "1",
+    "kvkKillScore": 26200000000,
+    "evaluated_result": {
+      "grade_fighting": "b",
+      "grade_activation": "c",
+      "fighter_bukets": {
+        "s": 0,
+        "a": 3,
+        "b": 7,
+        "c": 39,
+        "d": 203
+      }
+    }
+  }
+}
