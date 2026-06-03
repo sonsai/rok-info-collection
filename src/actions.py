@@ -377,6 +377,7 @@ def convert_to_custom_format(raw):
         "1001": "siege_of_orleans",
         "2001": "song_of_troy",
         "1102": "warriors_unbound",
+        "1202": "storm_of_stratagems",
     }
 
     map_info = {
@@ -386,6 +387,7 @@ def convert_to_custom_format(raw):
         "siege_of_orleans": {"1": "Brittany", "2": "Picardy", "3": "Bourbon", "4": "Auvergne", "5": "La Marche", "6": "Poitou"},
         "song_of_troy": {"1": "Aeolia", "2": "Dardania", "3": "Lycia", "4": "Mycenae"},
         "warriors_unbound": {"1": "FIRE", "2": "EARTH", "3": "WIND", "4": "WATER", "5": "GREENWOOD", "6": "DAYBREAK"},
+        "storm_of_stratagems": {"1": "FIRE", "2": "EARTH", "3": "WIND", "4": "WATER", "5": "GREENWOOD", "6": "DAYBREAK"},
     }
 
     for item in raw.get("lostKingdoms", []):

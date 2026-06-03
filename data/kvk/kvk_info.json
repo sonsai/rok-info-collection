@@ -10199,5 +10199,349 @@
                 3761
             ]
         }
+    },
+    "C13205": {
+        "kvk_map_id": "C13205",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "GREENWOOD": [
+                1174,
+                1561,
+                1061,
+                3455
+            ],
+            "DAYBREAK": [
+                3232,
+                1299,
+                2972,
+                2005
+            ],
+            "FIRE": [
+                1895,
+                2131,
+                3311,
+                2262
+            ],
+            "WATER": [
+                1607,
+                1094,
+                1827,
+                2320
+            ],
+            "WIND": [
+                2351,
+                2660,
+                2699,
+                1450
+            ],
+            "EARTH": [
+                2980,
+                3426,
+                1897,
+                2509
+            ]
+        }
+    },
+    "C13200": {
+        "kvk_map_id": "C13200",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "FIRE": [
+                3257,
+                2565
+            ],
+            "WATER": [
+                3070,
+                3777
+            ],
+            "DAYBREAK": [
+                1660,
+                3566
+            ],
+            "GREENWOOD": [
+                2481,
+                2211
+            ],
+            "EARTH": [
+                2405,
+                1937
+            ],
+            "WIND": [
+                2690,
+                3043
+            ]
+        }
+    },
+    "C13202": {
+        "kvk_map_id": "C13202",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "WATER": [
+                2776,
+                3081
+            ],
+            "WIND": [
+                3735,
+                3658
+            ],
+            "DAYBREAK": [
+                3671,
+                3048
+            ],
+            "GREENWOOD": [
+                2814,
+                1839
+            ],
+            "EARTH": [
+                1486,
+                1261
+            ],
+            "FIRE": [
+                2055,
+                2354
+            ]
+        }
+    },
+    "C13199": {
+        "kvk_map_id": "C13199",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "WIND": [
+                1421,
+                2563
+            ],
+            "GREENWOOD": [
+                1879,
+                1454
+            ],
+            "FIRE": [
+                1316,
+                2441
+            ],
+            "WATER": [
+                2909,
+                1718
+            ],
+            "DAYBREAK": [
+                1079,
+                2450
+            ],
+            "EARTH": [
+                3793,
+                1024
+            ]
+        }
+    },
+    "C13203": {
+        "kvk_map_id": "C13203",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "GREENWOOD": [
+                1334,
+                1229,
+                2929,
+                3082
+            ],
+            "EARTH": [
+                1179,
+                1345,
+                3722,
+                2418
+            ],
+            "FIRE": [
+                2825,
+                2477,
+                2707,
+                3383
+            ],
+            "DAYBREAK": [
+                3236,
+                1596,
+                1608,
+                2249
+            ],
+            "WATER": [
+                2773,
+                1080,
+                2502,
+                3552
+            ],
+            "WIND": [
+                2321,
+                1360,
+                2957,
+                1833
+            ]
+        }
+    },
+    "C13201": {
+        "kvk_map_id": "C13201",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "EARTH": [
+                3046,
+                1913
+            ],
+            "FIRE": [
+                1418,
+                2232
+            ],
+            "WATER": [
+                2901,
+                3727
+            ],
+            "WIND": [
+                3397,
+                1657
+            ],
+            "DAYBREAK": [
+                3176,
+                1433
+            ],
+            "GREENWOOD": [
+                1034,
+                3262
+            ]
+        }
+    },
+    "C13204": {
+        "kvk_map_id": "C13204",
+        "kvk_type": "storm_of_stratagems",
+        "vcr": false,
+        "kvk_type_cn": "",
+        "end_apply": "2026-06-05",
+        "start": "2026-06-05",
+        "end": "2026-07-25",
+        "data_start": "2026-06-05",
+        "data_end": "2026-07-25",
+        "dkp_list": {
+            "t4": 5,
+            "t5": 10,
+            "t4_dead": 15,
+            "t5_dead": 15
+        },
+        "dkp_calc_rule": "t4*5 + t5*10 + (t4_dead + t5_dead)*15",
+        "camps": {
+            "EARTH": [
+                2963,
+                1566,
+                2004,
+                2132
+            ],
+            "DAYBREAK": [
+                3489,
+                2673,
+                3486,
+                3534
+            ],
+            "FIRE": [
+                2283,
+                2433,
+                1826,
+                1910
+            ],
+            "WATER": [
+                3463,
+                3240,
+                2048,
+                3810
+            ],
+            "WIND": [
+                1085,
+                2496,
+                2881,
+                1049
+            ],
+            "GREENWOOD": [
+                1086,
+                1951,
+                3102,
+                2479
+            ]
+        }
     }
 }
