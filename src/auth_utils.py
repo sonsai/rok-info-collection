@@ -28,7 +28,7 @@ def check_tokens():
         "pup_token": result["data"]["pup_token"],
         "client_id": "rok_game_tools_lglo",
         "username": "sonsai1988@gmail.com",
-        "password": "76efa73c8eddd696eef21633e72d40e2",
+        "password": "9c3524157ea539af83da03909d570705",
         "account_type": 0,
         "login_free": True,
     }
